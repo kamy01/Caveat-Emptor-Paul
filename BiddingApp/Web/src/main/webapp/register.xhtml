@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Register</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+</h:head>
+<h:body>
+	<h:form>
+
+		<div align="center">
+			<div class="container">
+				<div class="row">
+					<div class="col-*-*">
+						<nav class="navbar navbar-inverse">
+						<h3>
+							<font color="white">Login</font>
+						</h3>
+						</nav>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-1 ">
+						<h:outputText value="Username" />
+					</div>
+					<div class="col-md-3">
+						<h:inputText value="" class="form-control"></h:inputText>
+					</div>
+
+					<div class="col-md-4"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<h:commandButton value="Register"
+							styleClass="btn btn-info btn-block"></h:commandButton>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+
+			</div>
+			<h:messages style="color:red;margin:14px;font-size:170%" />
+
+		</div>
+	</h:form>
+</h:body>
+</html>
