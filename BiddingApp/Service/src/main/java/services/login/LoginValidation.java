@@ -1,4 +1,4 @@
-package services;
+package services.login;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -6,16 +6,17 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import repositories.login.UserRepositoryInterface;
+import repositories.login.interfaces.IUserRepository;
+import services.login.interfaces.ILoginValidation;
 
-@Remote(LoginValidationInterface.class)
+@Remote(ILoginValidation.class)
 @Stateless
-public class LoginValidation implements LoginValidationInterface {
+public class LoginValidation implements ILoginValidation {
 	@PersistenceContext(unitName = "bidding-unit")
 	EntityManager entityManager;
 
 	@EJB
-	private UserRepositoryInterface userRepository;
+	private IUserRepository userRepository;
 
 	public boolean validateUser(String accountName, String password) {
 		return userRepository.verifyUsernameAndPassword(accountName, password, entityManager);

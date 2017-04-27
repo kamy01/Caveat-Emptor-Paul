@@ -11,6 +11,7 @@
 		<module>Service</module>
 		<module>Web</module>
 		<module>ear</module>
+		<module>commons</module>
 	</modules>
 
 	<dependencies>

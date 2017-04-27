@@ -8,16 +8,16 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import services.LoginValidationInterface;
+import services.login.interfaces.ILoginValidation;
 
 @ManagedBean(name = "login")
 @SessionScoped
 public class Login {
 	@EJB
-	LoginValidationInterface loginValidation;
+	ILoginValidation loginValidation;
 	private String username;
 	private String password;
-	private String status = "Status";
+	
 
 	public String getUsername() {
 		return username;
@@ -40,22 +40,15 @@ public class Login {
 		if (loginValidation.validateUser(username, password)) {
 			externalContext.redirect("http://www.ebay.com/sch/Computer-Processors-CPUs/164/bn_661751/i.html");
 		} else {
-			status = "Username does not exist";
-			externalContext.redirect("index.jsf");
+			externalContext.redirect("login.jsf");
 
 		}
 
 	}
 
-	public void redirectToRegistrationPage() {
-
+	public void redirectToRegistrationPage() throws IOException {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		externalContext.redirect("register.jsf");
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 }

@@ -16,27 +16,89 @@
 					<div class="col-*-*">
 						<nav class="navbar navbar-inverse">
 						<h3>
-							<font color="white">Login</font>
+							<font color="white">Register</font>
 						</h3>
 						</nav>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" style="padding-top: 10px">
 					<div class="col-md-4"></div>
 					<div class="col-md-1 ">
 						<h:outputText value="Username" />
 					</div>
 					<div class="col-md-3">
-						<h:inputText value="" class="form-control"></h:inputText>
+						<h:inputText value="#{register.accountName}" class="form-control"
+							validatorMessage="Username does not match requirements,only letters and numbers allowed.">
+							<f:validateRegex pattern="^[a-zA-Z0-9_.-]{6,30}$"></f:validateRegex>
+						</h:inputText>
 					</div>
 
 					<div class="col-md-4"></div>
 				</div>
-				<div class="row">
+				<div class="row" style="padding-top: 10px">
+					<div class="col-md-4"></div>
+					<div class="col-md-1 ">
+						<h:outputText value="Password" />
+					</div>
+					<div class="col-md-3">
+						<h:inputText value="#{register.password}" class="form-control"
+							validatorMessage="Password does not match requirements,Atleast one number and one letter.">
+							<f:validateRegex pattern="^[A-Za-z]+\d+.*$" />></h:inputText>
+					</div>
+
+					<div class="col-md-4"></div>
+				</div>
+				<div class="row" style="padding-top: 10px">
+					<div class="col-md-4"></div>
+					<div class="col-md-1 ">
+						<h:outputText value="Email" />
+					</div>
+					<div class="col-md-3">
+						<h:inputText value="#{register.email}" class="form-control"
+							validatorMessage="Not a valid email adress.">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+						</h:inputText>
+					</div>
+
+					<div class="col-md-4"></div>
+				</div>
+
+				<div class="row" style="padding-top: 10px">
+					<div class="col-md-4"></div>
+					<div class="col-md-1 ">
+						<h:outputText value="FirstName" />
+					</div>
+					<div class="col-md-3">
+						<h:inputText value="#{register.firstName}" class="form-control"
+							validatorMessage="Not a valid first name,only use letters.">
+							<f:validateRegex pattern="^[a-zA-Z]+$"></f:validateRegex>
+						</h:inputText>
+					</div>
+
+					<div class="col-md-4"></div>
+				</div>
+				<div class="row" style="padding-top: 10px">
+					<div class="col-md-4"></div>
+					<div class="col-md-1 ">
+						<h:outputText value="LastName" />
+					</div>
+					<div class="col-md-3">
+						<h:inputText value="#{register.lastName}" class="form-control"
+							validatorMessage="Not a valid last name,only use letters.">
+							<f:validateRegex pattern="^[a-zA-Z]+$"></f:validateRegex>></h:inputText>
+					</div>
+
+					<div class="col-md-4"></div>
+				</div>
+
+
+				<div class="row" style="padding-top: 20px">
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
 						<h:commandButton value="Register"
-							styleClass="btn btn-info btn-block"></h:commandButton>
+							styleClass="btn btn-info btn-block"
+							action="#{register.registerUserToDatabase()}"></h:commandButton>
 					</div>
 					<div class="col-md-4"></div>
 				</div>

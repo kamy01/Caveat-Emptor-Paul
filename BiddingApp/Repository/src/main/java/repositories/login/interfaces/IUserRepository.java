@@ -1,10 +1,11 @@
-package repositories.login;
+package repositories.login.interfaces;
 
 import javax.persistence.EntityManager;
 
 import entities.login.User;
+import exceptions.user.UserException;
 
-public interface UserRepositoryInterface {
+public interface IUserRepository  {
 
 	public void create(User user, EntityManager entityManager);
 
@@ -12,10 +13,9 @@ public interface UserRepositoryInterface {
 
 	public void delete(User user, EntityManager entityManager);
 
-	public boolean verifyUsername(String username, EntityManager entityManager);
+	public void verifyUsername(String username, EntityManager entityManager) throws UserException;
 
 	public boolean verifyUsernameAndPassword(String username, String password, EntityManager entityManager);
 
-	public void setEntityManager(EntityManager entityManager);
 	
 }

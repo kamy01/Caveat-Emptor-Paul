@@ -10,7 +10,7 @@
 	<packaging>ear</packaging>
 
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>ro.fortech.bid</groupId>
 			<artifactId>Repository</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -28,6 +28,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>ro.fortech.bid</groupId>
+			<artifactId>commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+
 
 
 	</dependencies>
@@ -55,7 +62,7 @@
 							<groupId>ro.fortech.bid</groupId>
 							<artifactId>Service</artifactId>
 						</ejbModule>
-
+						
 						<webModule>
 							<groupId>ro.fortech.bid</groupId>
 							<artifactId>Web</artifactId>

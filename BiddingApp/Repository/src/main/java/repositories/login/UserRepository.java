@@ -4,51 +4,45 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import entities.login.User;
+import exceptions.user.UserException;
+import repositories.login.interfaces.IUserRepository;
 
-@Remote(UserRepositoryInterface.class)
+@Remote(IUserRepository.class)
 @Stateless
-public class UserRepository implements UserRepositoryInterface {
-	private EntityManager entityManager;
+public class UserRepository implements IUserRepository {
 
 	@Override
 	public void create(User user, EntityManager entityManager) {
-		setEntityManager(entityManager);
 		entityManager.persist(user);
 	}
 
 	@Override
 	public User read(int id, EntityManager entityManager) {
-		User user;
-		setEntityManager(entityManager);
-		user = entityManager.find(User.class, id);
+
+		User user = entityManager.find(User.class, id);
 		return user;
 	}
 
 	@Override
 	public void delete(User user, EntityManager entityManager) {
-		setEntityManager(entityManager);
+
 		entityManager.remove(user);
 	}
 
 	@Override
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+	public void verifyUsername(String accountName, EntityManager entityManager) throws UserException {
 
-	@Override
-	public boolean verifyUsername(String accountName, EntityManager entityManager) {
-		setEntityManager(entityManager);
-		User user;
 		Query query = entityManager.createNamedQuery(User.FIND_BY_USERNAME);
 		query.setParameter("account", accountName);
-		user = (User) query.getSingleResult();
-		if (user == null) {
-			return false;
+		try {
+			query.getSingleResult();
+		} catch (PersistenceException e) {
+			throw new UserException();
 		}
-		return true;
 	}
 
 	@Override
@@ -58,7 +52,11 @@ public class UserRepository implements UserRepositoryInterface {
 		query.setParameter("password", password);
 		try {
 			User user = (User) query.getSingleResult();
-			return true;
+			if (user.isValid()) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (NoResultException e) {
 			return false;
 		}

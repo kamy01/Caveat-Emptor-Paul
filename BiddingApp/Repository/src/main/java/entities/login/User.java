@@ -1,8 +1,11 @@
 package entities.login;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -13,18 +16,25 @@ import javax.persistence.Table;
 		@NamedQuery(name = "User.findByUsername", query = "SELECT usr FROM User usr Where usr.accountName = :account"),
 		@NamedQuery(name = "User.findByUsernameAndPassword", query = "Select usr from User usr Where usr.accountName = :account and usr.password= :password"), })
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7138048011187269909L;
 	public static final String FIND_BY_USERNAME = "User.findByUsername";
 	public static final String FIND_BY_USERNAME_AND_PASSWORD = "User.findByUsernameAndPassword";
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column
 	private Integer id;
 
+	@Column
 	private String email;
 
 	@Column(name = "account_name")
 	private String accountName;
 
+	@Column
 	private String password;
 
 	@Column(name = "first_name")
