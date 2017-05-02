@@ -1,4 +1,4 @@
-package beans;
+package beans.login;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import services.login.interfaces.ILoginValidation;
 
 @ManagedBean(name = "login")
 @SessionScoped
-public class Login {
+public class LoginBean {
 	@EJB
 	ILoginValidation loginValidation;
 	private String username;

@@ -1,8 +1,13 @@
-package beans;
+package beans.register;
+
+import java.io.IOException;
+import java.text.Normalizer.Form;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import entities.login.User;
 import exceptions.user.UserException;
@@ -10,9 +15,9 @@ import services.register.interfaces.IRegisterationService;
 
 @ManagedBean(name = "register")
 @RequestScoped
-public class Register {
+public class RegisterBean {
 	@EJB
-	private IRegisterationService registerUser;
+	private IRegisterationService registerationService;
 
 	private String accountName;
 	private String password;
@@ -32,12 +37,16 @@ public class Register {
 
 	}
 
-	public void registerUserToDatabase() {
+	public void registerUserToDatabase() throws IOException {
+		User user = createUser();
 		try {
-			registerUser.registerUser(createUser());
+			registerationService.crateUserWithRegistration(user);
 		} catch (UserException e) {
-			
+			FacesMessage facesMessage = new FacesMessage("User already exists");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("form", facesMessage);
 		}
+
 	}
 
 	public String getAccountName() {

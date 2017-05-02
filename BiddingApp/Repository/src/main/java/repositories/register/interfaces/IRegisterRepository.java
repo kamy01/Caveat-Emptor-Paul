@@ -10,8 +10,8 @@ public interface IRegisterRepository {
 
 	public Register read(int id, EntityManager entityManager);
 
-	public void delete (Register register ,EntityManager entityManager);
-	
-	
+	public void delete(Register register, EntityManager entityManager);
+
+	public Register getRegisterByActivationCode(String validationCode, EntityManager entityManager);
 
 }

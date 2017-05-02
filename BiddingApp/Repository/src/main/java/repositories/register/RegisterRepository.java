@@ -3,6 +3,8 @@ package repositories.register;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import entities.register.Register;
 import repositories.register.interfaces.IRegisterRepository;
@@ -18,8 +20,7 @@ public class RegisterRepository implements IRegisterRepository {
 
 	@Override
 	public Register read(int id, EntityManager entityManager) {
-		Register register = entityManager.find(Register.class, id);
-		return register;
+		return entityManager.find(Register.class, id);
 
 	}
 
@@ -28,5 +29,12 @@ public class RegisterRepository implements IRegisterRepository {
 		entityManager.remove(register);
 	}
 
+	public Register getRegisterByActivationCode(String validationCode, EntityManager entityManager)
+			{
+		Query query = entityManager.createNamedQuery(Register.FIND_REGISTER_BY_ACTIVATION_KEY);
+		query.setParameter("validationCode", validationCode);
+		return (Register) query.getSingleResult();
+
+	}
+
 }
- 

@@ -1,9 +1,11 @@
-package services.register.interfaces;
+ package services.register.interfaces;
 
 import entities.login.User;
 import exceptions.user.UserException;
 
 public interface IRegisterationService {
-	public boolean registerUser(User user) throws UserException;
+
+	public void crateUserWithRegistration(User user) throws UserException;
+	
+	
 }
-       

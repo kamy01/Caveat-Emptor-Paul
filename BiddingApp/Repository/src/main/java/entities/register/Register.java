@@ -9,18 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import entities.login.User;
 
 @Entity
+@NamedQuery(name = "FindRegisterByActivationKey", query = "SELECT registr FROM Register registr Where registr.validationCode = :validationCode")
 @Table(name = "register")
 public class Register implements Serializable {
 
-	/**
-	 * 
-	 */
+	public static final String FIND_REGISTER_BY_ACTIVATION_KEY = "FindRegisterByActivationKey";
 	private static final long serialVersionUID = 4619115082007560268L;
 
 	@Id
