@@ -1,16 +1,19 @@
-package repositories.register;
+package repositories.register.implementation;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import entities.login.User;
 import entities.register.Register;
-import repositories.register.interfaces.IRegisterRepository;
+import exceptions.user.UserException;
+import repositories.register.interfaces.RegisterRepository;
 
-@Remote(IRegisterRepository.class)
+@Remote(RegisterRepository.class)
 @Stateless
-public class RegisterRepository implements IRegisterRepository {
+public class RegisterRepositoryImp implements RegisterRepository {
 
 	@Override
 	public void create(Register register, EntityManager entityManager) {
@@ -28,12 +31,15 @@ public class RegisterRepository implements IRegisterRepository {
 		entityManager.remove(register);
 	}
 
-	public Register getRegisterByActivationCode(String validationCode, EntityManager entityManager)
-			{
+	public Register getRegisterByActivationCode(String validationCode, EntityManager entityManager) throws UserException {
 		Query query = entityManager.createNamedQuery(Register.FIND_REGISTER_BY_ACTIVATION_KEY);
 		query.setParameter("validationCode", validationCode);
-		return (Register) query.getSingleResult();
+		try {
+			return (Register) query.getSingleResult();
 
+		} catch (PersistenceException e) {
+			throw new UserException();
+		}
 	}
 
 }

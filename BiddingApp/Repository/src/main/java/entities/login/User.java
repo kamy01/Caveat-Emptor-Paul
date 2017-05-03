@@ -23,6 +23,11 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 7138048011187269909L;
 	public static final String FIND_BY_USERNAME = "User.findByUsername";
 	public static final String FIND_BY_USERNAME_AND_PASSWORD = "User.findByUsernameAndPassword";
+
+	public User() {
+		activated = false;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
@@ -94,11 +99,11 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public boolean isValid() {
+	public boolean isActivated() {
 		return activated;
 	}
 
-	public void setValid(boolean isValid) {
+	public void setActivated(boolean isValid) {
 		this.activated = isValid;
 	}
 

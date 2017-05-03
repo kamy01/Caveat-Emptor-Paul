@@ -1,4 +1,4 @@
-package services.register;
+package services.register.implementation;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -9,19 +9,19 @@ import javax.persistence.PersistenceContext;
 import entities.login.User;
 import entities.register.Register;
 import exceptions.user.UserException;
-import repositories.login.interfaces.IUserRepository;
-import repositories.register.interfaces.IRegisterRepository;
-import services.register.interfaces.IActivationService;
+import repositories.login.interfaces.UserRepository;
+import repositories.register.interfaces.RegisterRepository;
+import services.register.interfaces.ActivationService;
 
-@Remote(IActivationService.class)
+@Remote(ActivationService.class)
 @Stateless
-public class ActivationService implements IActivationService {
+public class ActivationServiceImp implements ActivationService {
 	@PersistenceContext(unitName = "bidding-unit")
 	private EntityManager entityManager;
 	@EJB
-	private IUserRepository userRepository;
+	private UserRepository userRepository;
 	@EJB
-	private IRegisterRepository registerRepository;
+	private RegisterRepository registerRepository;
 
 	@Override
 	public void activateUser(String activationCode) throws UserException {
@@ -30,7 +30,7 @@ public class ActivationService implements IActivationService {
 			throw new UserException();
 		}
 		User user = register.getUser();
-		user.setValid(true);
+		user.setActivated(true);
 		entityManager.merge(user);
 
 	}

@@ -6,17 +6,18 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import entities.login.User;
 import exceptions.user.UserException;
-import services.register.interfaces.IRegisterationService;
+import services.register.interfaces.RegisterationService;
 
 @ManagedBean(name = "register")
 @RequestScoped
 public class RegisterBean {
 	@EJB
-	private IRegisterationService registerationService;
+	private RegisterationService registerationService;
 
 	private String accountName;
 	private String password;
@@ -24,22 +25,12 @@ public class RegisterBean {
 	private String firstName;
 	private String lastName;
 
-	public User createUser() {
-		User user = new User();
-		user.setAccountName(accountName);
-		user.setPassword(password);
-		user.setEmail(email);
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setValid(false);
-		return user;
-
-	}
-
 	public void registerUserToDatabase() throws IOException {
 		User user = createUser();
 		try {
 			registerationService.crateUserWithRegistration(user);
+			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			externalContext.redirect("accountCreated.xhtml");
 		} catch (UserException e) {
 			FacesMessage facesMessage = new FacesMessage("User already exists");
 			FacesContext context = FacesContext.getCurrentInstance();
@@ -88,4 +79,15 @@ public class RegisterBean {
 		this.lastName = lastName;
 	}
 
+	public User createUser() {
+		User user = new User();
+		user.setAccountName(accountName);
+		user.setPassword(password);
+		user.setEmail(email);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setActivated(false);
+		return user;
+
+	}
 }

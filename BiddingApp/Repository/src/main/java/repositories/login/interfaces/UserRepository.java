@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import entities.login.User;
 import exceptions.user.UserException;
 
-public interface IUserRepository  {
+public interface UserRepository  {
 
 	public void create(User user, EntityManager entityManager);
 
@@ -15,7 +15,7 @@ public interface IUserRepository  {
 
 	public void verifyUsername(String username, EntityManager entityManager) throws UserException;
 
-	public boolean verifyUsernameAndPassword(String username, String password, EntityManager entityManager);
+	public User verifyUsernameAndPassword(String username, String password, EntityManager entityManager) throws UserException;
 
 	
 }

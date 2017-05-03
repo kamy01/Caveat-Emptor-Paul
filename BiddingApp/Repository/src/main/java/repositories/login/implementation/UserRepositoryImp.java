@@ -1,19 +1,18 @@
-package repositories.login;
+package repositories.login.implementation;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import entities.login.User;
 import exceptions.user.UserException;
-import repositories.login.interfaces.IUserRepository;
+import repositories.login.interfaces.UserRepository;
 
-@Remote(IUserRepository.class)
+@Remote(UserRepository.class)
 @Stateless
-public class UserRepository implements IUserRepository {
+public class UserRepositoryImp implements UserRepository {
 
 	@Override
 	public void create(User user, EntityManager entityManager) {
@@ -46,19 +45,16 @@ public class UserRepository implements IUserRepository {
 	}
 
 	@Override
-	public boolean verifyUsernameAndPassword(String accountName, String password, EntityManager entityManager) {
+	public User verifyUsernameAndPassword(String accountName, String password, EntityManager entityManager)
+			throws UserException {
 		Query query = entityManager.createNamedQuery(User.FIND_BY_USERNAME_AND_PASSWORD);
 		query.setParameter("account", accountName);
 		query.setParameter("password", password);
 		try {
-			User user = (User) query.getSingleResult();
-			if (user.isValid()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (NoResultException e) {
-			return false;
+			return (User) query.getSingleResult();
+
+		} catch (PersistenceException e) {
+			throw new UserException();
 		}
 	}
 

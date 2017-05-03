@@ -1,4 +1,4 @@
-package services.register;
+package services.register.implementation;
 
 import java.math.BigInteger;
 import java.util.Random;
@@ -21,20 +21,20 @@ import email.Email;
 import entities.login.User;
 import entities.register.Register;
 import exceptions.user.UserException;
-import repositories.login.interfaces.IUserRepository;
-import repositories.register.interfaces.IRegisterRepository;
-import services.register.interfaces.IRegisterationService;
+import repositories.login.interfaces.UserRepository;
+import repositories.register.interfaces.RegisterRepository;
+import services.register.interfaces.RegisterationService;
 
-@Remote(IRegisterationService.class)
+@Remote(RegisterationService.class)
 @Stateless
-public class RegisterationService implements IRegisterationService {
+public class RegisterationServiceImp implements RegisterationService {
 	Email email;
 	@PersistenceContext(unitName = "bidding-unit")
 	private EntityManager entityManager;
 	@EJB
-	private IUserRepository userRepository;
+	private UserRepository userRepository;
 	@EJB
-	private IRegisterRepository registerRepository;
+	private RegisterRepository registerRepository;
 
 	public void crateUserWithRegistration(User user) throws UserException {
 		if (isAlreadyRegistered(user)) {
@@ -48,7 +48,7 @@ public class RegisterationService implements IRegisterationService {
 			try {
 				sendValidationEmail(user.getEmail(), register.getValidationCode());
 			} catch (MessagingException e) {
-				e.printStackTrace();
+				
 			}
 		}
 
@@ -84,6 +84,7 @@ public class RegisterationService implements IRegisterationService {
 	}
 
 	private String generateValidationCode() {
+		
 		return new BigInteger(200, new Random()).toString(32);
 
 	}

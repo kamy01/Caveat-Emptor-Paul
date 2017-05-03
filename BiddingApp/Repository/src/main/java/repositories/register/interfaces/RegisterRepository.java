@@ -3,8 +3,9 @@ package repositories.register.interfaces;
 import javax.persistence.EntityManager;
 
 import entities.register.Register;
+import exceptions.user.UserException;
 
-public interface IRegisterRepository {
+public interface RegisterRepository {
 
 	public void create(Register register, EntityManager entityManager);
 
@@ -12,6 +13,6 @@ public interface IRegisterRepository {
 
 	public void delete(Register register, EntityManager entityManager);
 
-	public Register getRegisterByActivationCode(String validationCode, EntityManager entityManager);
+	public Register getRegisterByActivationCode(String validationCode, EntityManager entityManager) throws UserException;
 
 }

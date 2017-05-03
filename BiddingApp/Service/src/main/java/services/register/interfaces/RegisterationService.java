@@ -3,7 +3,7 @@
 import entities.login.User;
 import exceptions.user.UserException;
 
-public interface IRegisterationService {
+public interface RegisterationService {
 
 	public void crateUserWithRegistration(User user) throws UserException;
 	

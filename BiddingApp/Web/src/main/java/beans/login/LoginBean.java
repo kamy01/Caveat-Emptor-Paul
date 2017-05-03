@@ -3,21 +3,22 @@ package beans.login;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import services.login.interfaces.ILoginValidation;
+import exceptions.user.UserException;
+import services.login.interfaces.LoginValidation;
 
 @ManagedBean(name = "login")
 @SessionScoped
 public class LoginBean {
 	@EJB
-	ILoginValidation loginValidation;
+	LoginValidation loginValidation;
 	private String username;
 	private String password;
-	
 
 	public String getUsername() {
 		return username;
@@ -37,18 +38,25 @@ public class LoginBean {
 
 	public void validateLogin() throws IOException {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		if (loginValidation.validateUser(username, password)) {
-			externalContext.redirect("http://www.ebay.com/sch/Computer-Processors-CPUs/164/bn_661751/i.html");
-		} else {
-			externalContext.redirect("login.jsf");
-
+		try {
+			if (loginValidation.validateUser(username, password)) {
+				externalContext.redirect("http://www.ebay.com/sch/Computer-Processors-CPUs/164/bn_661751/i.html");
+			} else {
+				FacesMessage facesMessage = new FacesMessage("Account not activated,check your email.");
+				FacesContext context = FacesContext.getCurrentInstance();
+				context.addMessage("form", facesMessage);
+			}
+		} catch (UserException e) {
+			FacesMessage facesMessage = new FacesMessage("Wrong username or password.");
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("form", facesMessage);
 		}
 
 	}
 
 	public void redirectToRegistrationPage() throws IOException {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		externalContext.redirect("register.jsf");
+		externalContext.redirect("register.xhtml");
 	}
 
 }
