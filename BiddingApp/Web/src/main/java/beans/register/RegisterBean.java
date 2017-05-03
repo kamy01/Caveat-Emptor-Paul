@@ -1,7 +1,6 @@
 package beans.register;
 
 import java.io.IOException;
-import java.text.Normalizer.Form;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
