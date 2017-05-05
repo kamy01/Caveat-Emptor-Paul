@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+	<title>login</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+</h:head>
+<h:body>
+	<div class="container">
+
+		<h:form id="form">
+
+			<div align="center">
+
+				<div class="row justify-content-center ">
+					<div class="col-md-4">
+						<div align="center">
+							<nav class=" navbar navbar-inverse  bg-faded ">
+							<h3>Login</h3>
+							</nav>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="row pt-2 justify-content-center">
+
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="Username" style="padding-top: 50px;" />
+					</div>
+					<h:inputText id="username" value="#{login.username}"
+						class="form-control">
+
+					</h:inputText>
+
+				</div>
+			</div>
+
+			<div class="row pt-2 justify-content-center">
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="Password" />
+					</div>
+					<h:inputSecret id="password" value="#{login.password}"
+						class="form-control">
+					</h:inputSecret>
+
+				</div>
+			</div>
+
+			<div class="row pt-2 justify-content-center">
+				<div class="col-md-2">
+					<h:commandButton value="Login" styleClass="btn btn-info btn-block"
+						action="#{login.validateLogin}"></h:commandButton>
+				</div>
+
+
+				<div class="col-md-2">
+					<h:commandButton value="Register"
+						styleClass="btn btn-info btn-block"
+						action="#{login.redirectToRegistrationPage()}"></h:commandButton>
+				</div>
+
+				<div class="row justify-content-center" id="lastName"
+					style="padding-top: 10px">
+					<h:message for="lastName"
+						style="color:red;margin:14px;font-size:100%" />
+				</div>
+			</div>
+
+
+			<div class="row pt-2 justify-content-center">
+				<h:messages style="color:red;margin:14px;font-size:100%" />
+			</div>
+
+		</h:form>
+	</div>
+</h:body>
+</html>

@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Register</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+</h:head>
+<h:body>
+	<div class="container">
+		<h:form>
+			<div class="row justify-content-center ">
+				<div class="col-md-4">
+					<div align="center">
+						<nav class=" navbar navbar-inverse  bg-faded ">
+						<h3>Register</h3>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="row pt-2 justify-content-center">
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="Username" />
+					</div>
+					<div class="col-md-12">
+						<h:inputText value="#{register.accountName}" class="form-control"
+							id="username"
+							validatorMessage="Username does not match requirements,only letters and numbers allowed.Must be between 6-30 characters.">
+							<f:validateRegex pattern="^[a-zA-Z0-9_.-]{6,30}$"></f:validateRegex>
+						</h:inputText>
+					</div>
+				</div>
+			</div>
+			<div class="row  justify-content-center" id="username"
+				style="padding-top: 10px">
+				<h:message for="username"
+					style="color:red;margin:14px;font-size:100%" />
+			</div>
+
+
+
+
+
+
+			<div class="row pt-2 justify-content-center">
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="Password" />
+					</div>
+					<div class="col-md-12">
+						<h:inputSecret value="#{register.password}" class="form-control"
+							id="password"
+							validatorMessage="Password does not match requirements,Atleast one number and one letter.">
+							<f:validateRegex pattern="^[A-Za-z]+\d+.*$" />
+						</h:inputSecret>
+					</div>
+				</div>
+			</div>
+			<div class="row  justify-content-center" id="password"
+				style="padding-top: 10px">
+				<h:message for="password"
+					style="color:red;margin:14px;font-size:100%" />
+			</div>
+
+
+
+
+			<div class="row pt-2 justify-content-center">
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="Email" />
+					</div>
+					<div class="col-md-12">
+						<h:inputText value="#{register.email}" class="form-control"
+							id="email"
+							validatorMessage="Not a valid email adress.Use something like validadress@gmail.com">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+						</h:inputText>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center" id="email"
+				style="padding-top: 10px">
+				<h:message for="email" style="color:red;margin:14px;font-size:100%" />
+			</div>
+
+
+
+
+			<div class="row pt-2 justify-content-center">
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="FirstName" />
+					</div>
+					<div class="col-md-12">
+						<h:inputText value="#{register.firstName}" class="form-control"
+							id="firstName"
+							validatorMessage="Not a valid first name,only use letters.">
+							<f:validateRegex pattern="^[a-zA-Z]+$"></f:validateRegex>
+						</h:inputText>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center" id="firstName"
+				style="padding-top: 10px">
+				<h:message for="firstName"
+					style="color:red;margin:14px;font-size:100%" />
+			</div>
+
+
+
+			<div class="row pt-2 justify-content-center">
+
+				<div class="form-group">
+					<div class="row justify-content-center">
+						<h:outputText value="LastName" />
+					</div>
+					<div class="col-md-12">
+						<h:inputText value="#{register.lastName}" class="form-control"
+							id="lastName"
+							validatorMessage="Not a valid last name,only use letters.">
+							<f:validateRegex pattern="^[a-zA-Z]+$"></f:validateRegex>
+						</h:inputText>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center" id="lastName"
+				style="padding-top: 10px">
+				<h:message for="lastName"
+					style="color:red;margin:14px;font-size:100%" />
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-md-3">
+					<h:commandButton value="Register"
+						styleClass="btn btn-info btn-block"
+						action="#{register.registerUserToDatabase()}"></h:commandButton>
+				</div>
+			</div>
+                        
+
+
+		</h:form>
+	</div>
+
+</h:body>
+</html>

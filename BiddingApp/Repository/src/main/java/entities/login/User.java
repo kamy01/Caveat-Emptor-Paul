@@ -17,9 +17,7 @@ import javax.persistence.Table;
 		@NamedQuery(name = "User.findByUsernameAndPassword", query = "Select usr from User usr Where usr.accountName = :account and usr.password= :password"), })
 @Table(name = "users")
 public class User implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 7138048011187269909L;
 	public static final String FIND_BY_USERNAME = "User.findByUsername";
 	public static final String FIND_BY_USERNAME_AND_PASSWORD = "User.findByUsernameAndPassword";
@@ -31,7 +29,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private Integer id;
+	private Long id;
 
 	@Column
 	private String email;
@@ -51,11 +49,11 @@ public class User implements Serializable {
 	@Column(name = "activated")
 	private boolean activated;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

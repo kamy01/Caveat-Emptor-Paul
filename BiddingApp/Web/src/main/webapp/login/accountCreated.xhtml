@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<meta http-equiv="refresh" content="10;url=http://localhost:8080/Web/" />
+</h:head>
+<h:body onload="javascript:setTimeout('countdown()', 1000);">
+	<h:form>
+
+		<div align="center">
+
+			<div class="row justify-content-center ">
+				<div class="col-md-4">
+					<div align="center">
+						<nav class=" navbar navbar-inverse  bg-faded ">
+						<h3>Account Created</h3>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+
+
+			<h:panelGroup>
+				<h4>Your account has been created,to activate it go to your
+					email and click the activation link.</h4>
+				<div onclick="location.href='http://localhost:8080/Web/';">
+					<h4 style="color: blue;">You will be redirected to the login
+						page in 10 seconds or you can click this text.</h4>
+				</div>
+			</h:panelGroup>
+			<div id="content"
+				style="margin-left: auto; margin-right: auto; margin-top: 25%; border: solid 1px #A90000; width: 240px;">
+				<input
+					style="margin: 15px 15px 15px 15px; text-align: center; color: Black; border: solid 1px #A90000; font-size: 14pt;"
+					type="text" id="counter" value="00:10:00" disabled="disabled" />
+			</div>
+		</div>
+	</h:form>
+	<script language="javascript" type="text/javascript">
+    var TimerID;
+    var m = 00
+    var s = 10;
+    var sc;
+
+    function countdown() 
+    {
+        s--;
+        sc = s;
+        if (s &lt; 10) {
+            sc = '0'+s;
+        }
+
+        document.getElementById('counter').value = '00:00:'+sc;
+
+        if (s > 0) {
+            TimerID = setTimeout("countdown()", 1000) //Every one second;
+        }
+        else {
+            window.location = "http://localhost:8080/Web/";
+        }
+    }
+</script>
+</h:body>
+
+</html>

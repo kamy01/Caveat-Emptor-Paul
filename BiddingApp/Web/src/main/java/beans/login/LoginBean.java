@@ -56,7 +56,7 @@ public class LoginBean {
 
 	public void redirectToRegistrationPage() throws IOException {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		externalContext.redirect("register.xhtml");
+		externalContext.redirect(externalContext.getRequestContextPath() + "/" + "register/register.xhtml");
 	}
 
 }

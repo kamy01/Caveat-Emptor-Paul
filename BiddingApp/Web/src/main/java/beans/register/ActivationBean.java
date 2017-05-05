@@ -26,7 +26,7 @@ public class ActivationBean {
 			activationService.activateUser(activationKey);
 		} catch (UserException e) {
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-			externalContext.redirect("registrationExpired.xhtml");
+			externalContext.redirect("register/registrationExpired.xhtml");
 		}
 	}
 

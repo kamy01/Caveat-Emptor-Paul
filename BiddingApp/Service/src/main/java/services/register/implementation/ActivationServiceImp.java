@@ -36,11 +36,8 @@ public class ActivationServiceImp implements ActivationService {
 	}
 
 	public boolean isActivationCodeExpired(Long expirationTime) {
-		if (System.currentTimeMillis() > expirationTime) {
-			return true;
-		} else {
-			return false;
-		}
+		return System.currentTimeMillis() > expirationTime;
+
 	}
 
 }

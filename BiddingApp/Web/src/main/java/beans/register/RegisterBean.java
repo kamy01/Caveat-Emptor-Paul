@@ -28,13 +28,14 @@ public class RegisterBean {
 	public void registerUserToDatabase() throws IOException {
 		User user = createUser();
 		try {
-			registerationService.crateUserWithRegistration(user);
+			registerationService.createUserWithRegistration(user);
 			ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-			externalContext.redirect("accountCreated.xhtml");
+			externalContext.redirect(externalContext.getRequestContextPath() + "/" + "login/accountCreated.xhtml");
+
 		} catch (UserException e) {
 			FacesMessage facesMessage = new FacesMessage("User already exists");
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage("form", facesMessage);
+			context.addMessage("username", facesMessage);
 		}
 
 	}

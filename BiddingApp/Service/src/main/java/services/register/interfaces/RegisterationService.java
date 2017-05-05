@@ -5,7 +5,7 @@ import exceptions.user.UserException;
 
 public interface RegisterationService {
 
-	public void crateUserWithRegistration(User user) throws UserException;
+	public void createUserWithRegistration(User user) throws UserException;
 	
 	
 }

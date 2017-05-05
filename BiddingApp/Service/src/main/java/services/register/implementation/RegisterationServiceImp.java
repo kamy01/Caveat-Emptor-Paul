@@ -35,23 +35,28 @@ public class RegisterationServiceImp implements RegisterationService {
 	private UserRepository userRepository;
 	@EJB
 	private RegisterRepository registerRepository;
+	public static final long DAY = 86400000;
 
-	public void crateUserWithRegistration(User user) throws UserException {
+	public void createUserWithRegistration(User user) throws UserException {
 		if (isAlreadyRegistered(user)) {
 			throw new UserException();
 		} else {
-			Register register = new Register();
-			register.setValidationCode(generateValidationCode());
-			register.setUser(user);
-			register.setValidationTime(generateValidationTime());
+			Register register = createRegister(user);
 			registerRepository.create(register, entityManager);
 			try {
 				sendValidationEmail(user.getEmail(), register.getValidationCode());
 			} catch (MessagingException e) {
-				
 			}
 		}
 
+	}
+
+	public Register createRegister(User user) {
+		Register register = new Register();
+		register.setValidationCode(generateValidationCode());
+		register.setUser(user);
+		register.setValidationTime(generateValidationTime());
+		return register;
 	}
 
 	public boolean isAlreadyRegistered(User user) {
@@ -84,12 +89,12 @@ public class RegisterationServiceImp implements RegisterationService {
 	}
 
 	private String generateValidationCode() {
-		
+
 		return new BigInteger(200, new Random()).toString(32);
 
 	}
 
 	private Long generateValidationTime() {
-		return System.currentTimeMillis() + constants.Register.DAY;
+		return System.currentTimeMillis() + DAY;
 	}
 }

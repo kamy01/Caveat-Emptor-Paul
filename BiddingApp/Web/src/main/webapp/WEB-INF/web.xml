@@ -5,7 +5,7 @@
 	version="3.1">
 	<display-name>Caveat Emptor</display-name>
 	<welcome-file-list>
-		<welcome-file>login.xhtml</welcome-file>
+		<welcome-file>login/login.xhtml</welcome-file>
 	</welcome-file-list>
 	<session-config>
 		<session-timeout>30</session-timeout>
