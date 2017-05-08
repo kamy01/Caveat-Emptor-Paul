@@ -40,7 +40,7 @@ public class LoginBean {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			if (loginValidation.validateUser(username, password)) {
-				externalContext.redirect("http://www.ebay.com/sch/Computer-Processors-CPUs/164/bn_661751/i.html");
+				externalContext.redirect(externalContext.getRequestContextPath() + "/" + "categories/categories.xhtml");
 			} else {
 				FacesMessage facesMessage = new FacesMessage("Account not activated,check your email.");
 				FacesContext context = FacesContext.getCurrentInstance();

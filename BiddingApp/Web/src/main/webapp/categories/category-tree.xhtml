@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.7/typicons.min.css" />
+
+</h:head>
+
+<h:body>
+
+
+	<div id="tree" />
+
+	<script>
+	
+	$(document).ready(function() {
+		var tree=[#{category.categories}];
+		console.log(tree);
+	$('#tree').treeview({data:tree, collapseIcon: 'typcn typcn-minus',
+	     expandIcon: 'typcn typcn-plus' });
+	});
+	</script>
+</h:body>
+
+</html>

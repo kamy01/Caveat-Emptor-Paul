@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import entities.login.User;
 
+
+
 @Entity
 @NamedQuery(name = "FindRegisterByActivationKey", query = "SELECT registr FROM Register registr Where registr.validationCode = :validationCode")
 @Table(name = "register")

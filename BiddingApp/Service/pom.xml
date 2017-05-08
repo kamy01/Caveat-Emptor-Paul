@@ -10,6 +10,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>ro.fortech.bid</groupId>
 			<artifactId>Repository</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

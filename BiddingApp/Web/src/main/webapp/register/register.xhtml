@@ -1,8 +1,8 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
 	<title>Register</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
@@ -18,12 +18,8 @@
 						</nav>
 					</div>
 				</div>
-
 			</div>
-
-
 			<div class="row pt-2 justify-content-center">
-
 				<div class="form-group">
 					<div class="row justify-content-center">
 						<h:outputText value="Username" />
@@ -32,7 +28,7 @@
 						<h:inputText value="#{register.accountName}" class="form-control"
 							id="username"
 							validatorMessage="Username does not match requirements,only letters and numbers allowed.Must be between 6-30 characters.">
-							<f:validateRegex pattern="^[a-zA-Z0-9_.-]{6,30}$"></f:validateRegex>
+							<f:validateRegex pattern="^[a-zA-Z0-9_.-]{6,30}$" />
 						</h:inputText>
 					</div>
 				</div>
@@ -42,14 +38,7 @@
 				<h:message for="username"
 					style="color:red;margin:14px;font-size:100%" />
 			</div>
-
-
-
-
-
-
 			<div class="row pt-2 justify-content-center">
-
 				<div class="form-group">
 					<div class="row justify-content-center">
 						<h:outputText value="Password" />
@@ -68,12 +57,7 @@
 				<h:message for="password"
 					style="color:red;margin:14px;font-size:100%" />
 			</div>
-
-
-
-
 			<div class="row pt-2 justify-content-center">
-
 				<div class="form-group">
 					<div class="row justify-content-center">
 						<h:outputText value="Email" />
@@ -83,7 +67,7 @@
 							id="email"
 							validatorMessage="Not a valid email adress.Use something like validadress@gmail.com">
 							<f:validateRegex
-								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"></f:validateRegex>
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 						</h:inputText>
 					</div>
 				</div>
@@ -92,12 +76,7 @@
 				style="padding-top: 10px">
 				<h:message for="email" style="color:red;margin:14px;font-size:100%" />
 			</div>
-
-
-
-
 			<div class="row pt-2 justify-content-center">
-
 				<div class="form-group">
 					<div class="row justify-content-center">
 						<h:outputText value="FirstName" />
@@ -106,7 +85,7 @@
 						<h:inputText value="#{register.firstName}" class="form-control"
 							id="firstName"
 							validatorMessage="Not a valid first name,only use letters.">
-							<f:validateRegex pattern="^[a-zA-Z]+$"></f:validateRegex>
+							<f:validateRegex pattern="^[a-zA-Z]+$" />
 						</h:inputText>
 					</div>
 				</div>
@@ -116,11 +95,7 @@
 				<h:message for="firstName"
 					style="color:red;margin:14px;font-size:100%" />
 			</div>
-
-
-
 			<div class="row pt-2 justify-content-center">
-
 				<div class="form-group">
 					<div class="row justify-content-center">
 						<h:outputText value="LastName" />
@@ -129,7 +104,7 @@
 						<h:inputText value="#{register.lastName}" class="form-control"
 							id="lastName"
 							validatorMessage="Not a valid last name,only use letters.">
-							<f:validateRegex pattern="^[a-zA-Z]+$"></f:validateRegex>
+							<f:validateRegex pattern="^[a-zA-Z]+$" />
 						</h:inputText>
 					</div>
 				</div>
@@ -139,19 +114,16 @@
 				<h:message for="lastName"
 					style="color:red;margin:14px;font-size:100%" />
 			</div>
-
 			<div class="row justify-content-center">
 				<div class="col-md-3">
-					<h:commandButton value="Register"
+					<h:commandButton value="Register" id="button"
 						styleClass="btn btn-info btn-block"
-						action="#{register.registerUserToDatabase()}"></h:commandButton>
+						action="#{register.registerUserToDatabase()}" />
 				</div>
 			</div>
-                        
-
-
+			<h:form id="registerError" rendered="#{(facesContext.postback and
+				facesContext.validationFailed)}"></h:form>
 		</h:form>
 	</div>
-
 </h:body>
 </html>
