@@ -23,8 +23,10 @@
 	<script>
 	
 	$(document).ready(function() {
-		var tree=[#{category.categories}];
+		var tree=[#{category.categories}][0]['nodes'];
+		
 		console.log(tree);
+		
 	$('#tree').treeview({data:tree, collapseIcon: 'typcn typcn-minus',
 	     expandIcon: 'typcn typcn-plus' });
 	});

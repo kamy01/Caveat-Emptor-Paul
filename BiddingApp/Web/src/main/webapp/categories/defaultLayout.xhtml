@@ -21,7 +21,12 @@
 	<div class="row">
 		<div class="col-md-3">
 			<ui:insert name="tree">
-				<ui:include src="category-tree.xhtml"/>
+				<ui:include src="category-tree.xhtml" />
+			</ui:insert>
+		</div>
+		<div class="col-md-8">
+			<ui:insert name="body">
+				<ui:include src="category-body.xhtml"/>
 			</ui:insert>
 		</div>
 	</div>
