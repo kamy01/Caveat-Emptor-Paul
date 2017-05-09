@@ -9,7 +9,7 @@
 </h:head>
 <h:body>
 	<div class="container">
-		<h:form>
+		<h:form id="mainForm">
 			<div class="row justify-content-center ">
 				<div class="col-md-4">
 					<div align="center">
@@ -121,9 +121,13 @@
 						action="#{register.registerUserToDatabase()}" />
 				</div>
 			</div>
-			<h:form id="registerError" rendered="#{(facesContext.postback and
-				facesContext.validationFailed)}"></h:form>
+
+
 		</h:form>
+		<div class="row pt-2 justify-content-center">
+			<h:message for="mainForm:username"
+				style="color:red;margin:14px;font-size:100%" />
+		</div>
 	</div>
 </h:body>
 </html>

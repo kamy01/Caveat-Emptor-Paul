@@ -35,7 +35,7 @@ public class RegisterBean {
 		} catch (UserException e) {
 			FacesMessage facesMessage = new FacesMessage("User already exists");
 			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage("registerError", facesMessage);
+			context.addMessage("mainForm:username", facesMessage);
 		}
 
 	}

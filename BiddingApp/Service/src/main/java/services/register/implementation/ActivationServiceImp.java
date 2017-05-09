@@ -31,8 +31,6 @@ public class ActivationServiceImp implements ActivationService {
 		}
 		User user = register.getUser();
 		user.setActivated(true);
-		entityManager.merge(register);
-		entityManager.remove(register);
 		entityManager.merge(user);
 
 	}
