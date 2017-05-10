@@ -10,44 +10,53 @@
 </h:head>
 <h:body>
 	<div class="container">
-		<div class="row">
-			<label>Search prop</label>
-			<div class="col-md-2">
-				<h:button styleClass="btn btn-info btn-block" value="Create New"></h:button>
-			</div>
-		</div>
-		<div class="row">Bread crumb prop</div>
-
-		<div class="form-group">
+		<h:form id="form-body">
 			<div class="row">
+				<label>Search prop</label>
 				<div class="col-md-2">
-					<label for="text">Name</label>
-				</div>
-				<div class="col-md-9">
-					<input class=" text-input form-control" type="text" id="nameInput" />
+					<h:commandButton styleClass="btn btn-info btn-block"
+						value="Create New" />
 				</div>
 			</div>
-		</div>
+			<div class="row">Bread crumb prop</div>
+
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-2">
+						<label for="text">Name</label>
+					</div>
+					<div class="col-md-9">
+						<h:inputText value="#{categoryOperations.category.text}"
+							class=" text-input form-control" type="text" id="nameInput" />
+					</div>
+				</div>
+			</div>
 
 
-		<div class="form-group">
-			<div class="row">
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-2">
+						<label for="comment">Description</label>
+					</div>
+					<div class="col-md-9">
+						<h:inputTextarea
+							value="#{categoryOperations.category.description}"
+							class="form-control" rows="10" id="comment" cols=""></h:inputTextarea>
+					</div>
+				</div>
+			</div>
+			<div class="row pt-2 justify-content-center">
 				<div class="col-md-2">
-					<label for="comment">Description</label>
+					<h:commandButton
+						action="#{categoryOperations.addCategoryToDatabase()}"
+						styleClass="btn btn-info btn-block" value="Create"></h:commandButton>
 				</div>
-				<div class="col-md-9">
-					<textarea class="form-control" rows="10" id="comment"></textarea>
+				<div class="col-md-2">
+					<h:commandButton styleClass="btn btn-info btn-block" value="Delete" />
 				</div>
+				 <h:inputHidden value = "#{categoryOperations.parentID}" id = "hidden" />
 			</div>
-		</div>
-		<div class="row pt-2 justify-content-center">
-			<div class="col-md-2">
-				<h:button styleClass="btn btn-info btn-block" value="Create"></h:button>
-			</div>
-			<div class="col-md-2">
-				<h:button styleClass="btn btn-info btn-block" value="Delete"></h:button>
-			</div>
-		</div>
+		</h:form>
 	</div>
 </h:body>
 </html>

@@ -1,14 +1,14 @@
-package entities.category.special;
+package entities.category.DTO;
 
 import java.util.List;
 
-import entities.category.Category;
-
-public class SpecialCategory {
+public class CategoryDTO {
 	private Long id;
 	private String text;
 	private String description;
-	private List<SpecialCategory> nodes;
+	
+	private Long parentID;
+	private List<CategoryDTO> nodes;
 
 	public Long getId() {
 		return id;
@@ -34,12 +34,20 @@ public class SpecialCategory {
 		this.description = description;
 	}
 
-	public List<SpecialCategory> getCategories() {
+	public List<CategoryDTO> getCategories() {
 		return nodes;
 	}
 
-	public void setCategories(List<SpecialCategory> categories) {
+	public void setCategories(List<CategoryDTO> categories) {
 		this.nodes = categories;
+	}
+
+	public Long getParentID() {
+		return parentID;
+	}
+
+	public void setParentID(Long parentID) {
+		this.parentID = parentID;
 	}
 
 

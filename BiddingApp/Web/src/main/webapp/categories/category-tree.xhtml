@@ -27,8 +27,14 @@
 		
 		console.log(tree);
 		
-	$('#tree').treeview({data:tree, collapseIcon: 'typcn typcn-minus',
-	     expandIcon: 'typcn typcn-plus' });
+		$('#tree').treeview({
+			data:tree,
+			collapseIcon: 'typcn typcn-minus',
+		    expandIcon: 'typcn typcn-plus', 
+		    onNodeSelected: function(event, data) {
+			document.getElementById("j_id1:javax.faces.ViewState:1").value = data['parentID'];
+			}
+	    });
 	});
 	</script>
 </h:body>

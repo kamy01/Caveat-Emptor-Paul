@@ -9,9 +9,8 @@ import javax.persistence.PersistenceContext;
 import com.google.gson.Gson;
 
 import entities.category.Category;
-import entities.category.special.SpecialCategory;
-import entities.category.special.SpecialCategory;
-import entities.category.special.SpecialCategoryConverter;
+import entities.category.DTO.CategoryDTO;
+import entities.category.DTO.CategoryDTOConverter;
 import repositories.category.implementation.CategoryRepositoryImp;
 import repositories.category.interfaces.CategoryRepository;
 import services.category.interfaces.CategoryService;
@@ -20,17 +19,23 @@ import services.category.interfaces.CategoryService;
 @Stateless
 public class CategoryServiceImp implements CategoryService {
 	@EJB
-	CategoryRepository categoryRepository = new CategoryRepositoryImp();
+	CategoryRepository categoryRepository;
 	@PersistenceContext(unitName = "bidding-unit")
 	EntityManager entityManager;
 
 	@Override
 	public String getRootAsJson() {
-
 		Category category = categoryRepository.read(1l, entityManager);
-		SpecialCategory specialCategory = SpecialCategoryConverter.convertToSpecialCategory(category);
+		CategoryDTO specialCategory = CategoryDTOConverter.convertToCategoryDTO(category);
 		Gson gson = new Gson();
 		return gson.toJson(specialCategory);
+	}
+
+	@Override
+	public void addCategory(Category category,Long parentID) {
+		Category parent =categoryRepository.read(parentID, entityManager);
+		category.setParent(parent);
+		categoryRepository.create(category, entityManager);
 	}
 
 }

@@ -26,4 +26,14 @@ public class CategoryRepositoryImp implements CategoryRepository {
 		entityManager.remove(category);
 	}
 
+	@Override
+	public void add(Category category, EntityManager entityManager) {
+
+	}
+
+	@Override
+	public void update(Category category, EntityManager entityManager) {
+		entityManager.merge(category);
+	}
+
 }

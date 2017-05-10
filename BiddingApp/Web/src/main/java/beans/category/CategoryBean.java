@@ -26,4 +26,5 @@ public class CategoryBean {
 	public void setCategories(String categories) {
 		this.categories = categories;
 	}
+	
 }
