@@ -12,31 +12,31 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.7/typicons.min.css" />
-
 </h:head>
 
 <h:body>
+	<ui:composition>
 
+		<div id="tree" />
 
-	<div id="tree" />
-
-	<script>
+		<script>
 	
 	$(document).ready(function() {
 		var tree=[#{category.categories}][0]['nodes'];
-		
 		console.log(tree);
-		
 		$('#tree').treeview({
 			data:tree,
 			collapseIcon: 'typcn typcn-minus',
 		    expandIcon: 'typcn typcn-plus', 
 		    onNodeSelected: function(event, data) {
-			document.getElementById("j_id1:javax.faces.ViewState:1").value = data['parentID'];
+			document.getElementById("form-body:nameInput").value=data['text'];
+			document.getElementById("form-body:comment").value=data['description'];
+ 			document.getElementById("j_id1:javax.faces.ViewState:1").value = data['parentID']; 
 			}
 	    });
 	});
 	</script>
+	</ui:composition>
 </h:body>
 
 </html>

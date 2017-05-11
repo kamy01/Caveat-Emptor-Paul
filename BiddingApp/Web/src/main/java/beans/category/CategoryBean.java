@@ -16,7 +16,7 @@ public class CategoryBean {
 
 	@PostConstruct
 	public void postConstruct() {
-		setCategories(categoryService.getRootAsJson());
+		categories = categoryService.getRootAsJson();
 	}
 
 	public String getCategories() {

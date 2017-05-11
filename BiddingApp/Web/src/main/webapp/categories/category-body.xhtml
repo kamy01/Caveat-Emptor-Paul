@@ -9,6 +9,7 @@
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 </h:head>
 <h:body>
+<ui:composition>
 	<div class="container">
 		<h:form id="form-body">
 			<div class="row">
@@ -41,22 +42,23 @@
 					<div class="col-md-9">
 						<h:inputTextarea
 							value="#{categoryOperations.category.description}"
-							class="form-control" rows="10" id="comment" cols=""></h:inputTextarea>
+							class="form-control" rows="10" id="comment" cols=""/>
 					</div>
 				</div>
 			</div>
 			<div class="row pt-2 justify-content-center">
 				<div class="col-md-2">
 					<h:commandButton
-						action="#{categoryOperations.addCategoryToDatabase()}"
-						styleClass="btn btn-info btn-block" value="Create"></h:commandButton>
+						action="#{categoryOperations.addCategoryToDatabase}"
+						styleClass="btn btn-info btn-block" value="Create"/>
 				</div>
 				<div class="col-md-2">
 					<h:commandButton styleClass="btn btn-info btn-block" value="Delete" />
 				</div>
-				 <h:inputHidden value = "#{categoryOperations.parentID}" id = "hidden" />
+				 <h:inputHidden value = "#{categoryOperations.category.parentID}" />
 			</div>
 		</h:form>
 	</div>
+	</ui:composition>
 </h:body>
 </html>

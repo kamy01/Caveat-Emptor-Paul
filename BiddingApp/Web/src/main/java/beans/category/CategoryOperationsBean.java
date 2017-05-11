@@ -3,44 +3,38 @@ package beans.category;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 
-import entities.category.Category;
+import entities.category.DTO.CategoryDTO;
 import services.category.interfaces.CategoryService;
 
 @ManagedBean(name = "categoryOperations")
-@SessionScoped
+@RequestScoped
 public class CategoryOperationsBean {
+
 	@EJB
 	private CategoryService categoryService;
-	private Category category;
-	private Long parentID;
+
+	@ManagedProperty(value = "#{CategoryDTO}")
+	private CategoryDTO category;
 
 	@PostConstruct
 	public void init() {
-		category = new Category();
+		category = new CategoryDTO();
+
 	}
 
 	public void addCategoryToDatabase() {
-		if (parentID != null) {
-			categoryService.addCategory(category, parentID);
-		}
+		categoryService.addCategory(category);
 	}
 
-	public Category getCategory() {
+	public CategoryDTO getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(CategoryDTO category) {
 		this.category = category;
-	}
-
-	public Long getParentID() {
-		return parentID;
-	}
-
-	public void setParentID(Long parentID) {
-		this.parentID = parentID;
 	}
 
 }

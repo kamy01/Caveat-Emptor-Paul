@@ -1,12 +1,16 @@
 package entities.category.DTO;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CategoryDTO {
+public class CategoryDTO implements Serializable {
+
+	private static final long serialVersionUID = 2664131984740112466L;
+
 	private Long id;
 	private String text;
 	private String description;
-	
+
 	private Long parentID;
 	private List<CategoryDTO> nodes;
 
@@ -16,6 +20,14 @@ public class CategoryDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<CategoryDTO> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<CategoryDTO> nodes) {
+		this.nodes = nodes;
 	}
 
 	public String getText() {
@@ -49,7 +61,5 @@ public class CategoryDTO {
 	public void setParentID(Long parentID) {
 		this.parentID = parentID;
 	}
-
-
 
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -13,10 +13,10 @@ import exceptions.user.UserException;
 import services.login.interfaces.LoginValidation;
 
 @ManagedBean(name = "login")
-@SessionScoped
+@RequestScoped
 public class LoginBean {
 	@EJB
-	LoginValidation loginValidation;
+	private LoginValidation loginValidation;
 	private String username;
 	private String password;
 

@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import entities.category.Category;
 import entities.category.DTO.CategoryDTO;
 import entities.category.DTO.CategoryDTOConverter;
-import repositories.category.implementation.CategoryRepositoryImp;
 import repositories.category.interfaces.CategoryRepository;
 import services.category.interfaces.CategoryService;
 
@@ -32,9 +31,13 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public void addCategory(Category category,Long parentID) {
-		Category parent =categoryRepository.read(parentID, entityManager);
+	public void addCategory(CategoryDTO categoryDTO) {
+		Long parentId = categoryDTO.getParentID();
+		Category parent = categoryRepository.read(parentId, entityManager);
+		
+		Category category = CategoryDTOConverter.convertToCategory(categoryDTO);
 		category.setParent(parent);
+		
 		categoryRepository.create(category, entityManager);
 	}
 

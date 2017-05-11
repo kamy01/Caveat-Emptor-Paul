@@ -20,26 +20,26 @@ public class CategoryDTOConverter {
 			CategoryDTO dto = convertToCategoryDTO(cat);
 			listDTO.add(dto);
 		}
- 
+
 		categoryDTO.setCategories(listDTO);
 		return categoryDTO;
-	}          
+	}
 
-//	public static Category convertToCategory(CategoryDTO categoryDTO) {
-//		Category category = new Category();
-//		category.setDescription(categoryDTO.getDescription());
-//		category.setId(categoryDTO.getId());
-//		category.setText(categoryDTO.getText());
-//		if(categoryDTO.getParentID()!=null){
-//			category.setParent(categoryDTO.getParentID());
-//		}
-//		List<Category> categoryList=new ArrayList<>();
-//		for(CategoryDTO dto: categoryDTO.getCategories()){
-//			Category cat= convertToCategory(dto);
-//			categoryList.add(cat);
-//		}
-//		category.setCategories(categoryList);
-//		return category;
-//	}
+	public static Category convertToCategory(CategoryDTO categoryDTO) {
+		Category category = new Category();
+		category.setDescription(categoryDTO.getDescription());
+		category.setId(categoryDTO.getId());
+		category.setText(categoryDTO.getText());
+
+		List<Category> list = new ArrayList<>();
+
+		for (CategoryDTO cat : categoryDTO.getCategories()) {
+			Category dto = convertToCategory(cat);
+			list.add(dto);
+		}
+
+		category.setCategories(list);
+		return category;
+	}
 
 }
