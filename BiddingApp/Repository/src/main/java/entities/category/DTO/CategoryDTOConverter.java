@@ -32,12 +32,12 @@ public class CategoryDTOConverter {
 		category.setText(categoryDTO.getText());
 
 		List<Category> list = new ArrayList<>();
-
-		for (CategoryDTO cat : categoryDTO.getCategories()) {
-			Category dto = convertToCategory(cat);
-			list.add(dto);
+		if (categoryDTO.getCategories() != null) {
+			for (CategoryDTO dto : categoryDTO.getCategories()) {
+				Category cat = convertToCategory(dto);
+				list.add(cat);
+			}
 		}
-
 		category.setCategories(list);
 		return category;
 	}

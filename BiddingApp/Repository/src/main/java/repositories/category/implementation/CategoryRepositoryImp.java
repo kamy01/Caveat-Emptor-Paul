@@ -28,7 +28,12 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
 	@Override
 	public void add(Category category, EntityManager entityManager) {
-
+		if(category.getId()!=null){
+			update(category, entityManager);
+		}
+		else{
+			create(category, entityManager);
+		}
 	}
 
 	@Override

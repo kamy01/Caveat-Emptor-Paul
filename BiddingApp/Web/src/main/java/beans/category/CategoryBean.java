@@ -11,11 +11,13 @@ import services.category.interfaces.CategoryService;
 @SessionScoped
 public class CategoryBean {
 	@EJB
-	private	CategoryService categoryService;
+	private CategoryService categoryService;
 	private String categories;
 
+	private String layout;
+
 	@PostConstruct
-	public void postConstruct() {
+	public void init() {
 		categories = categoryService.getRootAsJson();
 	}
 
@@ -26,5 +28,14 @@ public class CategoryBean {
 	public void setCategories(String categories) {
 		this.categories = categories;
 	}
-	
+
+	public String getLayout() {
+		setLayout("defaultLayout.xhtml");
+		return layout;
+	}
+
+	public void setLayout(String layout) {
+		this.layout = layout;
+	}
+
 }

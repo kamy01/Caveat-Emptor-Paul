@@ -24,6 +24,7 @@
 	$(document).ready(function() {
 		var tree=[#{category.categories}][0]['nodes'];
 		console.log(tree);
+		
 		$('#tree').treeview({
 			data:tree,
 			collapseIcon: 'typcn typcn-minus',
@@ -31,7 +32,8 @@
 		    onNodeSelected: function(event, data) {
 			document.getElementById("form-body:nameInput").value=data['text'];
 			document.getElementById("form-body:comment").value=data['description'];
- 			document.getElementById("j_id1:javax.faces.ViewState:1").value = data['parentID']; 
+ 			document.getElementById("form-body:hiddenParentId").value = data['parentID'];
+ 			document.getElementById("form-body:hiddenId").value = data['id']; 
 			}
 	    });
 	});

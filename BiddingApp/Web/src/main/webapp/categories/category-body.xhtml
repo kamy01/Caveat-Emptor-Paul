@@ -9,56 +9,64 @@
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 </h:head>
 <h:body>
-<ui:composition>
-	<div class="container">
-		<h:form id="form-body">
-			<div class="row">
-				<label>Search prop</label>
-				<div class="col-md-2">
-					<h:commandButton styleClass="btn btn-info btn-block"
-						value="Create New" />
-				</div>
-			</div>
-			<div class="row">Bread crumb prop</div>
-
-			<div class="form-group">
+	<ui:composition>
+		<div class="container">
+			<h:form id="form-body">
+				<h:inputHidden id="hiddenParentId"
+					value="#{categoryOperations.category.parentID}" />
+				<h:inputHidden id="hiddenId"
+					value="#{categoryOperations.id}" />
 				<div class="row">
+					<label>Search prop</label>
 					<div class="col-md-2">
-						<label for="text">Name</label>
-					</div>
-					<div class="col-md-9">
-						<h:inputText value="#{categoryOperations.category.text}"
-							class=" text-input form-control" type="text" id="nameInput" />
+						<h:commandButton styleClass="btn btn-info btn-block"
+							value="Create New" />
 					</div>
 				</div>
-			</div>
+				<div class="row">Bread crumb prop</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-2">
+							<label for="text">Name</label>
+						</div>
+						<div class="col-md-9">
+							<h:inputText value="#{categoryOperations.category.text}"
+								class=" text-input form-control" type="text" id="nameInput" />
+						</div>
+					</div>
+				</div>
 
 
-			<div class="form-group">
-				<div class="row">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-2">
+							<label for="comment">Description</label>
+						</div>
+						<div class="col-md-9">
+							<h:inputTextarea
+								value="#{categoryOperations.category.description}"
+								class="form-control" rows="10" id="comment" cols="" />
+						</div>
+					</div>
+				</div>
+				<div class="row pt-2 justify-content-center">
 					<div class="col-md-2">
-						<label for="comment">Description</label>
+						<h:commandButton id="addButton"
+							action="#{categoryOperations.addCategoryToDatabase}"
+							styleClass="btn btn-info btn-block" value="Create">
+						</h:commandButton>
 					</div>
-					<div class="col-md-9">
-						<h:inputTextarea
-							value="#{categoryOperations.category.description}"
-							class="form-control" rows="10" id="comment" cols=""/>
+					<div class="col-md-2">
+						<h:commandButton id="removeButton"
+							styleClass="btn btn-info btn-block"
+							action="#{categoryOperations.removeCategoryFromDatabase}"
+							value="Remove" />
 					</div>
+
 				</div>
-			</div>
-			<div class="row pt-2 justify-content-center">
-				<div class="col-md-2">
-					<h:commandButton
-						action="#{categoryOperations.addCategoryToDatabase}"
-						styleClass="btn btn-info btn-block" value="Create"/>
-				</div>
-				<div class="col-md-2">
-					<h:commandButton styleClass="btn btn-info btn-block" value="Delete" />
-				</div>
-				 <h:inputHidden value = "#{categoryOperations.category.parentID}" />
-			</div>
-		</h:form>
-	</div>
+			</h:form>
+		</div>
 	</ui:composition>
 </h:body>
 </html>
