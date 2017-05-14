@@ -33,20 +33,22 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public void addCategory(CategoryDTO categoryDTO) {
 
-		Long parentId = categoryDTO.getParentID();
-		Category parent = categoryRepository.read(parentId, entityManager);
+		Category parent = categoryRepository.read(categoryDTO.getParentID(), entityManager);
 		Category category = CategoryDTOConverter.convertToCategory(categoryDTO);
 		category.setParent(parent);
 		categoryRepository.add(category, entityManager);
+		
 	}
 
 	@Override
 	public void removeCategory(CategoryDTO categoryDTO) {
-		Long parentId = categoryDTO.getParentID();
-		Category parent = categoryRepository.read(parentId, entityManager);
-		Category category = CategoryDTOConverter.convertToCategory(categoryDTO);
-		parent.getCategories().addAll(category.getCategories());
-		categoryRepository.update(parent, entityManager);
+		Category category = categoryRepository.read(categoryDTO.getID(), entityManager);
+		
+			for (Category child : category.getCategories()) {
+			child.setParent(category.getParent());
+			categoryRepository.add(child, entityManager);
+		}
+
 		categoryRepository.delete(entityManager.merge(category), entityManager);
 	}
 
