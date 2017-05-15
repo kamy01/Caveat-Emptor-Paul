@@ -14,12 +14,12 @@
 			<h:form id="form-body">
 				<h:inputHidden id="hiddenParentId"
 					value="#{categoryOperations.category.parentID}" />
-				<h:inputHidden id="hiddenId"
-					value="#{categoryOperations.id}" />
+				<h:inputHidden id="hiddenId" value="#{categoryOperations.id}" />
 				<div class="row">
 					<label>Search prop</label>
 					<div class="col-md-2">
 						<h:commandButton styleClass="btn btn-info btn-block"
+							action="#{categoryOperations.addNewRootCategoryToDatabase}"
 							value="Create New" />
 					</div>
 				</div>
@@ -62,6 +62,11 @@
 							styleClass="btn btn-info btn-block"
 							action="#{categoryOperations.removeCategoryFromDatabase}"
 							value="Remove" />
+					</div>
+					<div class="col-md-2">
+						<h:commandButton id="updateButton"
+							styleClass="btn btn-info btn-block"
+							action="#{categoryOperations.updateCategory}" value="Update" />
 					</div>
 
 				</div>

@@ -1,4 +1,4 @@
-package entities.category.DTO;
+package mappers;
 
 import java.io.Serializable;
 import java.util.List;

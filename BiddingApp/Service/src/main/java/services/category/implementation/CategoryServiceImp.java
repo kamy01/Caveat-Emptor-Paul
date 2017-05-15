@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext;
 import com.google.gson.Gson;
 
 import entities.category.Category;
-import entities.category.DTO.CategoryDTO;
-import entities.category.DTO.CategoryDTOConverter;
+import mappers.CategoryDTO;
+import mappers.CategoryMapper;
 import repositories.category.interfaces.CategoryRepository;
 import services.category.interfaces.CategoryService;
 
@@ -25,31 +25,55 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public String getRootAsJson() {
 		Category category = categoryRepository.read(1l, entityManager);
-		CategoryDTO specialCategory = CategoryDTOConverter.convertToCategoryDTO(category);
+		CategoryDTO specialCategory = CategoryMapper.mapToCategoryDTO(category);
 		Gson gson = new Gson();
 		return gson.toJson(specialCategory);
 	}
 
 	@Override
-	public void addCategory(CategoryDTO categoryDTO) {
+	public void addCategory(CategoryDTO categoryDTO, Long id) {
 
-		Category parent = categoryRepository.read(categoryDTO.getParentID(), entityManager);
-		Category category = CategoryDTOConverter.convertToCategory(categoryDTO);
+		Category parent = categoryRepository.read(id, entityManager);
+		Category category = CategoryMapper.mapToCategory(categoryDTO);
 		category.setParent(parent);
 		categoryRepository.add(category, entityManager);
-		
+
 	}
 
 	@Override
 	public void removeCategory(CategoryDTO categoryDTO) {
-		Category category = categoryRepository.read(categoryDTO.getID(), entityManager);
-		
-			for (Category child : category.getCategories()) {
+		Category category = categoryRepository.read(categoryDTO.getId(), entityManager);
+
+		for (Category child : category.getCategories()) {
 			child.setParent(category.getParent());
 			categoryRepository.add(child, entityManager);
 		}
 
-		categoryRepository.delete(entityManager.merge(category), entityManager);
+		Category newCategory = entityManager.merge(category);
+		entityManager.remove(newCategory);
+		/*
+		 * categoryRepository.delete(entityManager.contains(category) ? category
+		 * : entityManager.merge(category), entityManager);
+		 */
+	}
+
+	@Override
+	public void addNewRootCategory(CategoryDTO categoryDTO) {
+
+		Category root = categoryRepository.read(1, entityManager);
+		Category category = CategoryMapper.mapToCategory(categoryDTO);
+		category.setParent(root);
+		categoryRepository.add(category, entityManager);
+	}
+
+	@Override
+	public void updateCategory(CategoryDTO categoryDTO) {
+		if (categoryDTO.getId() != null) {
+			Category parent = categoryRepository.read(categoryDTO.getParentID(), entityManager);
+			Category category = CategoryMapper.mapToCategory(categoryDTO);
+			category.setParent(parent);
+			categoryRepository.add(category, entityManager);
+		}
 	}
 
 }

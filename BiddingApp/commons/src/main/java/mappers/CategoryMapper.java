@@ -1,13 +1,13 @@
-package entities.category.DTO;
+package mappers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import entities.category.Category;
 
-public class CategoryDTOConverter {
+public class CategoryMapper {
 
-	public static CategoryDTO convertToCategoryDTO(Category category) {
+	public static CategoryDTO mapToCategoryDTO(Category category) {
 		CategoryDTO categoryDTO = new CategoryDTO();
 		categoryDTO.setDescription(category.getDescription());
 		categoryDTO.setId(category.getId());
@@ -17,7 +17,7 @@ public class CategoryDTOConverter {
 		}
 		List<CategoryDTO> listDTO = new ArrayList<>();
 		for (Category cat : category.getCategories()) {
-			CategoryDTO dto = convertToCategoryDTO(cat);
+			CategoryDTO dto = mapToCategoryDTO(cat);
 			listDTO.add(dto);
 		}
 
@@ -25,7 +25,7 @@ public class CategoryDTOConverter {
 		return categoryDTO;
 	}
 
-	public static Category convertToCategory(CategoryDTO categoryDTO) {
+	public static Category mapToCategory(CategoryDTO categoryDTO) {
 		Category category = new Category();
 		category.setDescription(categoryDTO.getDescription());
 		category.setId(categoryDTO.getId());
@@ -34,7 +34,7 @@ public class CategoryDTOConverter {
 		List<Category> list = new ArrayList<>();
 		if (categoryDTO.getCategories() != null) {
 			for (CategoryDTO dto : categoryDTO.getCategories()) {
-				Category cat = convertToCategory(dto);
+				Category cat = mapToCategory(dto);
 				list.add(cat);
 			}
 		}

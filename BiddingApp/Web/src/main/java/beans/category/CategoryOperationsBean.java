@@ -1,11 +1,15 @@
 package beans.category;
 
+import java.io.IOException;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
-import entities.category.DTO.CategoryDTO;
+import mappers.CategoryDTO;
 import services.category.interfaces.CategoryService;
 
 @ManagedBean(name = "categoryOperations")
@@ -24,12 +28,33 @@ public class CategoryOperationsBean {
 	}
 
 	public void addCategoryToDatabase() {
-		categoryService.addCategory(category);
+
+		categoryService.addCategory(category, id);
+	}
+
+	public void redirect() {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			externalContext.redirect(externalContext.getRequestContextPath() + "/" + "categories/categories.xhtml");
+		} catch (IOException e) {
+		}
+	}
+
+	public void addNewRootCategoryToDatabase() throws IOException {
+		categoryService.addNewRootCategory(category);
+		redirect();
 	}
 
 	public void removeCategoryFromDatabase() {
 		category.setId(id);
 		categoryService.removeCategory(category);
+		redirect();
+	}
+
+	public void updateCategory() {
+		category.setId(id);
+		categoryService.updateCategory(category);
+		redirect();
 	}
 
 	public CategoryDTO getCategory() {
