@@ -28,16 +28,8 @@ public class CategoryOperationsBean {
 	}
 
 	public void addCategoryToDatabase() {
-
 		categoryService.addCategory(category, id);
-	}
-
-	public void redirect() {
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		try {
-			externalContext.redirect(externalContext.getRequestContextPath() + "/" + "categories/categories.xhtml");
-		} catch (IOException e) {
-		}
+		redirect();
 	}
 
 	public void addNewRootCategoryToDatabase() throws IOException {
@@ -55,6 +47,14 @@ public class CategoryOperationsBean {
 		category.setId(id);
 		categoryService.updateCategory(category);
 		redirect();
+	}
+
+	public void redirect() {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			externalContext.redirect(externalContext.getRequestContextPath() + "/" + "categories/categories.xhtml");
+		} catch (IOException e) {
+		}
 	}
 
 	public CategoryDTO getCategory() {

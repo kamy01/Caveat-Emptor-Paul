@@ -11,19 +11,31 @@
 <h:body>
 	<ui:composition>
 		<div class="container">
+			<div class="row">
+				<div class="col-md-2" />
+				<div class="col-md-5">
+					<input type="text" class="form-control input-lg" id="searchField" />
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-primary" onclick="search()">Search</button>
+				</div>
+			</div>
+
+
 			<h:form id="form-body">
 				<h:inputHidden id="hiddenParentId"
 					value="#{categoryOperations.category.parentID}" />
 				<h:inputHidden id="hiddenId" value="#{categoryOperations.id}" />
 				<div class="row">
-					<label>Search prop</label>
-					<div class="col-md-2">
-						<h:commandButton styleClass="btn btn-info btn-block"
-							action="#{categoryOperations.addNewRootCategoryToDatabase}"
-							value="Create New" />
+					<div class="col-md-2" />
+
+				</div>
+				<div class="row pt2">
+					<div class="col-md-2" />
+					<div class="col-md-10">
+						<ol id="breadcrumb" class="breadcrumb" />
 					</div>
 				</div>
-				<div class="row">Bread crumb prop</div>
 
 				<div class="form-group">
 					<div class="row">
@@ -46,7 +58,7 @@
 						<div class="col-md-9">
 							<h:inputTextarea
 								value="#{categoryOperations.category.description}"
-								class="form-control" rows="10" id="comment" cols="" />
+								class="form-control" rows="20" id="comment" cols="" />
 						</div>
 					</div>
 				</div>
@@ -54,21 +66,32 @@
 					<div class="col-md-2">
 						<h:commandButton id="addButton"
 							action="#{categoryOperations.addCategoryToDatabase}"
-							styleClass="btn btn-info btn-block" value="Create">
+							styleClass="btn btn-info btn-block" value="Create Child">
+							<f:ajax execute="@form" render="tree" onevent="getTree" />
+						</h:commandButton>
+					</div>
+					<div class="col-md-2">
+						<h:commandButton styleClass="btn btn-info btn-block"
+							action="#{categoryOperations.addNewRootCategoryToDatabase}"
+							value="Create New">
+							<f:ajax execute="@form" render="tree" onevent="getTree" />
+						</h:commandButton>
+					</div>
+					<div class="col-md-2">
+						<h:commandButton id="updateButton"
+							styleClass="btn btn-warning btn-block"
+							action="#{categoryOperations.updateCategory}" value="Update">
+							<f:ajax execute="@form" render="tree" onevent="getTree" />
 						</h:commandButton>
 					</div>
 					<div class="col-md-2">
 						<h:commandButton id="removeButton"
-							styleClass="btn btn-info btn-block"
+							styleClass="btn btn-danger btn-block"
 							action="#{categoryOperations.removeCategoryFromDatabase}"
-							value="Remove" />
+							value="Remove">
+							<f:ajax execute="@form" render="tree" onevent="getTree" />
+						</h:commandButton>
 					</div>
-					<div class="col-md-2">
-						<h:commandButton id="updateButton"
-							styleClass="btn btn-info btn-block"
-							action="#{categoryOperations.updateCategory}" value="Update" />
-					</div>
-
 				</div>
 			</h:form>
 		</div>

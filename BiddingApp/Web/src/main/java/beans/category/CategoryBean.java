@@ -21,7 +21,8 @@ public class CategoryBean {
 		categories = categoryService.getRootAsJson();
 	}
 
-	public String getCategories() {
+	public String getCategories() {	
+		categories = categoryService.getRootAsJson();
 		return categories;
 	}
 
