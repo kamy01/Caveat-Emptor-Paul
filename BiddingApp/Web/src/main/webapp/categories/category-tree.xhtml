@@ -25,7 +25,6 @@
 					category.categories
 				}][0]['nodes'];
 				removeEmptyNodes(tree, 'nodes');
-				console.log(tree);
 				$('#tree').treeview({
 					data: tree,
 					collapseIcon: 'typcn typcn-minus',
@@ -36,28 +35,13 @@
 						document.getElementById("form-body:nameInput").value = data['text'];
 						document.getElementById("form-body:comment").value = data['description'];
 						document.getElementById("form-body:hiddenParentId").value = data['parentID'];
-						document.getElementById("form-body:hiddenId").value = data['id'];
+						document.getElementById("form-body:hiddenId").value = data['nodeId'];
 						createBreadcrumb(data);
 					}
 				});
 				$('#tree').treeview('collapseAll', {
 					silent: true
 				});
-			}
-
-			$(document).ready(getTree());
-
-			function removeEmptyNodes(tree, nodes) {
-				for (i in tree) {
-					if (tree[i][nodes] !== undefined) {
-						var children = tree[i][nodes];
-						if (children.length === 0) {
-							delete tree[i][nodes];
-						}
-						removeEmptyNodes(tree[i][nodes], nodes);
-
-					}
-				}
 			}
 
 			function search() {
@@ -68,19 +52,41 @@
 					exactMatch: false
 				}]);
 				if (nodes.length !== 0) {
-					selectNode(nodes[0]['id']);
-					createBreadcrumb(node);
+					selectNode(nodes[0]['nodeId']);
+			
 				}
+				
 			}
+			
 
+			function getBreadcrumb(node) {
+				
+				var parent;
+				var breadcrumb = [];
+				
+				breadcrumb.push(node);
+				
+				do {
+					parent = getParent(node);
+					node = jQuery.extend(true, {}, parent);
+					breadcrumb.push(node);
+				}
+				while (node['nodeId'] !== undefined);
+				
+				breadcrumb.pop();
+				return breadcrumb;
+			}
+			
 			function createBreadcrumb(data) {
-				$('breadcrumb').empty();
+				
+				$('#breadcrumb').empty();
 				var breadcrumb = getBreadcrumb(data);
-				for (var i = breadcrumb.length - 1; i >= 0; --i) {
+				
+				for (var i = breadcrumb.length -1 ; i >= 0; --i) {
 					var li = document.createElement('li');
 					li.setAttribute('class', 'breadcrumb-item');
 
-					var id = breadcrumb[i]['id'];
+					var id = breadcrumb[i]['nodeId'];
 					li.setAttribute('id', id);
 
 					li.setAttribute('onclick', 'selectNode(id)');
@@ -93,12 +99,17 @@
 					document.getElementById('breadcrumb').appendChild(li);
 					document.getElementById('id' + i).innerHTML = breadcrumb[i]['text'];
 				}
-				console.log(breadcrumb);
-				var list = document.getElementById(breadcrumb[0]['id']);
+				
+
+				var selectedId = breadcrumb[0]['nodeId'];
+				
+				var list = document.getElementById(selectedId);
 				list.setAttribute('class', 'breadcrumb-item active');
 				list.removeChild(list.childNodes[0]);
+				
+				document.getElementById(data["nodeId"]).innerHTML = breadcrumb[0]['text'];
 			}
-
+		
 			function getParent(child) {
 
 				if (child !== undefined) {
@@ -106,29 +117,31 @@
 				}
 			}
 
-			function getBreadcrumb(node) {
-				var parent;
-				var breadcrumb = [];
-				breadcrumb.push(node);
-				do {
-					parent = getParent(node);
-					node = jQuery.extend(true, {}, parent);
-					breadcrumb.push(node);
-				}
-				while (node['id'] !== undefined);
-				breadcrumb.pop();
-				return breadcrumb;
-			}
-
 			function selectNode(nodeId) {
-
+				
 				var node = $('#tree').treeview('getNode', nodeId);
+				
 				$('#tree').treeview('selectNode', [node, {
 					silent: true
 				}]);
 
 				createBreadcrumb(node);
-				document.getElementById('categoryForm:categoryId').value = node['id'];
+				document.getElementById('form-body:hiddenId').value = node['id'];
+			}
+
+
+			$(document).ready(getTree());
+
+			function removeEmptyNodes(tree, nodes) {
+				for (i in tree) {
+					if (tree[i][nodes] !== undefined) {
+						var children = tree[i][nodes];
+						if (children.length === 0) {
+							delete tree[i][nodes];
+						}
+						removeEmptyNodes(tree[i][nodes], nodes);
+					}
+				}
 			}
 		</script>
 	</ui:composition>

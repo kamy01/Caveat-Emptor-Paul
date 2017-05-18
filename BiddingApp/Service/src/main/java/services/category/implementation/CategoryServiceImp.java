@@ -55,7 +55,7 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public void addNewRootCategory(CategoryDTO categoryDTO) {
-		if (categoryDTO.getText() != null) {
+		if (categoryDTO.getText().length()>0 ){
 			Category root = categoryRepository.read(1, entityManager);
 			Category category = CategoryMapper.mapToCategory(categoryDTO);
 			category.setParent(root);
