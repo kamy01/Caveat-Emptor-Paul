@@ -32,7 +32,7 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public void addCategory(CategoryDTO categoryDTO, Long id) {
-		if (categoryDTO.getText() != null && categoryDTO.getParentID() != null) {
+		if (categoryDTO.getText() != null && categoryDTO.getParentID() != null && categoryDTO.getParentID() != 1) {
 			Category parent = categoryRepository.read(id, entityManager);
 			Category category = CategoryMapper.mapToCategory(categoryDTO);
 			category.setParent(parent);
@@ -44,10 +44,12 @@ public class CategoryServiceImp implements CategoryService {
 	public void removeCategory(CategoryDTO categoryDTO) {
 		if (categoryDTO.getId() != null) {
 			Category category = categoryRepository.read(categoryDTO.getId(), entityManager);
+
 			for (Category child : category.getCategories()) {
 				child.setParent(category.getParent());
 				categoryRepository.add(child, entityManager);
 			}
+
 			Category newCategory = entityManager.merge(category);
 			entityManager.remove(newCategory);
 		}
@@ -55,7 +57,7 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public void addNewRootCategory(CategoryDTO categoryDTO) {
-		if (categoryDTO.getText().length()>0 ){
+		if (categoryDTO.getText().length() > 0) {
 			Category root = categoryRepository.read(1, entityManager);
 			Category category = CategoryMapper.mapToCategory(categoryDTO);
 			category.setParent(root);

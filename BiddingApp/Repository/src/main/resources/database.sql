@@ -30,7 +30,7 @@ CREATE TABLE `category` (
   PRIMARY KEY (`id`),
   KEY `parent_id_idx` (`parent_id`),
   CONSTRAINT `parent_id` FOREIGN KEY (`parent_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,8 +39,43 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'root','root',NULL),(2,'PC Components',NULL,1),(3,'GPUs',NULL,2),(4,'Processors',NULL,2),(5,'AMD FX-8350',NULL,4);
+INSERT INTO `category` VALUES (1,'root','root',NULL),(2,'PC Components','pc\'s',1),(27,'Nvidia','video',2),(28,'AMD','video',2),(30,'I5 5670K','CPU',2),(35,'I5 577090','CPU',NULL),(39,'AMD','Central Processing Unit',2),(41,'FX-8350','Central Processing Unit',39),(42,'FX-8370','Central Processing Unit',39),(43,'GT 1060','video',27),(44,'RX 580','video',28),(60,'Headphones','',1),(61,'Steelseries','',60),(80,'Kingston','',60);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `item`
+--
+
+DROP TABLE IF EXISTS `item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `item` (
+  `id` bigint(8) NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(8) NOT NULL,
+  `initial_price` bigint(8) NOT NULL,
+  `best_bid` bigint(8) NOT NULL,
+  `bids` bigint(8) NOT NULL,
+  `closing_date` date NOT NULL,
+  `opening_date` date NOT NULL,
+  `status` varchar(45) NOT NULL,
+  `winner_id` bigint(8) DEFAULT NULL,
+  `creator_id` bigint(8) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `winner_id_idx` (`winner_id`),
+  KEY `category_id_idx` (`category_id`),
+  CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `winner_id` FOREIGN KEY (`winner_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `item`
+--
+
+LOCK TABLES `item` WRITE;
+/*!40000 ALTER TABLE `item` DISABLE KEYS */;
+/*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -96,7 +131,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (52,'puscasu494@gmail.com','something','something3','someone','somewhere',1),(53,'puscasu494@gmail.com','something6','something3','someone','somewhere',1),(54,'puscasu494@gmail.com','Something12','something3','someone','somewhere',1),(55,'puscasu494@gmail.com','Something13','something3','someone','somewhere',1),(56,'puscasu494@gmail.com','usernameus','something3','someone','somewhere',0),(57,'puscasu494@gmail.com','something2as','something3','someone','somewhere',1),(58,'puscasu494@gmail.com','username','password3','asdsddsda','aasddad',0),(59,'puscasu494@gmail.com','bronzon','bronzon3','asdsddsda','aasddad',1),(60,'puscasu494@gmail.com','username3232','password3','sdasdad','adsasdas',1),(61,'puscasu494@gmail.com','ghbjuti','password3','WDFDDSSDF','SDFSDFSDFSDF',0),(62,'puscasu494@gmail.com','usernamesxc','password3','asdadkasdjask','posdijiopsdfgjsdfoi',1),(63,'puscasu494@gmail.com','sdasdasd','asdasd3','asdsdas','sxcv',0),(64,'puscasu494@gmail.com','username5','password3','asdadkasdjask','posdijiopsdfgjsdfoi',1),(65,'puscasu494@gmail.com','johnCena','asdas3','asdadkasdjask','posdijiopsdfgjsdfoi',0),(66,'puscasu494@gmail.com','johnCena5','asdas3','dfafasd','sdfsdf',0),(67,'puscasu494@gmail.com','johnCena987','asdas3','dfafasd','iiiiiii',0),(68,'puscasu494@gmail.com','johnCena546','asdas3','dfafasd','iiiiiii',1),(69,'puscasu494@gmail.com','johnCena5674','asdas3','dfafasd','sdfsdf',0);
+INSERT INTO `users` VALUES (52,'puscasu494@gmail.com','something','something3','someone','somewhere',1),(53,'puscasu494@gmail.com','something6','something3','someone','somewhere',1),(54,'puscasu494@gmail.com','Something12','something3','someone','somewhere',1),(55,'puscasu494@gmail.com','Something13','something3','someone','somewhere',1),(56,'puscasu494@gmail.com','usernameus','something3','someone','somewhere',0),(57,'puscasu494@gmail.com','something2as','something3','someone','somewhere',1),(58,'puscasu494@gmail.com','username','password3','asdsddsda','aasddad',1),(59,'puscasu494@gmail.com','bronzon','bronzon3','asdsddsda','aasddad',1),(60,'puscasu494@gmail.com','username3232','password3','sdasdad','adsasdas',1),(61,'puscasu494@gmail.com','ghbjuti','password3','WDFDDSSDF','SDFSDFSDFSDF',0),(62,'puscasu494@gmail.com','usernamesxc','password3','asdadkasdjask','posdijiopsdfgjsdfoi',1),(63,'puscasu494@gmail.com','sdasdasd','asdasd3','asdsdas','sxcv',0),(64,'puscasu494@gmail.com','username5','password3','asdadkasdjask','posdijiopsdfgjsdfoi',1),(65,'puscasu494@gmail.com','johnCena','asdas3','asdadkasdjask','posdijiopsdfgjsdfoi',1),(66,'puscasu494@gmail.com','johnCena5','asdas3','dfafasd','sdfsdf',0),(67,'puscasu494@gmail.com','johnCena987','asdas3','dfafasd','iiiiiii',0),(68,'puscasu494@gmail.com','johnCena546','asdas3','dfafasd','iiiiiii',1),(69,'puscasu494@gmail.com','johnCena5674','asdas3','dfafasd','sdfsdf',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -109,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-09 10:12:33
+-- Dump completed on 2017-05-18 17:54:44
