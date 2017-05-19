@@ -8,8 +8,8 @@ import javax.persistence.PersistenceContext;
 
 import com.google.gson.Gson;
 
+import dto.CategoryDTO;
 import entities.category.Category;
-import mappers.CategoryDTO;
 import mappers.CategoryMapper;
 import repositories.category.interfaces.CategoryRepository;
 import services.category.interfaces.CategoryService;
@@ -32,7 +32,8 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public void addCategory(CategoryDTO categoryDTO, Long id) {
-		if (categoryDTO.getText() != null && categoryDTO.getParentID() != null && categoryDTO.getParentID() != 1) {
+		if (categoryDTO.getText() != null&&categoryDTO.getParentID()!=null) {
+			
 			Category parent = categoryRepository.read(id, entityManager);
 			Category category = CategoryMapper.mapToCategory(categoryDTO);
 			category.setParent(parent);

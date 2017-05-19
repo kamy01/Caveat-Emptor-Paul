@@ -9,7 +9,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import mappers.CategoryDTO;
+import dto.CategoryDTO;
 import services.category.interfaces.CategoryService;
 
 @ManagedBean(name = "categoryOperations")

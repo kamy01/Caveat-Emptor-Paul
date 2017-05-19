@@ -1,6 +1,6 @@
 package services.category.interfaces;
 
-import mappers.CategoryDTO;
+import dto.CategoryDTO;
 
 public interface CategoryService {
 	public String getRootAsJson();

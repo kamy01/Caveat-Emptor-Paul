@@ -3,6 +3,7 @@ package mappers;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.CategoryDTO;
 import entities.category.Category;
 
 public class CategoryMapper {
