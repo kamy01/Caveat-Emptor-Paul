@@ -33,7 +33,6 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public void addCategory(CategoryDTO categoryDTO, Long id) {
 		if (categoryDTO.getText() != null&&categoryDTO.getParentID()!=null) {
-			
 			Category parent = categoryRepository.read(id, entityManager);
 			Category category = CategoryMapper.mapToCategory(categoryDTO);
 			category.setParent(parent);
