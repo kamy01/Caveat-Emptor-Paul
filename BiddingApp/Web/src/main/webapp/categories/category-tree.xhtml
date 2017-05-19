@@ -40,7 +40,6 @@
 					document.getElementById("form-body:comment").value = data['description'];
 					document.getElementById("form-body:hiddenParentId").value = data['parentID'];
 					document.getElementById("form-body:hiddenId").value = data['id'];
-					
 					createBreadcrumb(data);
 				}
 			});
@@ -58,6 +57,11 @@
 			if (nodes.length !== 0) {
 				selectNode(nodes[0]['nodeId']);
 				document.getElementById("form-body:hiddenId").value = nodes[0]['id'];	
+				document.getElementById("form-body:nameInput").value =  nodes[0]['text'];
+				document.getElementById("form-body:comment").value =  nodes[0]['description'];
+
+				
+				
 			
 			}
 			
