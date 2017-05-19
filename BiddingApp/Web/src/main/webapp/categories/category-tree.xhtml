@@ -34,12 +34,13 @@
 				expandIcon: 'typcn typcn-plus',
 				backColor: "#c6ffc9",
 				borderColor: "#111111",
+				searchResultColor: "#111111",
 				onNodeSelected: function(event, data) {
 					document.getElementById("form-body:nameInput").value = data['text'];
 					document.getElementById("form-body:comment").value = data['description'];
 					document.getElementById("form-body:hiddenParentId").value = data['parentID'];
 					document.getElementById("form-body:hiddenId").value = data['id'];
-
+					
 					createBreadcrumb(data);
 				}
 			});
@@ -50,15 +51,14 @@
 
 		function search() {
 			var searchValue = document.getElementById("searchField").value;
-
 			var nodes = $('#tree').treeview('search', [searchValue, {
 				ignoreCase: true,
-				exactMatch: false
+				exactMatch: false,
 			}]);
 			if (nodes.length !== 0) {
 				selectNode(nodes[0]['nodeId']);
-				document.getElementById("form-body:hiddenId").value = nodes[0]['id'];
-		
+				document.getElementById("form-body:hiddenId").value = nodes[0]['id'];	
+			
 			}
 			
 		}
