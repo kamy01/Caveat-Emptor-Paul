@@ -18,19 +18,26 @@ import entities.category.Category;
 import entities.login.User;
 
 @Entity
-@NamedQueries(value = {
-		@NamedQuery(name = "findItemsByUser", query = "SELECT i FROM Item i WHERE i.seller = :seller"), })
+@NamedQueries(value = { @NamedQuery(name = "findItemsByUser", query = "SELECT i FROM Item i WHERE i.user = :user"),
+		@NamedQuery(name = "findItemsByCateogry", query = "SELECT i FROM Item i WHERE i.category = :category") })
 
 @Table(name = "item")
 
 public class Item implements Serializable {
 	public static final String FIND_ITEMS_BY_USER = "findItemsByUser";
+	public static final String FIND_ITEMS_BY_CATEGORY = "findItemsByCateogry";
 	public static final String GET_ALL_ITEMS = "Item.getAllItems";
 	private static final long serialVersionUID = -3319507180659185256L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Long id;
+
+	@Column
+	private String name;
+
+	@Column
+	private String description;
 
 	@ManyToOne
 	@JoinColumn(name = "category_id")
@@ -45,7 +52,7 @@ public class Item implements Serializable {
 	@Column
 	private Long bids;
 
-	@Column(name = "openinig_date")
+	@Column(name = "opening_date")
 	private Timestamp openingDate;
 
 	@Column(name = "closing_date")
@@ -56,7 +63,15 @@ public class Item implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "seller_id")
-	private User seller;
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Long getId() {
 		return id;
@@ -122,12 +137,20 @@ public class Item implements Serializable {
 		this.status = status;
 	}
 
-	public User getSeller() {
-		return seller;
+	public String getName() {
+		return name;
 	}
 
-	public void setSeller(User seller) {
-		this.seller = seller;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

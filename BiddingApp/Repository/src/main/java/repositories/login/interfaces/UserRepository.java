@@ -17,5 +17,6 @@ public interface UserRepository  {
 
 	public User verifyUsernameAndPassword(String username, String password, EntityManager entityManager) throws UserException;
 
+	public User findUserByUsernameAndPassword(String accountName, String password, EntityManager entityManager);
 	
 }

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+</h:head>
+<h:body>
+	<ui:composition>
+		<h1>JSF 2 dataTable example</h1>
+		<h:dataTable value="#{item.itemsDTO}" var="items"
+			styleClass="order-table table-hover" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row">
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+    				#{items.name}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Categories</f:facet>
+    				#{items.category.text}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Initial price</f:facet>
+    				#{items.initialPrice}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Best bid</f:facet>
+    				#{items.bestBid}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Bids</f:facet>
+    				#{items.bids}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Opening Date</f:facet>
+    				#{items.openingDate}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Closing Date</f:facet>
+    				#{items.closingDate}
+    			</h:column>
+
+			<h:column>
+				<f:facet name="header">Status</f:facet>
+    				#{items.status}
+    			</h:column>
+
+		</h:dataTable>
+	</ui:composition>
+</h:body>
+</html>

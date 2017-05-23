@@ -10,20 +10,40 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import dto.ItemDTO;
+import entities.category.Category;
 import entities.item.Item;
+import entities.login.User;
+import mappers.ItemMapper;
 import repositories.item.interfaces.ItemRepository;
 import services.item.interfaces.ItemService;
 
 @Remote(ItemService.class)
 @Stateless
-public class ItemServiceImp implements ItemService	{
+public class ItemServiceImp implements ItemService {
 	@EJB
 	ItemRepository itemRepository;
 	@PersistenceContext(unitName = "bidding-unit")
 	EntityManager entityManager;
 
 	@Override
-	public List<Item> getItemList() {
-		List<ItemDTO> =itemRepository.findItemsByUser(item, entityManager);
+	public List<ItemDTO> getItemsForUser(User user) {
+		List<Item> items = itemRepository.findItemsByUser(user, entityManager);
+		List<ItemDTO> itemsDTO = new ArrayList<ItemDTO>();
+		for (Item item : items) {
+			ItemDTO itemDTO = ItemMapper.mapToItemDTO(item);
+			itemsDTO.add(itemDTO);
+		}             
+		return itemsDTO;
+	}
+
+	@Override
+	public List<ItemDTO> getItemsForCategory(Category category) {
+		List<Item> items = itemRepository.findItemsByCategory(category, entityManager);
+		List<ItemDTO> itemsDTO = new ArrayList<ItemDTO>();
+		for (Item item : items) {
+			ItemDTO itemDTO = ItemMapper.mapToItemDTO(item);
+			itemsDTO.add(itemDTO);
+		}
+		return itemsDTO;
 	}
 }

@@ -53,7 +53,7 @@ public class User implements Serializable {
 	@Column(name = "activated")
 	private boolean activated;
 
-	@OneToMany(mappedBy = "seller")
+	@OneToMany(mappedBy = "user")
 	private List<Item> items;
 
 	public Long getId() {

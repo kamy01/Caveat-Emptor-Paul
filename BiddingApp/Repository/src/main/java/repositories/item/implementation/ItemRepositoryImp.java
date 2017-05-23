@@ -7,7 +7,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import entities.category.Category;
 import entities.item.Item;
+import entities.login.User;
 import repositories.item.interfaces.ItemRepository;
 
 @Remote(ItemRepository.class)
@@ -35,11 +37,17 @@ public class ItemRepositoryImp implements ItemRepository {
 	}
 
 	@Override
-	public List<Item> findItemsByUser(Item item, EntityManager entityManager) {
-
+	public List<Item> findItemsByUser(User user, EntityManager entityManager) {
 		Query query = entityManager.createNamedQuery(Item.FIND_ITEMS_BY_USER);
-		query.setParameter("item", item);
-		@SuppressWarnings("unchecked")
+		query.setParameter("user", user);
+		List<Item> list = (List<Item>) query.getResultList();
+		return list;
+	}
+
+	@Override
+	public List<Item> findItemsByCategory(Category category, EntityManager entityManager) {
+		Query query = entityManager.createNamedQuery(Item.FIND_ITEMS_BY_CATEGORY);
+		query.setParameter("category", category);
 		List<Item> list = (List<Item>) query.getResultList();
 		return list;
 	}

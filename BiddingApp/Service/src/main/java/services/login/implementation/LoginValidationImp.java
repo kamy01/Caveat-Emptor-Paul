@@ -26,4 +26,9 @@ public class LoginValidationImp implements LoginValidation {
 
 	}
 
+	@Override
+	public User getUser(String accountName, String password) {
+		return userRepository.findUserByUsernameAndPassword(accountName, password, entityManager);
+	}
+
 }

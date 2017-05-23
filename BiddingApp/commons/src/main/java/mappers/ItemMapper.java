@@ -7,6 +7,8 @@ public class ItemMapper {
 
 	public static ItemDTO mapToItemDTO(Item item) {
 		ItemDTO itemDTO = new ItemDTO();
+		itemDTO.setName(item.getName());
+		itemDTO.setDescription(item.getDescription());
 		itemDTO.setBestBid(item.getBestBid());
 		itemDTO.setBids(item.getBids());
 		itemDTO.setCategory(item.getCategory());
@@ -20,6 +22,8 @@ public class ItemMapper {
 
 	public static Item mapToItem(ItemDTO itemDTO) {
 		Item item = new Item();
+		item.setName(itemDTO.getName());
+		item.setDescription(item.getDescription());
 		item.setBestBid(itemDTO.getBestBid());
 		item.setBids(itemDTO.getBids());
 		item.setCategory(itemDTO.getCategory());

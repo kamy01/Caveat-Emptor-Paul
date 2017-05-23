@@ -10,6 +10,8 @@ public class ItemDTO implements Serializable {
 
 	private static final long serialVersionUID = -9132327261704187679L;
 
+	private String name;
+	private String description;
 	private Long id;
 	private Category category;
 	private Double initialPrice;
@@ -18,7 +20,7 @@ public class ItemDTO implements Serializable {
 	private Timestamp openingDate;
 	private Timestamp closingDate;
 	private String status;
-	private User creator;
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -68,13 +70,6 @@ public class ItemDTO implements Serializable {
 		this.status = status;
 	}
 
-	public User getCreator() {
-		return creator;
-	}
-
-	public void setCreator(User creator) {
-		this.creator = creator;
-	}
 
 	public Double getBestBid() {
 		return bestBid;
@@ -92,4 +87,27 @@ public class ItemDTO implements Serializable {
 		this.initialPrice = initialPrice;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

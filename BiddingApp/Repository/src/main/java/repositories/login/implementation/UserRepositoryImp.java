@@ -33,6 +33,15 @@ public class UserRepositoryImp implements UserRepository {
 	}
 
 	@Override
+	public User findUserByUsernameAndPassword(String accountName, String password, EntityManager entityManager) {
+		Query query = entityManager.createNamedQuery(User.FIND_BY_USERNAME_AND_PASSWORD);
+		query.setParameter("account", accountName);
+		query.setParameter("password", password);
+
+		return (User) query.getSingleResult();
+	}
+
+	@Override
 	public void verifyUsername(String accountName, EntityManager entityManager) throws UserException {
 
 		Query query = entityManager.createNamedQuery(User.FIND_BY_USERNAME);
