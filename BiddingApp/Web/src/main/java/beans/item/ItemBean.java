@@ -46,5 +46,7 @@ public class ItemBean {
 	public void setItemsDTO(List<ItemDTO> itemsDTO) {
 		this.itemsDTO = itemsDTO;
 	}
+	
+	
 
 }

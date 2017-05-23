@@ -6,17 +6,26 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+
+
 </h:head>
 <h:body>
 	<ui:composition>
-		<h1>JSF 2 dataTable example</h1>
-		<h:dataTable value="#{item.itemsDTO}" var="items"
-			styleClass="order-table table-hover" headerClass="order-table-header"
+
+		<h:dataTable id="table" value="#{item.itemsDTO}" var="items"
+			styleClass="table table-stripped table-bordered dataTable no-footer "
+			cellspacing="0" width="100%" role="grid" style="width: 100%;"
+			headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-even-row">
 			<h:column>
 				<f:facet name="header">Name</f:facet>
     				#{items.name}
     			</h:column>
+
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+			#{items.description}
+			</h:column>
 
 			<h:column>
 				<f:facet name="header">Categories</f:facet>
@@ -54,6 +63,14 @@
     			</h:column>
 
 		</h:dataTable>
+		<script>
+		$(document).ready(function() {
+		    $('#table').DataTable( {
+		        "order": [[ 4, "desc" ]]
+		    } );
+		console.log("BeenHere")} );
+		</script>
 	</ui:composition>
 </h:body>
+
 </html>

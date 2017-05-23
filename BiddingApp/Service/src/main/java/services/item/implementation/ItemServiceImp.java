@@ -32,7 +32,7 @@ public class ItemServiceImp implements ItemService {
 		for (Item item : items) {
 			ItemDTO itemDTO = ItemMapper.mapToItemDTO(item);
 			itemsDTO.add(itemDTO);
-		}             
+		}
 		return itemsDTO;
 	}
 
@@ -46,4 +46,23 @@ public class ItemServiceImp implements ItemService {
 		}
 		return itemsDTO;
 	}
+
+	@Override
+	public void removeItem(ItemDTO itemDTO) {
+		Item item = ItemMapper.mapToItem(itemDTO);
+		itemRepository.delete(item, entityManager);
+	}
+
+	@Override
+	public void editItem(ItemDTO itemDTO) {
+		Item item = ItemMapper.mapToItem(itemDTO);
+		itemRepository.update(item, entityManager);
+	}
+
+	@Override
+	public void addItem(ItemDTO itemDTO) {
+		Item item = ItemMapper.mapToItem(itemDTO);
+		itemRepository.create(item, entityManager);
+	}
+
 }
