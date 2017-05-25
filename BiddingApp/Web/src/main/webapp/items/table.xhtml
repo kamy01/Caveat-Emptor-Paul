@@ -11,65 +11,99 @@
 </h:head>
 <h:body>
 	<ui:composition>
+		<h:form id="form-table">
+			<h:dataTable id="table" value="#{item.itemsDTO}" var="itemDTO"
+				styleClass="table table-stripped table-bordered dataTable no-footer "
+				cellspacing="0" width="100%" role="grid" style="width: 100%;"
+				headerClass="order-table-header"
+				rowClasses="order-table-odd-row,order-table-even-row">
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+					<h:inputText class="form-control" value="#{itemDTO.name}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.name}"
+						rendered="#{not itemDTO.editable}" />
 
-		<h:dataTable id="table" value="#{item.itemsDTO}" var="items"
-			styleClass="table table-stripped table-bordered dataTable no-footer "
-			cellspacing="0" width="100%" role="grid" style="width: 100%;"
-			headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-even-row">
-			<h:column>
-				<f:facet name="header">Name</f:facet>
-    				#{items.name}
-    			</h:column>
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Description</f:facet>
-			#{items.description}
-			</h:column>
+				<h:column>
+					<f:facet name="header">Description</f:facet>
+					<h:inputText value="#{itemDTO.description}" size="15"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.description}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Categories</f:facet>
-    				#{items.category.text}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Categories</f:facet>
+					<h:inputText value="#{itemDTO.category.text}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.category.text}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Initial price</f:facet>
-    				#{items.initialPrice}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Initial price</f:facet>
+					<h:inputText value="#{itemDTO.initialPrice}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.initialPrice}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Best bid</f:facet>
-    				#{items.bestBid}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Best bid</f:facet>
+					<h:inputText value="#{itemDTO.bestBid}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.bestBid}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Bids</f:facet>
-    				#{items.bids}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Bids</f:facet>
+					<h:inputText value="#{itemDTO.bids}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.bids}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Opening Date</f:facet>
-    				#{items.openingDate}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Opening Date</f:facet>
+					<h:inputText value="#{itemDTO.openingDate}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.openingDate}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Closing Date</f:facet>
-    				#{items.closingDate}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Closing Date</f:facet>
+					<h:inputText value="#{itemDTO.closingDate}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.closingDate}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-			<h:column>
-				<f:facet name="header">Status</f:facet>
-    				#{items.status}
-    			</h:column>
+				<h:column>
+					<f:facet name="header">Status</f:facet>
+					<h:inputText value="#{itemDTO.status}" size="10"
+						rendered="#{itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.status}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
 
-		</h:dataTable>
+				<h:column>
+					<f:facet name="header">Action</f:facet>
+					<h:commandLink value="Edit" action="#{item.editAction(itemDTO)}"
+						rendered="#{not itemDTO.editable}" />
+				</h:column>
+
+			</h:dataTable>
+			<h:commandButton action="#{item.saveAction()}" value="Save Changes" />
+		</h:form>
 		<script>
-		$(document).ready(function() {
-		    $('#table').DataTable( {
-		        "order": [[ 4, "desc" ]]
-		    } );
-		console.log("BeenHere")} );
-		</script>
+	$(document).ready(function() {
+		$('#table').DataTable();
+	    } );
+	</script>
 	</ui:composition>
 </h:body>
 

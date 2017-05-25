@@ -7,6 +7,7 @@ public class ItemMapper {
 
 	public static ItemDTO mapToItemDTO(Item item) {
 		ItemDTO itemDTO = new ItemDTO();
+		itemDTO.setEditable(false);
 		itemDTO.setName(item.getName());
 		itemDTO.setDescription(item.getDescription());
 		itemDTO.setBestBid(item.getBestBid());

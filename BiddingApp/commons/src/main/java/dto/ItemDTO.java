@@ -21,6 +21,7 @@ public class ItemDTO implements Serializable {
 	private Timestamp closingDate;
 	private String status;
 	private User user;
+	private Boolean editable;
 
 	public Long getId() {
 		return id;
@@ -70,7 +71,6 @@ public class ItemDTO implements Serializable {
 		this.status = status;
 	}
 
-
 	public Double getBestBid() {
 		return bestBid;
 	}
@@ -109,5 +109,13 @@ public class ItemDTO implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Boolean getEditable() {
+		return editable;
+	}
+
+	public void setEditable(Boolean editable) {
+		this.editable = editable;
 	}
 }
