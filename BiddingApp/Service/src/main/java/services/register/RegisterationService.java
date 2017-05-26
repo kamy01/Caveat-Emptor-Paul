@@ -1,4 +1,4 @@
- package services.register.interfaces;
+ package services.register;
 
 import entities.login.User;
 import exceptions.user.UserException;

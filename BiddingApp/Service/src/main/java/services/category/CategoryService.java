@@ -1,4 +1,4 @@
-package services.category.interfaces;
+package services.category;
 
 import dto.CategoryDTO;
 

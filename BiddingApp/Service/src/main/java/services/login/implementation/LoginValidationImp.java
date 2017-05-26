@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import entities.login.User;
 import exceptions.user.UserException;
 import repositories.login.interfaces.UserRepository;
-import services.login.interfaces.LoginValidation;
+import services.login.LoginValidation;
 
 @Remote(LoginValidation.class)
 @Stateless

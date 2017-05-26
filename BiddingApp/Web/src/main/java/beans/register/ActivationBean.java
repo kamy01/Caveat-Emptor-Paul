@@ -10,7 +10,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import exceptions.user.UserException;
-import services.register.interfaces.ActivationService;
+import services.register.ActivationService;
 
 @ManagedBean(name = "activation")
 @RequestScoped

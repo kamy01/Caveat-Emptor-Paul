@@ -12,7 +12,7 @@ import dto.CategoryDTO;
 import entities.category.Category;
 import mappers.CategoryMapper;
 import repositories.category.interfaces.CategoryRepository;
-import services.category.interfaces.CategoryService;
+import services.category.CategoryService;
 
 @Remote(CategoryService.class)
 @Stateless

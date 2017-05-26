@@ -8,16 +8,17 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import dto.ItemDTO;
 import entities.login.User;
-import services.item.interfaces.ItemService;
+import services.item.ItemService;
+import utils.DateParser;
 
 @ManagedBean(name = "item")
-@RequestScoped
+@SessionScoped
 public class ItemBean {
 
 	@EJB
@@ -26,6 +27,8 @@ public class ItemBean {
 	private List<ItemDTO> itemsDTO;
 	@ManagedProperty(value = "#{login.user}")
 	private User user;
+	private String openingDate;
+	private String closingDate;
 
 	@PostConstruct
 	public void init() {
@@ -33,15 +36,25 @@ public class ItemBean {
 		setItemsDTO(itemService.getItemsForUser(user));
 	}
 
-	public void saveAction() throws IOException {
+	public void saveAction()  {
 		for (ItemDTO item : itemsDTO) {
 			if (item.getEditable() == true) {
+				item.setOpeningDate(DateParser.getTimestamp(openingDate, "YYYY-MM-DD hh:mm:ss"));
+				item.setClosingDate(DateParser.getTimestamp(closingDate, "YYYY-MM-DD hh:mm:ss"));
 				editItem(item);
 				item.setEditable(false);
 			}
 		}
+		refreshPage();
+
+	}
+
+	public void refreshPage()  {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		externalContext.redirect(externalContext.getRequestContextPath() + "/" + "items/items.xhtml");
+		try {
+			externalContext.redirect(externalContext.getRequestContextPath() + "/" + "items/items.xhtml");
+		} catch (IOException e) {
+		}
 	}
 
 	public void editAction(ItemDTO item) {
@@ -50,6 +63,7 @@ public class ItemBean {
 
 	public void removeItem(ItemDTO itemDTO) {
 		itemService.removeItem(itemDTO);
+		refreshPage();
 	}
 
 	public void editItem(ItemDTO itemDTO) {
@@ -74,6 +88,22 @@ public class ItemBean {
 
 	public void setItemsDTO(List<ItemDTO> itemsDTO) {
 		this.itemsDTO = itemsDTO;
+	}
+
+	public String getOpeningDate() {
+		return openingDate;
+	}
+
+	public void setOpeningDate(String openingDate) {
+		this.openingDate = openingDate;
+	}
+
+	public String getClosingDate() {
+		return closingDate;
+	}
+
+	public void setClosingDate(String closingDate) {
+		this.closingDate = closingDate;
 	}
 
 }

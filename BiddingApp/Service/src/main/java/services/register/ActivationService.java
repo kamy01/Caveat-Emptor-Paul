@@ -1,4 +1,4 @@
-package services.register.interfaces;
+package services.register;
 
 import exceptions.user.UserException;
 

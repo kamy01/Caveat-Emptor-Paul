@@ -1,4 +1,4 @@
-package services.login.interfaces;
+package services.login;
 
 import entities.login.User;
 import exceptions.user.UserException;

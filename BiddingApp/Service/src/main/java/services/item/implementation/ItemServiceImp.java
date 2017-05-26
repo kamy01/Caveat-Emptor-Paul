@@ -15,7 +15,7 @@ import entities.item.Item;
 import entities.login.User;
 import mappers.ItemMapper;
 import repositories.item.interfaces.ItemRepository;
-import services.item.interfaces.ItemService;
+import services.item.ItemService;
 
 @Remote(ItemService.class)
 @Stateless
@@ -50,7 +50,9 @@ public class ItemServiceImp implements ItemService {
 	@Override
 	public void removeItem(ItemDTO itemDTO) {
 		Item item = ItemMapper.mapToItem(itemDTO);
-		itemRepository.delete(item, entityManager);
+		Item mergedItem=entityManager.merge(item);
+		entityManager.remove(mergedItem);
+
 	}
 
 	@Override

@@ -23,7 +23,7 @@ import entities.register.Register;
 import exceptions.user.UserException;
 import repositories.login.interfaces.UserRepository;
 import repositories.register.interfaces.RegisterRepository;
-import services.register.interfaces.RegisterationService;
+import services.register.RegisterationService;
 
 @Remote(RegisterationService.class)
 @Stateless

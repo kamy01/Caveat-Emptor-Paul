@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 import entities.login.User;
 import exceptions.user.UserException;
-import services.register.interfaces.RegisterationService;
+import services.register.RegisterationService;
 
 @ManagedBean(name = "register")
 @RequestScoped

@@ -52,7 +52,12 @@
 			<scope>provided</scope>
 		</dependency>
 
-
+		<dependency>
+			<groupId>ro.fortech.bid</groupId>
+			<artifactId>commons</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
 
 	</dependencies>

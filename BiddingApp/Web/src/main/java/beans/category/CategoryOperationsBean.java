@@ -10,7 +10,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import dto.CategoryDTO;
-import services.category.interfaces.CategoryService;
+import services.category.CategoryService;
 
 @ManagedBean(name = "categoryOperations")
 @RequestScoped

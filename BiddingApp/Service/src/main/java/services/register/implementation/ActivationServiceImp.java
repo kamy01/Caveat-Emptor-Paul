@@ -11,7 +11,7 @@ import entities.register.Register;
 import exceptions.user.UserException;
 import repositories.login.interfaces.UserRepository;
 import repositories.register.interfaces.RegisterRepository;
-import services.register.interfaces.ActivationService;
+import services.register.ActivationService;
 
 @Remote(ActivationService.class)
 @Stateless

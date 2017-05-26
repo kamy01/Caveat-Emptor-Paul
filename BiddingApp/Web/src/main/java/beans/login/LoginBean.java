@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 
 import entities.login.User;
 import exceptions.user.UserException;
-import services.login.interfaces.LoginValidation;
+import services.login.LoginValidation;
 
 @ManagedBean(name = "login")
 @SessionScoped
