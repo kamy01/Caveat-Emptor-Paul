@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,14 +8,82 @@
 
 <h:head>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="modal.css" />
 </h:head>
 
 
 <h:body>
 	<ui:composition>
 
-		<h:form id="itemDefiningForm" style="width:100%">
+		<button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#exampleModal">Launch demo modal</button>
 
+		<div class="modal fade show" id="exampleModal" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+			style="width: 100%">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true" />
+						</button>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="modal-body">
+								<div class="form-group">
+									<div class="row justify-content-center">
+
+										<h:outputText value="Name" />
+
+										<h:inputText value="#{item.itemDTO.name}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row justify-content-center">
+										<div class="col-md-3">
+											<h:outputText value="Description" />
+										</div>
+										<h:inputText value="#{item.itemDTO.description}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row justify-content-center">
+										<div class="col-md-3">
+											<h:outputText value="Category" />
+										</div>
+										<h:inputText id="modalCategory" disabled="true" />
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row justify-content-center">
+										<div class="col-md-3">
+											<h:outputText value="Initial Price" />
+										</div>
+										<h:inputText value="#{item.itemDTO.initialPrice}" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<ui:include src="/item-category-tree.xhtml" />
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save
+								changes</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<h:form id="itemDefiningForm" style="width:100%">
 			<h:dataTable id="table" value="#{item.itemsDTO}" var="itemDTO"
 				styleClass="table table-stripped table-bordered dataTable no-footer "
 				cellspacing="0" width="100%" role="grid" style="width: 100%;"
@@ -73,39 +141,15 @@
 				</h:column>
 
 
-				<h:column>
-					<div class="form-group">
-						<f:facet name="header">Opening Date</f:facet>
-						<div class="input-group date">
-							<h:inputText class="form-control" id="openingDatePicker" />
-							<div class="input-group-addon">
-								<span class="typcn typcn-calendar" />
-							</div>
-						</div>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<h:inputText id="openingTimePicker" class="form-control"
-								value="#{itemDTO.openingDate}" />
-							<span class="input-group-addon"><i
-								class="typcn typcn-time"></i></span>
-						</div>
-						<script type="text/javascript">
-        					  			$('#itemDefiningForm\\:openingTimePicker').timepicker({
-            					  			icons: {
-                					  			up: 'typcn typcn-arrow-up',
-                					  			down: 'typcn typcn-arrow-down'
-                					  		}
-            					  		});
-        							</script>
-					</div>
 
+				<h:column>
+					<f:facet name="header">Opening Date</f:facet>
+					<h:outputText value="#{itemDTO.openingDate}" />
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">Closing Date</f:facet>
-					<h:inputText style="width:87%" value="#{item.closingDate}"
-						styleClass="form-control" rendered="#{itemDTO.editable}" />
-					<h:outputText value="#{itemDTO.closingDate}"
-						rendered="#{not itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.closingDate}" />
 				</h:column>
 
 				<h:column>
@@ -121,7 +165,7 @@
 					<h:commandButton styleClass="btn btn-info btn-block" value="Edit"
 						action="#{item.editAction(itemDTO)}"
 						rendered="#{not itemDTO.editable}" />
-					<h:commandButton styleClass="btn btn-info btn-block"
+					<h:commandButton styleClass="btn btn-success btn-block"
 						value="Save Changes" action="#{item.saveAction()}"
 						rendered="#{itemDTO.editable}" />
 				</h:column>
@@ -132,33 +176,23 @@
 						value="Abandon" action="#{item.removeItem(itemDTO)}" />
 				</h:column>
 			</h:dataTable>
-
-
+			<div class="row pt-4 justify-content-center">
+				<div class="col-md-2">
+					<button type="button" class="btn btn-info btn-block"
+						data-toggle="modal" data-target="#myModal">Add New Item</button>
+				</div>
+			</div>
+			<h:inputHidden id="hiddenOpeningDate" value="#{item.openingDate}" />
 			<script>
-	$(document).ready(function() {
-		$('#itemDefiningForm\\:table').DataTable();
-	    } );
-	$("#itemDefiningForm\\:openingDatePicker").datepicker({
-		format: 'dd/mm/yyyy'
-	});
-	
-	$("#itemDefiningForm\\:openingDatePicker").on('changeDate', function() {
-	    $('#itemDefiningForm\\:hiddenOpeningDate').val(
-	            $('#itemDefiningForm\\:openingDatePicker').datepicker('getFormattedDate')
-	        );
-	});
-	
-	$("#itemDefiningForm\\:closingDatePicker").datepicker({
-		format: 'dd/mm/yyyy'
-	});
-	
-	$("#itemDefiningForm\\:closingDatePicker").on('changeDate', function() {
-	    $('#itemDefiningForm\\:hiddenClosingDate').val(
-	            $('#itemDefiningForm\\:closingDatePicker').datepicker('getFormattedDate')
-	        );
-	});
+			$(document).ready(function() {
+				$('#itemDefiningForm\\:table').DataTable();
+		
+				$("itemDefiningForm\\:table\\:1\\:openingDatePicker").datepicker({
+					format: 'dd/mm/yyyy'
+				});
+			});
 
-
+			
 		</script>
 		</h:form>
 	</ui:composition>

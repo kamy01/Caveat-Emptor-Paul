@@ -23,10 +23,11 @@ public class ItemBean {
 
 	@EJB
 	private ItemService itemService;
-
 	private List<ItemDTO> itemsDTO;
+	
 	@ManagedProperty(value = "#{login.user}")
 	private User user;
+	private ItemDTO itemDTO;
 	private String openingDate;
 	private String closingDate;
 
@@ -39,8 +40,6 @@ public class ItemBean {
 	public void saveAction()  {
 		for (ItemDTO item : itemsDTO) {
 			if (item.getEditable() == true) {
-				item.setOpeningDate(DateParser.getTimestamp(openingDate, "YYYY-MM-DD hh:mm:ss"));
-				item.setClosingDate(DateParser.getTimestamp(closingDate, "YYYY-MM-DD hh:mm:ss"));
 				editItem(item);
 				item.setEditable(false);
 			}
@@ -70,7 +69,8 @@ public class ItemBean {
 		itemService.editItem(itemDTO);
 	}
 
-	public void addItem(ItemDTO itemDTO) {
+	public void addItem() {
+		itemDTO.setUser(user);
 		itemService.addItem(itemDTO);
 	}
 
@@ -104,6 +104,14 @@ public class ItemBean {
 
 	public void setClosingDate(String closingDate) {
 		this.closingDate = closingDate;
+	}
+
+	public ItemDTO getItemDTO() {
+		return itemDTO;
+	}
+
+	public void setItemDTO(ItemDTO itemDTO) {
+		this.itemDTO = itemDTO;
 	}
 
 }
