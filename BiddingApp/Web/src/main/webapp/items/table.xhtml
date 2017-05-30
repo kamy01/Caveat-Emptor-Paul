@@ -8,82 +8,151 @@
 
 <h:head>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	<h:outputStylesheet library="css" name="modal.css" />
 </h:head>
 
 
 <h:body>
 	<ui:composition>
 
-		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#exampleModal">Launch demo modal</button>
+		<h:form id="modalForm">
+			<div class="modal fade show" id="exampleModal" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+				style="width: 100%">
+				<div class="modal-dialog modal-lg" role="dialog">
+					<div class="modal-content">
 
-		<div class="modal fade show" id="exampleModal" tabindex="-1"
-			role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-			style="width: 100%">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true" />
-						</button>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<div class="modal-body">
-								<div class="form-group">
-									<div class="row justify-content-center">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true" />
+							</button>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="modal-body">
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<div class="col-md-3">
+												<h:outputText value="Name" />
+											</div>
+											<h:inputText value="#{item.itemDTO.name}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<div class="col-md-3">
+												<h:outputText value="Description" />
+											</div>
+											<h:inputText value="#{item.itemDTO.description}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<div class="col-md-3">
+												<h:outputText value="Category" />
+											</div>
+											<h:inputText id="modalCategory" disabled="true" />
+											<h:inputHidden value="#{item.itemDTO.category}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<div class="col-md-3">
+												<h:outputText value="Initial Price" />
+											</div>
+											<h:inputText value="#{item.itemDTO.initialPrice}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<h:outputText value="Opening date"
+												styleClass="control-label col-md-2" />
+										</div>
+										<div class="row justify-content-center">
+											<div class="input-group date">
+												<h:inputText class="form-control" id="openingDatePicker" />
+												<div class="input-group-addon">
+													<span class="typcn typcn-calendar" />
+												</div>
+											</div>
+										</div>
+										<div class="row justify-content-center">
+											<div class="input-group bootstrap-timepicker timepicker">
+												<h:inputText id="openingTimePicker" class="form-control"
+													value="#{item.openingDate}" />
+												<span class="input-group-addon"><i
+													class="typcn typcn-time"></i></span>
+											</div>
+											<script type="text/javascript">
+                 					   $('#modalForm\\:openingTimePicker').timepicker({
+                       					 icons: {
+                         				 up: 'typcn typcn-arrow-up',
+                         				 down: 'typcn typcn-arrow-down'
+                     				     }
+                  						    });
+              						  </script>
+										</div>
 
-										<h:outputText value="Name" />
+									</div>
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<h:outputText value="Closing date"
+												styleClass="control-label col-md-2" />
+										</div>
+										<div class="row justify-content-center">
+											<div class="input-group date">
+												<h:inputText class="form-control" id="closingDatePicker" />
+												<div class="input-group-addon">
+													<span class="typcn typcn-calendar" />
+												</div>
+											</div>
+										</div>
+										<div class="row justify-content-center">
+											<div class="input-group bootstrap-timepicker timepicker">
+												<h:inputText id="closingTimePicker" class="form-control"
+													value="#{item.closingDate}" />
+												<span class="input-group-addon"><i
+													class="typcn typcn-time"></i></span>
+											</div>
+											<script type="text/javascript">
+                 					   $('#modalForm\\:closingTimePicker').timepicker({
+                       					 icons: {
+                         				 up: 'typcn typcn-arrow-up',
+                         				 down: 'typcn typcn-arrow-down'
+                     				     }
+                  						    });
+              						  </script>
+										</div>
 
-										<h:inputText value="#{item.itemDTO.name}" />
 									</div>
-								</div>
-								<div class="form-group">
-									<div class="row justify-content-center">
-										<div class="col-md-3">
-											<h:outputText value="Description" />
+									<div class="form-group">
+										<div class="row justify-content-center">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<h:commandButton action="#{item.addItem}"
+												value="Save Changes" />
 										</div>
-										<h:inputText value="#{item.itemDTO.description}" />
+
 									</div>
 								</div>
-								<div class="form-group">
-									<div class="row justify-content-center">
-										<div class="col-md-3">
-											<h:outputText value="Category" />
-										</div>
-										<h:inputText id="modalCategory" disabled="true" />
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="row justify-content-center">
-										<div class="col-md-3">
-											<h:outputText value="Initial Price" />
-										</div>
-										<h:inputText value="#{item.itemDTO.initialPrice}" />
-									</div>
-								</div>
+
+
+							</div>
+							<div class="col-md-6">
+
+								<ui:include src="/items/item-category-tree.xhtml" />
+
 							</div>
 						</div>
-						<div class="col-md-6">
-							<ui:include src="/item-category-tree.xhtml" />
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save
-								changes</button>
-						</div>
-
 					</div>
 				</div>
 			</div>
-		</div>
+		</h:form>
 
 
 		<h:form id="itemDefiningForm" style="width:100%">
+
 			<h:dataTable id="table" value="#{item.itemsDTO}" var="itemDTO"
 				styleClass="table table-stripped table-bordered dataTable no-footer "
 				cellspacing="0" width="100%" role="grid" style="width: 100%;"
@@ -154,6 +223,21 @@
 
 				<h:column>
 					<f:facet name="header">Status</f:facet>
+					<label>Choose a status from this list: <input
+						list="browsers" name="myBrowser" /></label>
+					<datalist id="browsers">
+						<option value="OPEN"></option>
+						<option value="CLOSED"></option>
+						<option value="NOT YET OPEN"></option>
+						<option value="ABANDONED"></option>
+
+					</datalist>
+				</h:column>
+
+
+				<h:column>
+
+					<f:facet name="header">Status</f:facet>
 					<h:inputText style="width:87%" value="#{itemDTO.status}"
 						styleClass="form-control" rendered="#{itemDTO.editable}" />
 					<h:outputText value="#{itemDTO.status}"
@@ -176,25 +260,48 @@
 						value="Abandon" action="#{item.removeItem(itemDTO)}" />
 				</h:column>
 			</h:dataTable>
-			<div class="row pt-4 justify-content-center">
-				<div class="col-md-2">
-					<button type="button" class="btn btn-info btn-block"
-						data-toggle="modal" data-target="#myModal">Add New Item</button>
-				</div>
-			</div>
 			<h:inputHidden id="hiddenOpeningDate" value="#{item.openingDate}" />
+			<h:inputHidden id="hiddenClosingDate" value="#{item.closingDate}" />
+			<h:inputHidden id="hiddenCategory" value="#{item.categoryID}" />
+
+
+
 			<script>
 			$(document).ready(function() {
 				$('#itemDefiningForm\\:table').DataTable();
-		
-				$("itemDefiningForm\\:table\\:1\\:openingDatePicker").datepicker({
+			
+				$("#modalForm\\:openingDatePicker").datepicker({
 					format: 'dd/mm/yyyy'
 				});
+				
+				$("#modalForm\\:openingDatePicker").on('changeDate', function() {
+				    $('#modalForm\\:hiddenOpeningDate').val(
+				            $('#modalForm\\:openingDatePicker').datepicker('getFormattedDate')
+				        );
+				});
+				
+				$("#modalForm\\:closingDatePicker").datepicker({
+					format: 'dd/mm/yyyy'
+				});
+				
+				$("#modalForm\\:closingDatePicker").on('changeDate', function() {
+				    $('#modalForm\\:hiddenClosingDate').val(
+				            $('#modalForm\\:closingDatePicker').datepicker('getFormattedDate')
+				        );
+				});
 			});
+
+
 
 			
 		</script>
 		</h:form>
+		<div class="row pt-4 justify-content-center">
+			<div class="col-md-2">
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#exampleModal">Add New Item</button>
+			</div>
+		</div>
 	</ui:composition>
 
 </h:body>

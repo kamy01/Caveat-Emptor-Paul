@@ -12,6 +12,9 @@
 	<ui:composition>
 		<div class="container">
 			<div class="row pt-2">
+			
+			
+			
 				<div class="col-md-2" />
 				<div class="col-md-5">
 					<input type="text" class="form-control input-lg" id="searchField" />
@@ -63,28 +66,28 @@
 					</div>
 				</div>
 				<div class="row pt-2 justify-content-center">
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<h:commandButton id="addButton"
 							action="#{categoryOperations.addCategoryToDatabase}"
 							styleClass="btn btn-info btn-block" value="Create Child">
 							<f:ajax execute="@form" render="tree" onevent="getTree" />
 						</h:commandButton>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<h:commandButton styleClass="btn btn-info btn-block"
 							action="#{categoryOperations.addNewRootCategoryToDatabase}"
 							value="Create New">
 							<f:ajax execute="@form" render="tree" onevent="getTree" />
 						</h:commandButton>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<h:commandButton id="updateButton"
 							styleClass="btn btn-warning btn-block"
 							action="#{categoryOperations.updateCategory}" value="Update">
 							<f:ajax execute="@form" render="tree" onevent="getTree" />
 						</h:commandButton>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3">
 						<h:commandButton id="removeButton"
 							styleClass="btn btn-danger btn-block"
 							action="#{categoryOperations.removeCategoryFromDatabase}"

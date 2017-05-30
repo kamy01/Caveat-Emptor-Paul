@@ -15,7 +15,6 @@ import javax.faces.context.FacesContext;
 import dto.ItemDTO;
 import entities.login.User;
 import services.item.ItemService;
-import utils.DateParser;
 
 @ManagedBean(name = "item")
 @SessionScoped
@@ -30,9 +29,11 @@ public class ItemBean {
 	private ItemDTO itemDTO;
 	private String openingDate;
 	private String closingDate;
+	private Long categoryID;
 
 	@PostConstruct
 	public void init() {
+		itemDTO = new ItemDTO();
 		setItemsDTO(new ArrayList<>());
 		setItemsDTO(itemService.getItemsForUser(user));
 	}
@@ -71,7 +72,9 @@ public class ItemBean {
 
 	public void addItem() {
 		itemDTO.setUser(user);
-		itemService.addItem(itemDTO);
+		itemDTO.setBestBid(0.0);
+		itemDTO.setBids((long)0);
+
 	}
 
 	public User getUser() {
@@ -112,6 +115,14 @@ public class ItemBean {
 
 	public void setItemDTO(ItemDTO itemDTO) {
 		this.itemDTO = itemDTO;
+	}
+
+	public Long getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(Long categoryID) {
+		this.categoryID = categoryID;
 	}
 
 }
