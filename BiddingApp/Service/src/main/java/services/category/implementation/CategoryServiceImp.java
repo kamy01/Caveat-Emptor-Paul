@@ -75,4 +75,9 @@ public class CategoryServiceImp implements CategoryService {
 		}
 	}
 
+	@Override
+	public Category getCategoryById(Long id) {
+		return categoryRepository.read(id, entityManager);
+	}
+
 }

@@ -14,7 +14,9 @@ import javax.faces.context.FacesContext;
 
 import dto.ItemDTO;
 import entities.login.User;
+import services.category.CategoryService;
 import services.item.ItemService;
+import utils.DateParser;
 
 @ManagedBean(name = "item")
 @SessionScoped
@@ -22,13 +24,21 @@ public class ItemBean {
 
 	@EJB
 	private ItemService itemService;
+	@EJB
+	private CategoryService categoryService;
+
 	private List<ItemDTO> itemsDTO;
-	
+
 	@ManagedProperty(value = "#{login.user}")
 	private User user;
+
 	private ItemDTO itemDTO;
+
 	private String openingDate;
 	private String closingDate;
+
+	private String openingTime;
+	private String closingTime;
 	private Long categoryID;
 
 	@PostConstruct
@@ -38,18 +48,17 @@ public class ItemBean {
 		setItemsDTO(itemService.getItemsForUser(user));
 	}
 
-	public void saveAction()  {
+	public void saveAction() {
 		for (ItemDTO item : itemsDTO) {
 			if (item.getEditable() == true) {
-				editItem(item);
 				item.setEditable(false);
+				editItem(item);
 			}
 		}
 		refreshPage();
-
 	}
 
-	public void refreshPage()  {
+	public void refreshPage() {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			externalContext.redirect(externalContext.getRequestContextPath() + "/" + "items/items.xhtml");
@@ -64,6 +73,7 @@ public class ItemBean {
 	public void removeItem(ItemDTO itemDTO) {
 		itemService.removeItem(itemDTO);
 		refreshPage();
+		init();
 	}
 
 	public void editItem(ItemDTO itemDTO) {
@@ -71,10 +81,16 @@ public class ItemBean {
 	}
 
 	public void addItem() {
+		itemDTO.setCategory(categoryService.getCategoryById(categoryID));
 		itemDTO.setUser(user);
 		itemDTO.setBestBid(0.0);
-		itemDTO.setBids((long)0);
-
+		itemDTO.setBids((long) 0);
+		itemDTO.setOpeningDate(DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd HH:mm a"));
+		itemDTO.setClosingDate(DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd HH:mm a"));
+		itemDTO.setStatus("NOT YET OPEN");
+		itemService.addItem(itemDTO);
+		refreshPage();
+		init();
 	}
 
 	public User getUser() {
@@ -123,6 +139,22 @@ public class ItemBean {
 
 	public void setCategoryID(Long categoryID) {
 		this.categoryID = categoryID;
+	}
+
+	public String getOpeningTime() {
+		return openingTime;
+	}
+
+	public void setOpeningTime(String openingTime) {
+		this.openingTime = openingTime;
+	}
+
+	public String getClosingTime() {
+		return closingTime;
+	}
+
+	public void setClosingTime(String closingTime) {
+		this.closingTime = closingTime;
 	}
 
 }

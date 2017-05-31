@@ -1,6 +1,7 @@
 package services.category;
 
 import dto.CategoryDTO;
+import entities.category.Category;
 
 public interface CategoryService {
 	public String getRootAsJson();
@@ -12,4 +13,6 @@ public interface CategoryService {
 	public void addNewRootCategory(CategoryDTO categoryDTO);
 	
 	public void updateCategory(CategoryDTO categoryDTO);
+	
+	public Category getCategoryById(Long id);
 }

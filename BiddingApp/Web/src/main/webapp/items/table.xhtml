@@ -36,7 +36,12 @@
 											<div class="col-md-3">
 												<h:outputText value="Name" />
 											</div>
-											<h:inputText value="#{item.itemDTO.name}" />
+											<h:inputText class="input-lg" value="#{item.itemDTO.name}"
+												validatorMessage="Minimum 2 characters,Max 30">
+												<f:validateRegex pattern="^.{2,30}$"></f:validateRegex>
+											</h:inputText>
+
+
 										</div>
 									</div>
 									<div class="form-group">
@@ -44,7 +49,7 @@
 											<div class="col-md-3">
 												<h:outputText value="Description" />
 											</div>
-											<h:inputText value="#{item.itemDTO.description}" />
+											<h:inputText value="#{item.itemDTO.description}"/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -52,8 +57,11 @@
 											<div class="col-md-3">
 												<h:outputText value="Category" />
 											</div>
-											<h:inputText id="modalCategory" disabled="true" />
-											<h:inputHidden value="#{item.itemDTO.category}" />
+											<h:inputText id="modalCategory" disabled="true"
+												validatorMessage="Minimum 1 characters,Max 30">
+												<f:validateRegex pattern="^.{1,30}$"></f:validateRegex>
+											</h:inputText>
+											<h:inputHidden id="hiddenCategory" value="#{item.categoryID}" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -61,7 +69,11 @@
 											<div class="col-md-3">
 												<h:outputText value="Initial Price" />
 											</div>
-											<h:inputText value="#{item.itemDTO.initialPrice}" />
+											<h:inputText value="#{item.itemDTO.initialPrice}"
+												validatorMessage="Doubles only">
+												<f:validateDoubleRange minimum="0.00"
+													maximum="99999999999999.11" />
+											</h:inputText>
 										</div>
 									</div>
 									<div class="form-group">
@@ -70,17 +82,20 @@
 												styleClass="control-label col-md-2" />
 										</div>
 										<div class="row justify-content-center">
-											<div class="input-group date">
-												<h:inputText class="form-control" id="openingDatePicker" />
-												<div class="input-group-addon">
-													<span class="typcn typcn-calendar" />
-												</div>
+											<div class="input-group bootstrap-datepicker datepicker">
+												<h:inputText class="form-control" id="openingDatePicker"
+													value="#{item.openingDate}"
+													validatorMessage="Minimum 4 characters,Max 30">
+													<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
+												</h:inputText>
+												<span class="input-group-addon"><i
+													class="typcn typcn-calendar"></i> </span>
 											</div>
 										</div>
 										<div class="row justify-content-center">
 											<div class="input-group bootstrap-timepicker timepicker">
 												<h:inputText id="openingTimePicker" class="form-control"
-													value="#{item.openingDate}" />
+													value="#{item.openingTime}" />
 												<span class="input-group-addon"><i
 													class="typcn typcn-time"></i></span>
 											</div>
@@ -102,7 +117,11 @@
 										</div>
 										<div class="row justify-content-center">
 											<div class="input-group date">
-												<h:inputText class="form-control" id="closingDatePicker" />
+												<h:inputText class="form-control" id="closingDatePicker"
+													value="#{item.closingDate}"
+													validatorMessage="Minimum 4 characters,Max 30">
+													<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
+												</h:inputText>
 												<div class="input-group-addon">
 													<span class="typcn typcn-calendar" />
 												</div>
@@ -111,7 +130,7 @@
 										<div class="row justify-content-center">
 											<div class="input-group bootstrap-timepicker timepicker">
 												<h:inputText id="closingTimePicker" class="form-control"
-													value="#{item.closingDate}" />
+													value="#{item.closingTime}" />
 												<span class="input-group-addon"><i
 													class="typcn typcn-time"></i></span>
 											</div>
@@ -194,19 +213,12 @@
 
 				<h:column>
 					<f:facet name="header">Best bid</f:facet>
-					<h:inputText style="width:87%" value="#{itemDTO.bestBid}"
-						styleClass="form-control" rendered="#{itemDTO.editable}" />
-					<h:outputText value="#{itemDTO.bestBid}"
-						rendered="#{not itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.bestBid}" />
 				</h:column>
 
 				<h:column>
-
 					<f:facet name="header">Bids</f:facet>
-					<h:inputText style="width:87%" value="#{itemDTO.bids}"
-						styleClass="form-control" rendered="#{itemDTO.editable}" />
-					<h:outputText value="#{itemDTO.bids}"
-						rendered="#{not itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.bids}" />
 				</h:column>
 
 
@@ -223,23 +235,15 @@
 
 				<h:column>
 					<f:facet name="header">Status</f:facet>
-					<label>Choose a status from this list: <input
-						list="browsers" name="myBrowser" /></label>
-					<datalist id="browsers">
-						<option value="OPEN"></option>
-						<option value="CLOSED"></option>
-						<option value="NOT YET OPEN"></option>
-						<option value="ABANDONED"></option>
-
-					</datalist>
-				</h:column>
-
-
-				<h:column>
-
-					<f:facet name="header">Status</f:facet>
-					<h:inputText style="width:87%" value="#{itemDTO.status}"
-						styleClass="form-control" rendered="#{itemDTO.editable}" />
+					<div class="form-group">
+						<h:selectOneMenu id="status" rendered="#{itemDTO.editable}"
+							value="#{itemDTO.status}">
+							<f:selectItem itemValue="OPEN" itemLabel="OPEN" />
+							<f:selectItem itemValue="CLOSED" itemLabel="CLOSED" />
+							<f:selectItem itemValue="NOT YET OPEN" itemLabel="NOT YET OPEN" />
+							<f:selectItem itemValue="ABANDONED" itemLabel="ABANDONED" />
+						</h:selectOneMenu>
+					</div>
 					<h:outputText value="#{itemDTO.status}"
 						rendered="#{not itemDTO.editable}" />
 				</h:column>
@@ -250,7 +254,7 @@
 						action="#{item.editAction(itemDTO)}"
 						rendered="#{not itemDTO.editable}" />
 					<h:commandButton styleClass="btn btn-success btn-block"
-						value="Save Changes" action="#{item.saveAction()}"
+						value="Save Changes" action="#{item.saveAction}"
 						rendered="#{itemDTO.editable}" />
 				</h:column>
 
@@ -262,7 +266,7 @@
 			</h:dataTable>
 			<h:inputHidden id="hiddenOpeningDate" value="#{item.openingDate}" />
 			<h:inputHidden id="hiddenClosingDate" value="#{item.closingDate}" />
-			<h:inputHidden id="hiddenCategory" value="#{item.categoryID}" />
+
 
 
 
@@ -271,7 +275,7 @@
 				$('#itemDefiningForm\\:table').DataTable();
 			
 				$("#modalForm\\:openingDatePicker").datepicker({
-					format: 'dd/mm/yyyy'
+					format: 'yyyy/mm/dd'
 				});
 				
 				$("#modalForm\\:openingDatePicker").on('changeDate', function() {
@@ -281,7 +285,7 @@
 				});
 				
 				$("#modalForm\\:closingDatePicker").datepicker({
-					format: 'dd/mm/yyyy'
+					format: 'yyyy/mm/dd'
 				});
 				
 				$("#modalForm\\:closingDatePicker").on('changeDate', function() {
