@@ -15,12 +15,12 @@
 	<ui:composition>
 
 		<h:form id="modalForm">
-			<div class="modal fade show" id="exampleModal" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-				style="width: 100%">
-				<div class="modal-dialog modal-lg" role="dialog">
-					<div class="modal-content">
 
+			<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true"
+				style="width: 1000px; height: 720px; margin-left: 500px;">
+				<div class="modal-dialog modal-lg" role="dialog">
+					<div class="modal-content" style="height: 650px;">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
 							<button type="button" class="close" data-dismiss="modal"
@@ -30,17 +30,19 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<div class="modal-body">
+								<div class="modal-body" style="overflow-y: inherit;">
 									<div class="form-group">
 										<div class="row justify-content-center">
 											<div class="col-md-3">
 												<h:outputText value="Name" />
 											</div>
-											<h:inputText class="input-lg" value="#{item.itemDTO.name}"
-												validatorMessage="Minimum 2 characters,Max 30">
-												<f:validateRegex pattern="^.{2,30}$"></f:validateRegex>
-											</h:inputText>
-
+											<div class="col-md-9">
+												<h:inputText class="input-block-level"
+													value="#{item.itemDTO.name}"
+													validatorMessage="Name must have minimum 2 characters,max 30">
+													<f:validateRegex pattern="^.{2,30}$"></f:validateRegex>
+												</h:inputText>
+											</div>
 
 										</div>
 									</div>
@@ -49,7 +51,10 @@
 											<div class="col-md-3">
 												<h:outputText value="Description" />
 											</div>
-											<h:inputText value="#{item.itemDTO.description}"/>
+											<div class="col-md-9">
+												<h:inputText class="input-block-level"
+													value="#{item.itemDTO.description}" />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -57,11 +62,15 @@
 											<div class="col-md-3">
 												<h:outputText value="Category" />
 											</div>
-											<h:inputText id="modalCategory" disabled="true"
-												validatorMessage="Minimum 1 characters,Max 30">
-												<f:validateRegex pattern="^.{1,30}$"></f:validateRegex>
-											</h:inputText>
-											<h:inputHidden id="hiddenCategory" value="#{item.categoryID}" />
+											<div class="col-md-9">
+												<h:inputText id="modalCategory" disabled="true"
+													class="input-block-level"
+													validatorMessage="Category must have minimum 1 characters,max 30">
+													<f:validateRegex pattern="^.{1,30}$"></f:validateRegex>
+												</h:inputText>
+												<h:inputHidden id="hiddenCategory"
+													value="#{item.categoryID}" />
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -69,37 +78,46 @@
 											<div class="col-md-3">
 												<h:outputText value="Initial Price" />
 											</div>
-											<h:inputText value="#{item.itemDTO.initialPrice}"
-												validatorMessage="Doubles only">
-												<f:validateDoubleRange minimum="0.00"
-													maximum="99999999999999.11" />
-											</h:inputText>
+											<div class="col-md-9">
+												<h:inputText value="#{item.itemDTO.initialPrice}"
+													class="input-block-level"
+													validatorMessage="Positive doubles only">
+													<f:validateDoubleRange minimum="1.00"
+														maximum="99999999999999.11" />
+												</h:inputText>
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="row justify-content-center">
-											<h:outputText value="Opening date"
-												styleClass="control-label col-md-2" />
+											<div class="col-md-3">
+												<h:outputText value="Opening date"
+													styleClass="control-label" />
+											</div>
+											<div class="col-md-9">
+												<div class="input-group date">
+													<h:inputText class="input-block-level"
+														id="openingDatePicker" value="#{item.openingDate}"
+														validatorMessage="Please select an opening date.">
+														<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
+													</h:inputText>
+													<span class="input-group-addon"><i
+														class="typcn typcn-calendar"></i> </span>
+												</div>
+											</div>
+
 										</div>
 										<div class="row justify-content-center">
-											<div class="input-group bootstrap-datepicker datepicker">
-												<h:inputText class="form-control" id="openingDatePicker"
-													value="#{item.openingDate}"
-													validatorMessage="Minimum 4 characters,Max 30">
-													<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
-												</h:inputText>
-												<span class="input-group-addon"><i
-													class="typcn typcn-calendar"></i> </span>
-											</div>
-										</div>
-										<div class="row justify-content-center">
-											<div class="input-group bootstrap-timepicker timepicker">
-												<h:inputText id="openingTimePicker" class="form-control"
-													value="#{item.openingTime}" />
-												<span class="input-group-addon"><i
-													class="typcn typcn-time"></i></span>
-											</div>
-											<script type="text/javascript">
+											<div class="col-md-3" />
+											<div class="col-md-9">
+												<div class="input-group bootstrap-timepicker timepicker">
+													<h:inputText id="openingTimePicker"
+														class="input-block-level" value="#{item.openingTime}" />
+													<span class="input-group-addon"><i
+														class="typcn typcn-time"></i></span>
+												</div>
+
+												<script type="text/javascript">
                  					   $('#modalForm\\:openingTimePicker').timepicker({
                        					 icons: {
                          				 up: 'typcn typcn-arrow-up',
@@ -107,50 +125,63 @@
                      				     }
                   						    });
               						  </script>
+											</div>
 										</div>
-
 									</div>
+
 									<div class="form-group">
 										<div class="row justify-content-center">
-											<h:outputText value="Closing date"
-												styleClass="control-label col-md-2" />
-										</div>
-										<div class="row justify-content-center">
-											<div class="input-group date">
-												<h:inputText class="form-control" id="closingDatePicker"
-													value="#{item.closingDate}"
-													validatorMessage="Minimum 4 characters,Max 30">
-													<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
-												</h:inputText>
-												<div class="input-group-addon">
-													<span class="typcn typcn-calendar" />
+											<div class="col-md-3">
+												<h:outputText value="Closing date"
+													styleClass="control-label  " />
+											</div>
+
+											<div class="col-md-9">
+												<div class="input-group date">
+													<h:inputText class="input-block-level"
+														id="closingDatePicker" value="#{item.closingDate}"
+														validatorMessage="Please select a closing date.">
+														<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
+													</h:inputText>
+													<div class="input-group-addon">
+														<span class="typcn typcn-calendar" />
+													</div>
 												</div>
 											</div>
 										</div>
 										<div class="row justify-content-center">
-											<div class="input-group bootstrap-timepicker timepicker">
-												<h:inputText id="closingTimePicker" class="form-control"
-													value="#{item.closingTime}" />
-												<span class="input-group-addon"><i
-													class="typcn typcn-time"></i></span>
-											</div>
-											<script type="text/javascript">
+											<div class="col-md-3" />
+											<div class="col-md-9">
+												<div class="input-group bootstrap-timepicker timepicker">
+													<h:inputText id="closingTimePicker"
+														class="input-block-level" value="#{item.closingTime}" />
+													<span class="input-group-addon"><i
+														class="typcn typcn-time"></i></span>
+												</div>
+												<script type="text/javascript">
                  					   $('#modalForm\\:closingTimePicker').timepicker({
+                     
                        					 icons: {
                          				 up: 'typcn typcn-arrow-up',
                          				 down: 'typcn typcn-arrow-down'
                      				     }
                   						    });
               						  </script>
+											</div>
 										</div>
 
 									</div>
 									<div class="form-group">
-										<div class="row justify-content-center">
-											<button type="button" class="btn btn-secondary"
+										<div class="row">
+											<div class="col-md-4" />
+											<button type="button" class="btn btn-info"
 												data-dismiss="modal">Close</button>
+											<div class="col-md-1"></div>
 											<h:commandButton action="#{item.addItem}"
-												value="Save Changes" />
+												styleClass="btn btn-info" value="Save Item"
+												data-dismiss="modal">
+												<f:ajax execute="@form" render="@none" />
+											</h:commandButton>
 										</div>
 
 									</div>
@@ -158,12 +189,16 @@
 
 
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6" style="padding-right: 40px;">
 
 								<ui:include src="/items/item-category-tree.xhtml" />
 
 							</div>
 						</div>
+						<div class="row pt-2 justify-content-end">
+							<h:messages style="color:red;margin:12px;font-size:100%" />
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -171,7 +206,6 @@
 
 
 		<h:form id="itemDefiningForm" style="width:100%">
-
 			<h:dataTable id="table" value="#{item.itemsDTO}" var="itemDTO"
 				styleClass="table table-stripped table-bordered dataTable no-footer "
 				cellspacing="0" width="100%" role="grid" style="width: 100%;"
@@ -259,9 +293,9 @@
 				</h:column>
 
 				<h:column>
-					<f:facet name="header">Abandon</f:facet>
-					<h:commandButton styleClass="btn btn-info btn-block"
-						value="Abandon" action="#{item.removeItem(itemDTO)}" />
+					<f:facet name="header">Remove</f:facet>
+					<h:commandButton styleClass="btn btn-info btn-block" value="Remove"
+						action="#{item.removeItem(itemDTO)}" />
 				</h:column>
 			</h:dataTable>
 			<h:inputHidden id="hiddenOpeningDate" value="#{item.openingDate}" />

@@ -81,16 +81,20 @@ public class ItemBean {
 	}
 
 	public void addItem() {
-		itemDTO.setCategory(categoryService.getCategoryById(categoryID));
-		itemDTO.setUser(user);
-		itemDTO.setBestBid(0.0);
-		itemDTO.setBids((long) 0);
-		itemDTO.setOpeningDate(DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd HH:mm a"));
-		itemDTO.setClosingDate(DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd HH:mm a"));
-		itemDTO.setStatus("NOT YET OPEN");
-		itemService.addItem(itemDTO);
-		refreshPage();
-		init();
+/*		if (itemDTO.getName() != null && itemDTO.getInitialPrice() != null) {
+			itemDTO.setCategory(categoryService.getCategoryById(categoryID));
+			itemDTO.setUser(user);
+			itemDTO.setBestBid(0.0);
+
+			// itemDTO.setBids(bids);
+			itemDTO.setOpeningDate(DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd hh:mm a"));
+			itemDTO.setClosingDate(DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd hh:mm a"));
+			itemDTO.setStatus("NOT YET OPEN");
+			itemService.addItem(itemDTO);
+
+			refreshPage();
+			init();
+		}*/
 	}
 
 	public User getUser() {

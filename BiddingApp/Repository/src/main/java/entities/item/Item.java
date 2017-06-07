@@ -2,9 +2,11 @@ package entities.item;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import entities.bid.Bid;
 import entities.category.Category;
 import entities.login.User;
 
@@ -49,8 +53,9 @@ public class Item implements Serializable {
 	@Column(name = "best_bid")
 	private Double bestBid;
 
-	@Column
-	private Long bids;
+	@OneToMany( mappedBy = "item")
+	
+	private Set<Bid> bids;
 
 	@Column(name = "opening_date")
 	private Timestamp openingDate;
@@ -105,11 +110,11 @@ public class Item implements Serializable {
 		this.bestBid = bestBid;
 	}
 
-	public Long getBids() {
+	public Set<Bid> getBids() {
 		return bids;
 	}
 
-	public void setBids(Long bids) {
+	public void setBids(Set<Bid> bids) {
 		this.bids = bids;
 	}
 

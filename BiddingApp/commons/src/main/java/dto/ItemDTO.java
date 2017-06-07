@@ -2,6 +2,7 @@ package dto;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import entities.category.Category;
 import entities.login.User;
@@ -16,7 +17,7 @@ public class ItemDTO implements Serializable {
 	private Category category;
 	private Double initialPrice;
 	private Double bestBid;
-	private Long bids;
+	private Set<BidDTO> bids;
 	private Timestamp openingDate;
 	private Timestamp closingDate;
 	private String status;
@@ -39,13 +40,7 @@ public class ItemDTO implements Serializable {
 		this.category = category;
 	}
 
-	public Long getBids() {
-		return bids;
-	}
 
-	public void setBids(Long bids) {
-		this.bids = bids;
-	}
 
 	public Timestamp getOpeningDate() {
 		return openingDate;
@@ -117,5 +112,13 @@ public class ItemDTO implements Serializable {
 
 	public void setEditable(Boolean editable) {
 		this.editable = editable;
+	}
+
+	public Set<BidDTO> getBids() {
+		return bids;
+	}
+
+	public void setBids(Set<BidDTO> bids) {
+		this.bids = bids;
 	}
 }

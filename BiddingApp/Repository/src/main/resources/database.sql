@@ -16,6 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `bid`
+--
+
+DROP TABLE IF EXISTS `bid`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bid` (
+  `id` bigint(8) NOT NULL AUTO_INCREMENT,
+  `user` bigint(8) NOT NULL,
+  `value` double NOT NULL,
+  `item` bigint(8) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `user_id_idx` (`user`),
+  KEY `item_fk_idx` (`item`),
+  CONSTRAINT `item_fk` FOREIGN KEY (`item`) REFERENCES `item` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `user_fk` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bid`
+--
+
+LOCK TABLES `bid` WRITE;
+/*!40000 ALTER TABLE `bid` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bid` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `category`
 --
 
@@ -30,7 +60,7 @@ CREATE TABLE `category` (
   PRIMARY KEY (`id`),
   KEY `parent_id_idx` (`parent_id`),
   CONSTRAINT `parent_id` FOREIGN KEY (`parent_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +69,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'root','root',NULL),(2,'PC Components','pc\'s',1),(27,'Nvidia','video',2),(28,'AMD','video',2),(30,'I5 5670K','CPU',2),(35,'I5 577090','CPU',NULL),(39,'AMD','Central Processing Unit',2),(41,'FX-8350','Central Processing Unit',39),(42,'FX-8370','Central Processing Unit',39),(43,'GT 1060','video',27),(44,'RX 580','video',28),(60,'Headphones','',1),(61,'Steelseries','',60),(80,'Kingston','',60);
+INSERT INTO `category` VALUES (1,'root','root',NULL),(2,'PC Components','pc\'s',1),(27,'Nvidia','video',2),(28,'AMD','video',2),(102,'Razer','',1),(103,'Naga','',102),(109,'FX','video',28),(111,'Phenom','CPU',28);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,21 +82,20 @@ DROP TABLE IF EXISTS `item`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item` (
   `id` bigint(8) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(500) DEFAULT NULL,
   `category_id` bigint(8) NOT NULL,
-  `initial_price` bigint(8) NOT NULL,
-  `best_bid` bigint(8) NOT NULL,
-  `bids` bigint(8) NOT NULL,
-  `closing_date` date NOT NULL,
-  `opening_date` date NOT NULL,
+  `initial_price` double NOT NULL,
+  `best_bid` double NOT NULL,
+  `bids` bigint(8) DEFAULT NULL,
+  `closing_date` datetime NOT NULL,
+  `opening_date` datetime NOT NULL,
   `status` varchar(45) NOT NULL,
-  `winner_id` bigint(8) DEFAULT NULL,
-  `creator_id` bigint(8) NOT NULL,
+  `seller_id` bigint(8) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `winner_id_idx` (`winner_id`),
   KEY `category_id_idx` (`category_id`),
-  CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `winner_id` FOREIGN KEY (`winner_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,6 +104,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
+INSERT INTO `item` VALUES (15,'GTX 1080 TI','GPU',27,800,0,0,'2017-01-01 00:00:00','2017-01-23 00:00:00','NOT YET OPEN',58),(16,'FX-6350','CPU',109,200,0,0,'2020-01-11 00:00:00','3000-01-01 00:00:00','OPEN',58),(17,'FX-6370','CPU',2,32,0,0,'2017-01-24 00:00:00','2017-01-22 00:00:00','NOT YET OPEN',58),(29,'FX-6750','CPU',109,400,0,0,'2017-01-30 08:30:00','2017-01-27 08:30:00','NOT YET OPEN',58),(30,'FX-8350','CPU',109,324,0,0,'2017-01-30 08:30:00','2017-01-27 08:30:00','ABANDONED',58),(31,'FX-6350','CPU',102,200,0,NULL,'2017-01-04 15:00:00','2017-01-08 15:00:00','NOT YET OPEN',58),(32,'FX-6350','CPU',28,200,0,NULL,'2017-01-01 15:15:00','2017-01-29 15:15:00','NOT YET OPEN',58);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,4 +174,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-18 17:54:44
+-- Dump completed on 2017-06-07 18:20:24

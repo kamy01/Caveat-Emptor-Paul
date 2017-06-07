@@ -1,6 +1,8 @@
 package mappers;
 
+import dto.BidDTO;
 import dto.ItemDTO;
+import entities.bid.Bid;
 import entities.item.Item;
 
 public class ItemMapper {
@@ -12,7 +14,9 @@ public class ItemMapper {
 		itemDTO.setName(item.getName());
 		itemDTO.setDescription(item.getDescription());
 		itemDTO.setBestBid(item.getBestBid());
-		itemDTO.setBids(item.getBids());
+//		for (Bid bid : item.getBids()) {
+//		itemDTO.getBids().add(BidMapper.mapToBidDTO(bid));
+//		}
 		itemDTO.setCategory(item.getCategory());
 		itemDTO.setClosingDate(item.getClosingDate());
 		itemDTO.setId(item.getId());
@@ -28,7 +32,9 @@ public class ItemMapper {
 		item.setName(itemDTO.getName());
 		item.setDescription(itemDTO.getDescription());
 		item.setBestBid(itemDTO.getBestBid());
-		item.setBids(itemDTO.getBids());
+//		for (BidDTO bidDTO : itemDTO.getBids()) {
+//			item.getBids().add(BidMapper.mapToBid(bidDTO));
+//		}
 		item.setCategory(itemDTO.getCategory());
 		item.setClosingDate(itemDTO.getClosingDate());
 		item.setId(itemDTO.getId());

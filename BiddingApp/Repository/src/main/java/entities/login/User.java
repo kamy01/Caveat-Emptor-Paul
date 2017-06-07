@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import entities.bid.Bid;
 import entities.item.Item;
 
 @Entity
@@ -56,6 +57,9 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user")
 	private List<Item> items;
 
+	@OneToMany(mappedBy ="user")
+	private List<Bid> bids;
+	
 	public Long getId() {
 		return id;
 	}
