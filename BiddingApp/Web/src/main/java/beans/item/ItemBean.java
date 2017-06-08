@@ -33,13 +33,12 @@ public class ItemBean {
 	private User user;
 
 	private ItemDTO itemDTO;
-
+	private Long categoryID;
+	
 	private String openingDate;
 	private String closingDate;
-
 	private String openingTime;
 	private String closingTime;
-	private Long categoryID;
 
 	@PostConstruct
 	public void init() {
@@ -67,6 +66,7 @@ public class ItemBean {
 	}
 
 	public void editAction(ItemDTO item) {
+
 		item.setEditable(true);
 	}
 
@@ -92,11 +92,12 @@ public class ItemBean {
 			itemDTO.setStatus("NOT YET OPEN");
 			itemService.addItem(itemDTO);
 
-	
 			init();
 		}
 	}
-
+	public void notEditable(ItemDTO itemDTO){
+		itemDTO.setEditable(false);
+	}
 	public User getUser() {
 		return user;
 	}

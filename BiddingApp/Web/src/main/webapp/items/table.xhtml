@@ -180,6 +180,7 @@
 											<div class="col-md-1"></div>
 											<h:commandButton action="#{item.addItem}"
 												styleClass="btn btn-info" value="Save Item">
+
 											</h:commandButton>
 										</div>
 
@@ -206,6 +207,7 @@
 
 
 		<h:form id="itemDefiningForm" style="width:100%">
+
 			<h:dataTable id="table" value="#{item.itemsDTO}" var="itemDTO"
 				styleClass="table table-stripped table-bordered dataTable no-footer "
 				cellspacing="0" width="100%" role="grid" style="width: 100%;"
@@ -287,9 +289,9 @@
 					<h:commandButton styleClass="btn btn-info btn-block" value="Edit"
 						action="#{item.editAction(itemDTO)}"
 						rendered="#{not itemDTO.editable}" />
-					<h:commandButton styleClass="btn btn-success btn-block"
-						value="Save Changes" action="#{item.saveAction}"
-						rendered="#{itemDTO.editable}" />
+					<h:commandButton action="#{item.notEditable(itemDTO)}"
+						value="Close" rendered="#{itemDTO.editable}"
+						styleClass="btn btn-info btn-block" />
 				</h:column>
 
 				<h:column>
@@ -298,6 +300,12 @@
 						action="#{item.removeItem(itemDTO)}" />
 				</h:column>
 			</h:dataTable>
+			<div class="row  justify-content-center">
+				<div class="col-md-2">
+					<h:commandButton styleClass="btn btn-success btn-block"
+						value="Save Changes" action="#{item.saveAction}" />
+				</div>
+			</div>
 			<h:inputHidden id="hiddenOpeningDate" value="#{item.openingDate}" />
 			<h:inputHidden id="hiddenClosingDate" value="#{item.closingDate}" />
 
@@ -334,10 +342,11 @@
 			
 		</script>
 		</h:form>
-		<div class="row pt-4 justify-content-center">
+		<div class="row  justify-content-center">
 			<div class="col-md-2">
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#exampleModal">Add New Item</button>
+				<button type="button" class="btn btn-primary btn-block"
+					data-toggle="modal" data-target="#exampleModal">Add New
+					Item</button>
 			</div>
 		</div>
 	</ui:composition>
