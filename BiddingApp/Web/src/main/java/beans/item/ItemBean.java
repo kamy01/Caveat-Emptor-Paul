@@ -81,7 +81,7 @@ public class ItemBean {
 	}
 
 	public void addItem() {
-/*		if (itemDTO.getName() != null && itemDTO.getInitialPrice() != null) {
+		if (itemDTO.getName() != null && itemDTO.getInitialPrice() != null) {
 			itemDTO.setCategory(categoryService.getCategoryById(categoryID));
 			itemDTO.setUser(user);
 			itemDTO.setBestBid(0.0);
@@ -94,7 +94,7 @@ public class ItemBean {
 
 			refreshPage();
 			init();
-		}*/
+		}
 	}
 
 	public User getUser() {
