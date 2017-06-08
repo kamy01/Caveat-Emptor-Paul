@@ -28,7 +28,7 @@
 								<span aria-hidden="true" />
 							</button>
 						</div>
-						<div class="row">
+						<div class="row" style="height: 500px">
 							<div class="col-md-6">
 								<div class="modal-body" style="overflow-y: inherit;">
 									<div class="form-group">
@@ -176,11 +176,10 @@
 											<div class="col-md-4" />
 											<button type="button" class="btn btn-info"
 												data-dismiss="modal">Close</button>
+
 											<div class="col-md-1"></div>
 											<h:commandButton action="#{item.addItem}"
-												styleClass="btn btn-info" value="Save Item"
-												data-dismiss="modal">
-												<f:ajax execute="@form" render="@none" />
+												styleClass="btn btn-info" value="Save Item">
 											</h:commandButton>
 										</div>
 
@@ -195,7 +194,8 @@
 
 							</div>
 						</div>
-						<div class="row pt-2 justify-content-end">
+						<div class="row ">
+							<div class="col-md-1" />
 							<h:messages style="color:red;margin:12px;font-size:100%" />
 						</div>
 

@@ -92,7 +92,7 @@ public class ItemBean {
 			itemDTO.setStatus("NOT YET OPEN");
 			itemService.addItem(itemDTO);
 
-			refreshPage();
+	
 			init();
 		}
 	}
