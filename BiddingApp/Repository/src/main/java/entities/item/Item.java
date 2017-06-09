@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,10 +23,11 @@ import entities.login.User;
 @Entity
 @NamedQueries(value = { @NamedQuery(name = "findItemsByUser", query = "SELECT i FROM Item i WHERE i.user = :user"),
 		@NamedQuery(name = "findItemsByCateogry", query = "SELECT i FROM Item i WHERE i.category = :category") })
-
+@NamedQuery(name = "findItemsNotByUser", query = "SELECT i FROM Item i WHERE NOT i.user =:user")
 @Table(name = "item")
 
 public class Item implements Serializable {
+	public static final String FIND_ITEMS_NOT_BY_USER = "findItemsNotByUser";
 	public static final String FIND_ITEMS_BY_USER = "findItemsByUser";
 	public static final String FIND_ITEMS_BY_CATEGORY = "findItemsByCateogry";
 	public static final String GET_ALL_ITEMS = "Item.getAllItems";
@@ -53,8 +53,8 @@ public class Item implements Serializable {
 	@Column(name = "best_bid")
 	private Double bestBid;
 
-	@OneToMany( mappedBy = "item")
-	
+	@OneToMany(mappedBy = "item")
+
 	private Set<Bid> bids;
 
 	@Column(name = "opening_date")

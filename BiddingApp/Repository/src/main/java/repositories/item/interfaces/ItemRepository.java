@@ -18,8 +18,9 @@ public interface ItemRepository {
 
 	public void update(Item item, EntityManager entityManager);
 
-	public List<Item> findItemsByUser(User user , EntityManager entityManager);
-	
-	public List<Item> findItemsByCategory(Category category , EntityManager entityManager);
+	public List<Item> findItemsByUser(User user, EntityManager entityManager);
 
+	public List<Item> findItemsByCategory(Category category, EntityManager entityManager);
+
+	public List<Item> findItemsNotByUser(User user, EntityManager entityManager);
 }

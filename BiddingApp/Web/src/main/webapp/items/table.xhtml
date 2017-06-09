@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 
 <h:head>
@@ -204,15 +205,55 @@
 				</div>
 			</div>
 		</h:form>
+		<ui:insert>
+			<ui:include src="/items/buy-table.xhtml" />
+		</ui:insert>
+		<h:dataTable id="table" value="#{item.itemsToBuy}" var="itemDTO"
+			styleClass="table table-stripped table-bordered dataTable no-footer "
+			cellspacing="0" width="100%" role="grid" style="width: 100%;"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row"
+			rendered="#{item.tableTpye}">
 
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{itemDTO.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+				<h:outputText value="#{itemDTO.description}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Category</f:facet>
+				<h:outputText value="#{itemDTO.category.text}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">BestBid</f:facet>
+				<h:outputText value="#{itemDTO.bestBid}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">OpeningDate</f:facet>
+				<h:outputText value="#{itemDTO.openingDate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Closing Date</f:facet>
+				<h:outputText value="#{itemDTO.closingDate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Opening Date</f:facet>
+				<h:outputText value="#{itemDTO.status}" />
+			</h:column>
+
+		</h:dataTable>
 
 		<h:form id="itemDefiningForm" style="width:100%">
 
-			<h:dataTable id="table" value="#{item.itemsDTO}" var="itemDTO"
+			<h:dataTable id="table" value="#{item.itemsToSell}" var="itemDTO"
 				styleClass="table table-stripped table-bordered dataTable no-footer "
 				cellspacing="0" width="100%" role="grid" style="width: 100%;"
 				headerClass="order-table-header"
-				rowClasses="order-table-odd-row,order-table-even-row">
+				rowClasses="order-table-odd-row,order-table-even-row"
+				rendered="#{not item.tableTpye}">
 
 				<h:column>
 					<f:facet name="header">Name</f:facet>
@@ -232,7 +273,7 @@
 				</h:column>
 
 				<h:column>
-					<f:facet name="header">Categories</f:facet>
+					<f:facet name="header">Category</f:facet>
 					<h:inputText style="width:87%" value="#{itemDTO.category.text}"
 						styleClass="form-control" rendered="#{itemDTO.editable}" />
 					<h:outputText value="#{itemDTO.category.text}"
@@ -300,21 +341,41 @@
 						action="#{item.removeItem(itemDTO)}" />
 				</h:column>
 			</h:dataTable>
-			<div class="row  justify-content-center">
+			<div class="row">
 				<div class="col-md-2">
 					<h:commandButton styleClass="btn btn-success btn-block"
-						value="Save Changes" action="#{item.saveAction}" />
+						value="Save Changes" action="#{item.saveAction}"
+						rendered="#{not item.tableTpye}" />
+				</div>
+				<div class="col-md-2">
+					<h:commandButton id="buyItems"
+						styleClass="btn btn-success btn-block"
+						action="#{item.showBuyTable}" value="Buy Items"
+						rendered="#{not item.tableTpye}" />
+				</div>
+				<div class="col-md-2">
+					<h:commandButton type="button" id="myBtn"
+						styleClass="btn btn-primary btn-block" p:data-toggle="modal"
+						rendered="#{not item.tableTpye}" p:data-target="#exampleModal"
+						value="New Item">
+					</h:commandButton>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2">
+					<h:commandButton id="sellItems"
+						styleClass="btn btn-success btn-block"
+						action="#{item.showSellTable}" value="Sell Items"
+						onclick="hideButton()" rendered="#{ item.tableTpye}" />
 				</div>
 			</div>
 			<h:inputHidden id="hiddenOpeningDate" value="#{item.openingDate}" />
 			<h:inputHidden id="hiddenClosingDate" value="#{item.closingDate}" />
 
-
-
-
 			<script>
 			$(document).ready(function() {
 				$('#itemDefiningForm\\:table').DataTable();
+				$('#table').DataTable();
 			
 				$("#modalForm\\:openingDatePicker").datepicker({
 					format: 'yyyy/mm/dd'
@@ -332,23 +393,16 @@
 				
 				$("#modalForm\\:closingDatePicker").on('changeDate', function() {
 				    $('#modalForm\\:hiddenClosingDate').val(
-				            $('#modalForm\\:closingDatePicker').datepicker('getFormattedDate')
-				        );
-				});
+				    	$('#modalForm\\:closingDatePicker').datepicker('getFormattedDate')
+				    );
+				});	
+
 			});
-
-
-
+			
 			
 		</script>
 		</h:form>
-		<div class="row  justify-content-center">
-			<div class="col-md-2">
-				<button type="button" class="btn btn-primary btn-block"
-					data-toggle="modal" data-target="#exampleModal">Add New
-					Item</button>
-			</div>
-		</div>
+
 	</ui:composition>
 
 </h:body>

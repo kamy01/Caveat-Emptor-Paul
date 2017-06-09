@@ -26,8 +26,19 @@ public class ItemServiceImp implements ItemService {
 	EntityManager entityManager;
 
 	@Override
-	public List<ItemDTO> getItemsForUser(User user) {
+	public List<ItemDTO> getItemsToSell(User user) {
 		List<Item> items = itemRepository.findItemsByUser(user, entityManager);
+		List<ItemDTO> itemsDTO = new ArrayList<ItemDTO>();
+		for (Item item : items) {
+			ItemDTO itemDTO = ItemMapper.mapToItemDTO(item);
+			itemsDTO.add(itemDTO);
+		}
+		return itemsDTO;
+	}
+
+	@Override
+	public List<ItemDTO> getItemsToBuy(User user) {
+		List<Item> items = itemRepository.findItemsNotByUser(user, entityManager);
 		List<ItemDTO> itemsDTO = new ArrayList<ItemDTO>();
 		for (Item item : items) {
 			ItemDTO itemDTO = ItemMapper.mapToItemDTO(item);
@@ -50,7 +61,7 @@ public class ItemServiceImp implements ItemService {
 	@Override
 	public void removeItem(ItemDTO itemDTO) {
 		Item item = ItemMapper.mapToItem(itemDTO);
-		Item mergedItem=entityManager.merge(item);
+		Item mergedItem = entityManager.merge(item);
 		entityManager.remove(mergedItem);
 
 	}

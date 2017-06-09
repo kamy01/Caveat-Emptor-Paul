@@ -1,7 +1,6 @@
 package beans.item;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -27,14 +26,16 @@ public class ItemBean {
 	@EJB
 	private CategoryService categoryService;
 
-	private List<ItemDTO> itemsDTO;
-
 	@ManagedProperty(value = "#{login.user}")
 	private User user;
 
+	private List<ItemDTO> itemsToBuy;
+	private List<ItemDTO> itemsToSell;
+
 	private ItemDTO itemDTO;
 	private Long categoryID;
-	
+
+	private Boolean tableType;
 	private String openingDate;
 	private String closingDate;
 	private String openingTime;
@@ -43,12 +44,12 @@ public class ItemBean {
 	@PostConstruct
 	public void init() {
 		itemDTO = new ItemDTO();
-		setItemsDTO(new ArrayList<>());
-		setItemsDTO(itemService.getItemsForUser(user));
+		setItemsToBuy(itemService.getItemsToBuy(user));
+		setItemsToSell(itemService.getItemsToSell(user));
 	}
 
 	public void saveAction() {
-		for (ItemDTO item : itemsDTO) {
+		for (ItemDTO item : itemsToSell) {
 			if (item.getEditable() == true) {
 				item.setEditable(false);
 				editItem(item);
@@ -85,8 +86,6 @@ public class ItemBean {
 			itemDTO.setCategory(categoryService.getCategoryById(categoryID));
 			itemDTO.setUser(user);
 			itemDTO.setBestBid(0.0);
-
-			// itemDTO.setBids(bids);
 			itemDTO.setOpeningDate(DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd hh:mm a"));
 			itemDTO.setClosingDate(DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd hh:mm a"));
 			itemDTO.setStatus("NOT YET OPEN");
@@ -95,23 +94,25 @@ public class ItemBean {
 			init();
 		}
 	}
-	public void notEditable(ItemDTO itemDTO){
+
+	public void notEditable(ItemDTO itemDTO) {
 		itemDTO.setEditable(false);
 	}
+
+	public void showSellTable() {
+		setTableTpye(false);
+	}
+
+	public void showBuyTable() {
+		setTableTpye(true);
+	}
+
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<ItemDTO> getItemsDTO() {
-		return itemsDTO;
-	}
-
-	public void setItemsDTO(List<ItemDTO> itemsDTO) {
-		this.itemsDTO = itemsDTO;
 	}
 
 	public String getOpeningDate() {
@@ -154,12 +155,36 @@ public class ItemBean {
 		this.openingTime = openingTime;
 	}
 
+	public List<ItemDTO> getItemsToBuy() {
+		return itemsToBuy;
+	}
+
+	public void setItemsToBuy(List<ItemDTO> itemsToBuy) {
+		this.itemsToBuy = itemsToBuy;
+	}
+
+	public List<ItemDTO> getItemsToSell() {
+		return itemsToSell;
+	}
+
+	public void setItemsToSell(List<ItemDTO> itemsToSell) {
+		this.itemsToSell = itemsToSell;
+	}
+
 	public String getClosingTime() {
 		return closingTime;
 	}
 
 	public void setClosingTime(String closingTime) {
 		this.closingTime = closingTime;
+	}
+
+	public Boolean getTableTpye() {
+		return tableType;
+	}
+
+	public void setTableTpye(Boolean tableTpye) {
+		this.tableType = tableTpye;
 	}
 
 }

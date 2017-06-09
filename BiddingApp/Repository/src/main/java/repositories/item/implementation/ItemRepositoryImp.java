@@ -40,16 +40,21 @@ public class ItemRepositoryImp implements ItemRepository {
 	public List<Item> findItemsByUser(User user, EntityManager entityManager) {
 		Query query = entityManager.createNamedQuery(Item.FIND_ITEMS_BY_USER);
 		query.setParameter("user", user);
-		List<Item> list = (List<Item>) query.getResultList();
-		return list;
+		return (List<Item>) query.getResultList();
 	}
 
 	@Override
 	public List<Item> findItemsByCategory(Category category, EntityManager entityManager) {
 		Query query = entityManager.createNamedQuery(Item.FIND_ITEMS_BY_CATEGORY);
 		query.setParameter("category", category);
-		List<Item> list = (List<Item>) query.getResultList();
-		return list;
+		return (List<Item>) query.getResultList();
+	}
+
+	@Override
+	public List<Item> findItemsNotByUser(User user, EntityManager entityManager) {
+		Query query = entityManager.createNamedQuery(Item.FIND_ITEMS_NOT_BY_USER);
+		query.setParameter("user", user);
+		return (List<Item>) query.getResultList();
 	}
 
 }
