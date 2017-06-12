@@ -14,9 +14,11 @@ public class ItemMapper {
 		itemDTO.setName(item.getName());
 		itemDTO.setDescription(item.getDescription());
 		itemDTO.setBestBid(item.getBestBid());
-//		for (Bid bid : item.getBids()) {
-//		itemDTO.getBids().add(BidMapper.mapToBidDTO(bid));
-//		}
+		if (item.getBids() != null) {
+			for (Bid bid : item.getBids()) {
+				itemDTO.getBids().add(BidMapper.mapToBidDTO(bid));
+			}
+		}
 		itemDTO.setCategory(item.getCategory());
 		itemDTO.setClosingDate(item.getClosingDate());
 		itemDTO.setId(item.getId());
@@ -32,9 +34,11 @@ public class ItemMapper {
 		item.setName(itemDTO.getName());
 		item.setDescription(itemDTO.getDescription());
 		item.setBestBid(itemDTO.getBestBid());
-//		for (BidDTO bidDTO : itemDTO.getBids()) {
-//			item.getBids().add(BidMapper.mapToBid(bidDTO));
-//		}
+		if (itemDTO.getBids() != null) {
+			for (BidDTO bidDTO : itemDTO.getBids()) {
+				item.getBids().add(BidMapper.mapToBid(bidDTO));
+			}
+		}
 		item.setCategory(itemDTO.getCategory());
 		item.setClosingDate(itemDTO.getClosingDate());
 		item.setId(itemDTO.getId());

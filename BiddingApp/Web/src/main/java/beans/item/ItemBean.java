@@ -1,6 +1,7 @@
 package beans.item;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +15,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
+import constants.ItemStatus;
 import dto.ItemDTO;
 import entities.login.User;
 import services.category.CategoryService;
@@ -79,8 +81,14 @@ public class ItemBean {
 	}
 
 	public void editAction(ItemDTO item) {
-
 		item.setEditable(true);
+	}
+
+	public Boolean statusCheck(ItemDTO item) {
+		if (item.getStatus().equals(ItemStatus.CLOSED)) {
+			return true;
+		}
+		return false;
 	}
 
 	public void removeItem(ItemDTO itemDTO) {
@@ -95,12 +103,14 @@ public class ItemBean {
 
 	public void addItem() {
 		if (itemDTO.getName() != null && itemDTO.getInitialPrice() != null) {
+			
 			itemDTO.setCategory(categoryService.getCategoryById(categoryID));
 			itemDTO.setUser(user);
+
 			itemDTO.setBestBid(0.0);
 			itemDTO.setOpeningDate(DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd hh:mm a"));
 			itemDTO.setClosingDate(DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd hh:mm a"));
-			itemDTO.setStatus("NOT YET OPEN");
+			itemDTO.setStatus(generateStatus());
 			itemService.addItem(itemDTO);
 
 			init();
@@ -108,20 +118,33 @@ public class ItemBean {
 	}
 
 	public void validatePrice(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-Double 	initialPrice = (Double) value;	
+		Double initialPrice = (Double) value;
 		if (initialPrice == null || initialPrice <= 1) {
 			FacesMessage facesMessage = new FacesMessage("Initial price must be greater than or equal to 1$.");
 			throw new ValidatorException(facesMessage);
 		}
 
 	}
-	
-	public void validateCateogry (FacesContext context , UIComponent component , Object value ) throws ValidatorException{
-		Long categoryID= (Long) value;
-		if(categoryID == null){
+
+	public void validateCateogry(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		Long categoryID = (Long) value;
+		if (categoryID == null) {
 			FacesMessage facesMessage = new FacesMessage("Please select a category.");
 			throw new ValidatorException(facesMessage);
 		}
+	}
+
+	public String generateStatus() {
+		Timestamp opening = (DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd hh:mm a"));
+		Timestamp closing = (DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd hh:mm a"));
+		if(opening.after(closing)){
+			return ItemStatus.CLOSED;
+		}
+		if(!opening.after(closing))
+		{
+			return ItemStatus.OPEN;
+		}
+		return ItemStatus.NOT_YET_OPEN;
 	}
 
 	public void notEditable(ItemDTO itemDTO) {

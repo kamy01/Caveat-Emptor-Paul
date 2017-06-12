@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import entities.login.User;
 import entities.register.Register;
 import exceptions.user.UserException;
 import repositories.register.interfaces.RegisterRepository;
