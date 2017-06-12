@@ -19,9 +19,9 @@
 
 			<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true"
-				style="width: 1000px; height: 720px; margin-left: 500px;">
+				style="width: 1000px; height: 750px; margin-left: 500px;">
 				<div class="modal-dialog modal-lg" role="dialog">
-					<div class="modal-content" style="height: 650px;">
+					<div class="modal-content" style="height: 680px;">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
 							<button type="button" class="close" data-dismiss="modal"
@@ -64,13 +64,12 @@
 												<h:outputText value="Category" />
 											</div>
 											<div class="col-md-9">
-												<h:inputText id="modalCategory" disabled="true"
+												<h:inputText id="modalCategory" readonly="true"
 													class="input-block-level"
-													validatorMessage="Category must have minimum 1 characters,max 30">
-													<f:validateRegex pattern="^.{1,30}$"></f:validateRegex>
+													>
 												</h:inputText>
 												<h:inputHidden id="hiddenCategory"
-													value="#{item.categoryID}" />
+													value="#{item.categoryID}" validator="#{item.validateCateogry}" />
 											</div>
 										</div>
 									</div>
@@ -81,10 +80,7 @@
 											</div>
 											<div class="col-md-9">
 												<h:inputText value="#{item.itemDTO.initialPrice}"
-													class="input-block-level"
-													validatorMessage="Positive doubles only">
-													<f:validateDoubleRange minimum="1.00"
-														maximum="99999999999999.11" />
+													class="input-block-level" validator="#{item.validatePrice}">
 												</h:inputText>
 											</div>
 										</div>
@@ -396,6 +392,7 @@
 				    	$('#modalForm\\:closingDatePicker').datepicker('getFormattedDate')
 				    );
 				});	
+
 
 			});
 			

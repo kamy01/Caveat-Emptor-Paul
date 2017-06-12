@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import dto.ItemDTO;
 import entities.login.User;
@@ -35,11 +38,20 @@ public class ItemBean {
 	private ItemDTO itemDTO;
 	private Long categoryID;
 
+	private Double initialPrice;
 	private Boolean tableType;
 	private String openingDate;
 	private String closingDate;
 	private String openingTime;
 	private String closingTime;
+
+	public Double getPrice() {
+		return initialPrice;
+	}
+
+	public void setPrice(Double initialPrice) {
+		this.initialPrice = initialPrice;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -92,6 +104,23 @@ public class ItemBean {
 			itemService.addItem(itemDTO);
 
 			init();
+		}
+	}
+
+	public void validatePrice(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+Double 	initialPrice = (Double) value;	
+		if (initialPrice == null || initialPrice <= 1) {
+			FacesMessage facesMessage = new FacesMessage("Initial price must be greater than or equal to 1$.");
+			throw new ValidatorException(facesMessage);
+		}
+
+	}
+	
+	public void validateCateogry (FacesContext context , UIComponent component , Object value ) throws ValidatorException{
+		Long categoryID= (Long) value;
+		if(categoryID == null){
+			FacesMessage facesMessage = new FacesMessage("Please select a category.");
+			throw new ValidatorException(facesMessage);
 		}
 	}
 
