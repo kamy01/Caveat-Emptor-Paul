@@ -19,9 +19,9 @@
 
 			<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
 				aria-labelledby="exampleModalLabel" aria-hidden="true"
-				style="width: 1000px; height: 720px; margin-left: 500px;">
+				style="width: 1000px; height: 750px; margin-left: 500px;">
 				<div class="modal-dialog modal-lg" role="dialog">
-					<div class="modal-content" style="height: 650px;">
+					<div class="modal-content" style="height: 680px;" id="modalContent">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
 							<button type="button" class="close" data-dismiss="modal"
@@ -64,13 +64,12 @@
 												<h:outputText value="Category" />
 											</div>
 											<div class="col-md-9">
-												<h:inputText id="modalCategory" disabled="true"
-													class="input-block-level"
-													validatorMessage="Category must have minimum 1 characters,max 30">
-													<f:validateRegex pattern="^.{1,30}$"></f:validateRegex>
+												<h:inputText id="modalCategory" readonly="true"
+													class="input-block-level">
 												</h:inputText>
 												<h:inputHidden id="hiddenCategory"
-													value="#{item.categoryID}" />
+													value="#{item.categoryID}"
+													validator="#{item.validateCateogry}" />
 											</div>
 										</div>
 									</div>
@@ -81,10 +80,7 @@
 											</div>
 											<div class="col-md-9">
 												<h:inputText value="#{item.itemDTO.initialPrice}"
-													class="input-block-level"
-													validatorMessage="Positive doubles only">
-													<f:validateDoubleRange minimum="1.00"
-														maximum="99999999999999.11" />
+													class="input-block-level" validator="#{item.validatePrice}">
 												</h:inputText>
 											</div>
 										</div>
@@ -174,15 +170,16 @@
 									</div>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-md-4" />
-											<button type="button" class="btn btn-info"
-												data-dismiss="modal">Close</button>
-
-											<div class="col-md-1"></div>
-											<h:commandButton action="#{item.addItem}"
-												styleClass="btn btn-info" value="Save Item">
-
-											</h:commandButton>
+											<div class="col-md-3" />
+											<div class="col-md-3">
+												<button type="button" class="btn btn-info"
+													data-dismiss="modal">Close</button>
+											</div>
+											<div class="col-md-3">
+												<h:commandButton action="#{item.addItem}"
+													styleClass="btn btn-info" value="Save Item">
+												</h:commandButton>
+											</div>
 										</div>
 
 									</div>
@@ -191,9 +188,7 @@
 
 							</div>
 							<div class="col-md-6" style="padding-right: 40px;">
-
 								<ui:include src="/items/item-category-tree.xhtml" />
-
 							</div>
 						</div>
 						<div class="row ">
@@ -295,7 +290,7 @@
 
 				<h:column>
 					<f:facet name="header">Bids</f:facet>
-					<h:outputText value="#{itemDTO.bids}" />
+					<h:outputText value="#{itemDTO.bids.size()}" />
 				</h:column>
 
 
@@ -329,16 +324,11 @@
 					<f:facet name="header">Edit</f:facet>
 					<h:commandButton styleClass="btn btn-info btn-block" value="Edit"
 						action="#{item.editAction(itemDTO)}"
-						rendered="#{not itemDTO.editable}" />
+						rendered="#{not itemDTO.editable}"
+						disabled="#{item.statusCheck(itemDTO)}" />
 					<h:commandButton action="#{item.notEditable(itemDTO)}"
 						value="Close" rendered="#{itemDTO.editable}"
 						styleClass="btn btn-info btn-block" />
-				</h:column>
-
-				<h:column>
-					<f:facet name="header">Remove</f:facet>
-					<h:commandButton styleClass="btn btn-info btn-block" value="Remove"
-						action="#{item.removeItem(itemDTO)}" />
 				</h:column>
 			</h:dataTable>
 			<div class="row">
@@ -396,6 +386,7 @@
 				    	$('#modalForm\\:closingDatePicker').datepicker('getFormattedDate')
 				    );
 				});	
+
 
 			});
 			

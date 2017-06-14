@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,8 +55,7 @@ public class Item implements Serializable {
 	@Column(name = "best_bid")
 	private Double bestBid;
 
-	@OneToMany(mappedBy = "item")
-
+	@OneToMany(mappedBy = "item", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Bid> bids;
 
 	@Column(name = "opening_date")

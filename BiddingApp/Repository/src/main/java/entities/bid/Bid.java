@@ -26,14 +26,14 @@ public class Bid implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "user")
 	private User user;
 
 	@Column
 	private Long value;
-	
+
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "item")
 	private Item item;
 
 	public Long getId() {
