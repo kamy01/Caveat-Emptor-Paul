@@ -1,10 +1,14 @@
 package repositories.category.implementation;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import entities.category.Category;
+import entities.item.Item;
 import repositories.category.interfaces.CategoryRepository;
 
 @Remote(CategoryRepository.class)
@@ -28,10 +32,9 @@ public class CategoryRepositoryImp implements CategoryRepository {
 
 	@Override
 	public void add(Category category, EntityManager entityManager) {
-		if(category.getId()!=null){
+		if (category.getId() != null) {
 			update(category, entityManager);
-		}
-		else{
+		} else {
 			create(category, entityManager);
 		}
 	}

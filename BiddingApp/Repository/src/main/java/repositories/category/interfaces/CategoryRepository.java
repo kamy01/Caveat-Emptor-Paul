@@ -1,5 +1,7 @@
 package repositories.category.interfaces;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import entities.category.Category;
@@ -15,4 +17,6 @@ public interface CategoryRepository {
 	public void delete(Category category, EntityManager entityManager);
 
 	public void update(Category category, EntityManager entityManager);
+	
+
 }

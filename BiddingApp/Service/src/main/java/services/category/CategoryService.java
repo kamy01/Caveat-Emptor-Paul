@@ -1,5 +1,7 @@
 package services.category;
 
+import java.util.List;
+
 import dto.CategoryDTO;
 import entities.category.Category;
 
@@ -11,8 +13,10 @@ public interface CategoryService {
 	public void removeCategory(CategoryDTO categoryDTO);
 
 	public void addNewRootCategory(CategoryDTO categoryDTO);
-	
+
 	public void updateCategory(CategoryDTO categoryDTO);
-	
+
+	public List<CategoryDTO> getCategories();
+
 	public Category getCategoryById(Long id);
 }

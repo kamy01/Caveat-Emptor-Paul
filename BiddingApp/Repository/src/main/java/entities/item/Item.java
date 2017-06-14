@@ -32,7 +32,7 @@ public class Item implements Serializable {
 	public static final String FIND_ITEMS_NOT_BY_USER = "findItemsNotByUser";
 	public static final String FIND_ITEMS_BY_USER = "findItemsByUser";
 	public static final String FIND_ITEMS_BY_CATEGORY = "findItemsByCateogry";
-	public static final String GET_ALL_ITEMS = "Item.getAllItems";
+	//public static final String GET_ALL_ITEMS = "Item.getAllItems";
 	private static final long serialVersionUID = -3319507180659185256L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -10,15 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
+@NamedQuery(name = "findAllCategories", query = "SELECT c FROM Category c")
+
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = -7292387890182752486L;
-
+	public static final String FIND_ALL_CATEGORIES = "findAllCategories";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column

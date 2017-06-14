@@ -254,7 +254,7 @@
 					<f:facet name="header">Name</f:facet>
 					<h:inputText style="width:87%" class="form-control"
 						value="#{itemDTO.name}" styleClass="form-control"
-						rendered="#{itemDTO.editable}" />
+						rendered="#{itemDTO.editable}" validator="#{item.validateName}" />
 					<h:outputText value="#{itemDTO.name}"
 						rendered="#{not itemDTO.editable}" />
 				</h:column>
@@ -269,10 +269,7 @@
 
 				<h:column>
 					<f:facet name="header">Category</f:facet>
-					<h:inputText style="width:87%" value="#{itemDTO.category.text}"
-						styleClass="form-control" rendered="#{itemDTO.editable}" />
-					<h:outputText value="#{itemDTO.category.text}"
-						rendered="#{not itemDTO.editable}" />
+					<h:outputText value="#{itemDTO.category.text}" />
 				</h:column>
 
 				<h:column>
@@ -307,7 +304,8 @@
 
 				<h:column>
 					<f:facet name="header">Status</f:facet>
-					<div class="form-group">
+					<div class="form-group" style="width: 30%">
+
 						<h:selectOneMenu id="status" rendered="#{itemDTO.editable}"
 							value="#{itemDTO.status}">
 							<f:selectItem itemValue="OPEN" itemLabel="OPEN" />
@@ -325,10 +323,14 @@
 					<h:commandButton styleClass="btn btn-info btn-block" value="Edit"
 						action="#{item.editAction(itemDTO)}"
 						rendered="#{not itemDTO.editable}"
-						disabled="#{item.statusCheck(itemDTO)}" />
+						disabled="#{item.statusCheck(itemDTO)}">
+						<f:ajax execute="@form" render="itemDefiningForm" />
+					</h:commandButton>
 					<h:commandButton action="#{item.notEditable(itemDTO)}"
 						value="Close" rendered="#{itemDTO.editable}"
-						styleClass="btn btn-info btn-block" />
+						styleClass="btn btn-info btn-block">
+						<f:ajax execute="@form" render="itemDefiningForm" />
+					</h:commandButton>
 				</h:column>
 			</h:dataTable>
 			<div class="row">

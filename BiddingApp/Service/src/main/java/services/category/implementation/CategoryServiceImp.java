@@ -1,5 +1,8 @@
 package services.category.implementation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -32,7 +35,7 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public void addCategory(CategoryDTO categoryDTO, Long id) {
-		if (categoryDTO.getText() != null&&categoryDTO.getParentID()!=null) {
+		if (categoryDTO.getText() != null && categoryDTO.getParentID() != null) {
 			Category parent = categoryRepository.read(id, entityManager);
 			Category category = CategoryMapper.mapToCategory(categoryDTO);
 			category.setParent(parent);
@@ -78,6 +81,16 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public Category getCategoryById(Long id) {
 		return categoryRepository.read(id, entityManager);
+	}
+
+	@Override
+	public List<CategoryDTO> getCategories() {
+		List<Category> categories = categoryRepository.getAll(entityManager);
+		List<CategoryDTO> categoriesDTO = new ArrayList<CategoryDTO>();
+		for (Category category : categories) {
+			categoriesDTO.add(CategoryMapper.mapToCategoryDTO(category));
+		}
+		return null;
 	}
 
 }
