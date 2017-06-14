@@ -12,12 +12,11 @@ public interface ItemService {
 	public List<ItemDTO> getItemsForCategory(Category category);
 
 	public List<ItemDTO> getItemsToBuy(User user);
-	
+
 	public void removeItem(ItemDTO itemDTO);
 
 	public void editItem(ItemDTO itemDTO);
 
 	public void addItem(ItemDTO itemDTO);
-
 
 }

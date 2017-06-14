@@ -21,7 +21,7 @@
 				aria-labelledby="exampleModalLabel" aria-hidden="true"
 				style="width: 1000px; height: 750px; margin-left: 500px;">
 				<div class="modal-dialog modal-lg" role="dialog">
-					<div class="modal-content" style="height: 680px;" id ="modalContent">
+					<div class="modal-content" style="height: 680px;" id="modalContent">
 						<div class="modal-header">
 							<h5 class="modal-title" id="exampleModalLabel">New Item</h5>
 							<button type="button" class="close" data-dismiss="modal"
@@ -170,14 +170,16 @@
 									</div>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-md-4" />
-											<button type="button" class="btn btn-info"
-												data-dismiss="modal">Close</button>
-
-											<div class="col-md-1"></div>
-											<h:commandButton action="#{item.addItem}"
-												styleClass="btn btn-info" value="Save Item">
-											</h:commandButton>
+											<div class="col-md-3" />
+											<div class="col-md-3">
+												<button type="button" class="btn btn-info"
+													data-dismiss="modal">Close</button>
+											</div>
+											<div class="col-md-3">
+												<h:commandButton action="#{item.addItem}"
+													styleClass="btn btn-info" value="Save Item">
+												</h:commandButton>
+											</div>
 										</div>
 
 									</div>
@@ -186,9 +188,7 @@
 
 							</div>
 							<div class="col-md-6" style="padding-right: 40px;">
-
 								<ui:include src="/items/item-category-tree.xhtml" />
-
 							</div>
 						</div>
 						<div class="row ">
