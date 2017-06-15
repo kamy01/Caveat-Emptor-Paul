@@ -1,8 +1,5 @@
 package services.category.implementation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -83,14 +80,5 @@ public class CategoryServiceImp implements CategoryService {
 		return categoryRepository.read(id, entityManager);
 	}
 
-	@Override
-	public List<CategoryDTO> getCategories() {
-		List<Category> categories = categoryRepository.getAll(entityManager);
-		List<CategoryDTO> categoriesDTO = new ArrayList<CategoryDTO>();
-		for (Category category : categories) {
-			categoriesDTO.add(CategoryMapper.mapToCategoryDTO(category));
-		}
-		return null;
-	}
 
 }

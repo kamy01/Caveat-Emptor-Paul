@@ -2,7 +2,6 @@ package beans.item;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +16,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 import constants.ItemStatus;
-import dto.CategoryDTO;
 import dto.ItemDTO;
 import entities.login.User;
 import services.category.CategoryService;
@@ -35,7 +33,6 @@ public class ItemBean {
 
 	@ManagedProperty(value = "#{login.user}")
 	private User user;
-	private List<CategoryDTO> categoryDTOs;
 	private List<ItemDTO> itemsToBuy;
 	private List<ItemDTO> itemsToSell;
 
@@ -61,8 +58,6 @@ public class ItemBean {
 
 	@PostConstruct
 	public void init() {
-		categoryDTOs = new ArrayList<CategoryDTO>();
-
 		itemDTO = new ItemDTO();
 		setItemsToBuy(itemService.getItemsToBuy(user));
 		setItemsToSell(itemService.getItemsToSell(user));
@@ -75,7 +70,7 @@ public class ItemBean {
 				editItem(item);
 			}
 		}
-		refreshPage();
+		setItemsToSell(itemService.getItemsToSell(user));
 	}
 
 	public void refreshPage() {
@@ -140,6 +135,24 @@ public class ItemBean {
 		}
 	}
 
+	public void validateName(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		String name = (String) value;
+		if (name.length() <= 1 || name == null) {
+			FacesMessage facesMessage = new FacesMessage("Name field minimum 2 characters!");
+			throw new ValidatorException(facesMessage);
+		}
+
+	}
+
+	public void validateDescription(FacesContext context, UIComponent component, Object value)
+			throws ValidatorException {
+		String description = (String) value;
+		if (description.length() <= 1 || description == null) {
+			FacesMessage facesMessage = new FacesMessage("Description field minimum 2 characters!");
+			throw new ValidatorException(facesMessage);
+		}
+	}
+
 	public String generateStatus() {
 		Timestamp opening = (DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd hh:mm a"));
 		Timestamp closing = (DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd hh:mm a"));
@@ -150,15 +163,6 @@ public class ItemBean {
 			return ItemStatus.OPEN;
 		}
 		return ItemStatus.NOT_YET_OPEN;
-	}
-
-	public void validateName(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		String name = (String) value;
-		if (name == null) {
-			FacesMessage facesMessage = new FacesMessage("Name field cannot be empty!");
-			throw new ValidatorException(facesMessage);
-		}
-
 	}
 
 	public void notEditable(ItemDTO itemDTO) {
@@ -252,6 +256,5 @@ public class ItemBean {
 	public void setTableTpye(Boolean tableTpye) {
 		this.tableType = tableTpye;
 	}
-
 
 }

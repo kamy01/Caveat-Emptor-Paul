@@ -16,6 +16,7 @@ import entities.login.User;
 import mappers.ItemMapper;
 import repositories.item.interfaces.ItemRepository;
 import services.item.ItemService;
+import utils.DoubleRounder;
 
 @Remote(ItemService.class)
 @Stateless
@@ -69,12 +70,14 @@ public class ItemServiceImp implements ItemService {
 	@Override
 	public void editItem(ItemDTO itemDTO) {
 		Item item = ItemMapper.mapToItem(itemDTO);
+		item.setInitialPrice(DoubleRounder.round(item.getInitialPrice(), 2));
 		itemRepository.update(item, entityManager);
 	}
 
 	@Override
 	public void addItem(ItemDTO itemDTO) {
 		Item item = ItemMapper.mapToItem(itemDTO);
+		item.setInitialPrice(DoubleRounder.round(item.getInitialPrice(), 2));
 		itemRepository.create(item, entityManager);
 	}
 
