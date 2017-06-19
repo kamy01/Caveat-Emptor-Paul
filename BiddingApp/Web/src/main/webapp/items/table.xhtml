@@ -38,11 +38,12 @@
 												<h:outputText value="Name" />
 											</div>
 											<div class="col-md-9">
-												<h:inputText class="input-block-level"
+												<h:inputText id="modalNameInput" class="input-block-level"
 													value="#{item.itemDTO.name}"
-													validatorMessage="Name must have minimum 2 characters,max 30">
-													<f:validateRegex pattern="^.{2,30}$"></f:validateRegex>
+													validator="#{item.validateName}">
+													<f:ajax event="blur" render="modalNameMessage" />
 												</h:inputText>
+
 											</div>
 
 										</div>
@@ -54,8 +55,12 @@
 											</div>
 											<div class="col-md-9">
 												<h:inputText class="input-block-level"
+													id="modalDescriptionInput"
 													value="#{item.itemDTO.description}"
-													validator="#{item.validateDescription}" />
+													validator="#{item.validateDescription}">
+													<f:ajax event="blur" render="modalDescriptionMessage" />
+												</h:inputText>
+
 											</div>
 										</div>
 									</div>
@@ -68,9 +73,10 @@
 												<h:inputText id="modalCategory" readonly="true"
 													class="input-block-level">
 												</h:inputText>
+												
 												<h:inputHidden id="hiddenCategory"
-													value="#{item.categoryID}"
-													validator="#{item.validateCateogry}" />
+													value="#{item.categoryID}" />
+													
 											</div>
 										</div>
 									</div>
@@ -81,8 +87,11 @@
 											</div>
 											<div class="col-md-9">
 												<h:inputText value="#{item.itemDTO.initialPrice}"
-													class="input-block-level" validator="#{item.validatePrice}">
+													id="modalInitialPriceInput" class="input-block-level"
+													validator="#{item.validatePrice}">
+													<f:ajax event="blur" render="modalInitialPriceMessage" />
 												</h:inputText>
+
 											</div>
 										</div>
 									</div>
@@ -96,15 +105,17 @@
 												<div class="input-group date">
 													<h:inputText class="input-block-level"
 														id="openingDatePicker" value="#{item.openingDate}"
-														validatorMessage="Please select an opening date.">
-														<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
+														validator="#{item.validateDate}">
+														<f:ajax event="blur" render="modalOpeningDateMessage" />
 													</h:inputText>
 													<span class="input-group-addon" id="openingDateIcon"><i
 														class="typcn typcn-calendar" /> </span>
+
 												</div>
 											</div>
 
 										</div>
+
 										<div class="row justify-content-center">
 											<div class="col-md-3" />
 											<div class="col-md-9">
@@ -139,14 +150,15 @@
 												<div class="input-group date">
 													<h:inputText class="input-block-level"
 														id="closingDatePicker" value="#{item.closingDate}"
-														validatorMessage="Please select a closing date.">
-														<f:validateRegex pattern="^.{4,30}$"></f:validateRegex>
+														validator="#{item.validateDate}">
+														<f:ajax event="blur" render="modalClosingDateMessage" />
 													</h:inputText>
 													<span class="input-group-addon" id="closingDateIcon"><i
 														class="typcn typcn-calendar" /> </span>
 												</div>
 											</div>
 										</div>
+										<div class="row justify-content-center"></div>
 										<div class="row justify-content-center">
 											<div class="col-md-3" />
 											<div class="col-md-9">
@@ -179,22 +191,35 @@
 											<div class="col-md-3">
 												<h:commandButton action="#{item.addItem}"
 													styleClass="btn btn-info" value="Save Item">
+													<f:ajax execute="@this" render="itemDefiningForm" />
 												</h:commandButton>
 											</div>
 										</div>
-
+										<div class="row">
+											<h:message id="modalNameMessage" for="modalNameInput" />
+										</div>
+										<div class="row">
+											<h:message id="modalDescriptionMessage"
+												for="modalDescriptionInput" />
+										</div>
+										<div class="row">
+											<h:message id="modalInitialPriceMessage"
+												for="modalInitialPriceInput" />
+										</div>
+										<div class="row">
+											<h:message for="openingDatePicker"
+												id="modalOpeningDateMessage" />
+										</div>
+										<div class="row">
+											<h:message for="closingDatePicker"
+												id="modalClosingDateMessage" />
+										</div>
 									</div>
 								</div>
-
-
 							</div>
 							<div class="col-md-6" style="padding-right: 40px;">
 								<ui:include src="/items/item-category-tree.xhtml" />
 							</div>
-						</div>
-						<div class="row ">
-							<div class="col-md-1" />
-							<h:messages style="color:red;margin:12px;font-size:100%" />
 						</div>
 
 					</div>

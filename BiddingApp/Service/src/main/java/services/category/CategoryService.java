@@ -1,7 +1,5 @@
 package services.category;
 
-import java.util.List;
-
 import dto.CategoryDTO;
 import entities.category.Category;
 

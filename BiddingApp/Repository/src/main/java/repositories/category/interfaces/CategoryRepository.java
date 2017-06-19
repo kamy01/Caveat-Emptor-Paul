@@ -1,7 +1,5 @@
 package repositories.category.interfaces;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import entities.category.Category;

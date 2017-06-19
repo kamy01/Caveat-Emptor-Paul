@@ -37,7 +37,8 @@
 				searchResultColor: "#111111",
 				onNodeSelected: function(event, data) {
 					document.getElementById("modalForm:modalCategory").value = data['text'];
-					document.getElementById("modalForm:hiddenCategory").value=data['id'];
+					document.getElementById("modalForm:hiddenCategory").value =  data['id'];
+					console.log('sent data to category');
 				}
 			});
 			$('#tree').treeview('collapseAll', {
