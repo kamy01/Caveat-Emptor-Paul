@@ -15,4 +15,6 @@ public interface CategoryRepository {
 	public void delete(Category category, EntityManager entityManager);
 
 	public void update(Category category, EntityManager entityManager);
+	
+
 }

@@ -33,7 +33,6 @@ public class ItemBean {
 
 	@ManagedProperty(value = "#{login.user}")
 	private User user;
-
 	private List<ItemDTO> itemsToBuy;
 	private List<ItemDTO> itemsToSell;
 
@@ -41,7 +40,9 @@ public class ItemBean {
 	private Long categoryID;
 
 	private Double initialPrice;
+
 	private Boolean tableType;
+
 	private String openingDate;
 	private String closingDate;
 	private String openingTime;
@@ -69,7 +70,7 @@ public class ItemBean {
 				editItem(item);
 			}
 		}
-		refreshPage();
+		setItemsToSell(itemService.getItemsToSell(user));
 	}
 
 	public void refreshPage() {
@@ -91,19 +92,13 @@ public class ItemBean {
 		return false;
 	}
 
-	public void removeItem(ItemDTO itemDTO) {
-		itemService.removeItem(itemDTO);
-		refreshPage();
-		init();
-	}
-
 	public void editItem(ItemDTO itemDTO) {
 		itemService.editItem(itemDTO);
 	}
 
 	public void addItem() {
 		if (itemDTO.getName() != null && itemDTO.getInitialPrice() != null) {
-			
+
 			itemDTO.setCategory(categoryService.getCategoryById(categoryID));
 			itemDTO.setUser(user);
 
@@ -134,17 +129,50 @@ public class ItemBean {
 		}
 	}
 
+	public void validateName(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		String name = (String) value;
+		if (name.length() <= 1 || name == null) {
+			FacesMessage facesMessage = new FacesMessage("Name, minimum 2 characters!");
+			throw new ValidatorException(facesMessage);
+		}
+
+	}
+
+	public void validateDescription(FacesContext context, UIComponent component, Object value)
+			throws ValidatorException {
+		String description = (String) value;
+		if (description.length() <= 1 || description == null) {
+			FacesMessage facesMessage = new FacesMessage("Description, minimum 2 characters!");
+			throw new ValidatorException(facesMessage);
+		}
+	}
+
+	public void validateDate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+		String date = (String) value;
+		if (date == null || date.length() < 8) {
+			FacesMessage facesMessage = new FacesMessage("Date empty or invalid.");
+			throw new ValidatorException(facesMessage);
+		}
+	}
+
 	public String generateStatus() {
 		Timestamp opening = (DateParser.getTimestamp(openingDate + " " + openingTime, "yyyy/mm/dd hh:mm a"));
 		Timestamp closing = (DateParser.getTimestamp(closingDate + " " + closingTime, "yyyy/mm/dd hh:mm a"));
-		if(opening.after(closing)){
+		if (opening.after(closing)) {
 			return ItemStatus.CLOSED;
 		}
-		if(!opening.after(closing))
-		{
+		if (!opening.after(closing)) {
 			return ItemStatus.OPEN;
 		}
 		return ItemStatus.NOT_YET_OPEN;
+	}
+
+	public Long getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(Long categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public void notEditable(ItemDTO itemDTO) {
@@ -189,14 +217,6 @@ public class ItemBean {
 
 	public void setItemDTO(ItemDTO itemDTO) {
 		this.itemDTO = itemDTO;
-	}
-
-	public Long getCategoryID() {
-		return categoryID;
-	}
-
-	public void setCategoryID(Long categoryID) {
-		this.categoryID = categoryID;
 	}
 
 	public String getOpeningTime() {

@@ -11,8 +11,8 @@ public interface CategoryService {
 	public void removeCategory(CategoryDTO categoryDTO);
 
 	public void addNewRootCategory(CategoryDTO categoryDTO);
-	
+
 	public void updateCategory(CategoryDTO categoryDTO);
-	
+
 	public Category getCategoryById(Long id);
 }

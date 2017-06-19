@@ -12,42 +12,44 @@
 </h:head>
 
 <h:body>
-	<h:dataTable id="table" value="#{item.itemsToBuy}" var="itemDTO"
-		styleClass="table table-stripped table-bordered dataTable no-footer "
-		cellspacing="0" width="100%" role="grid" style="width: 100%;"
-		headerClass="order-table-header"
-		rowClasses="order-table-odd-row,order-table-even-row"
-		rendered="#{item.tableTpye}">
+	<ui:composition>
+		<h:dataTable id="table" value="#{item.itemsToBuy}" var="itemDTO"
+			styleClass="table table-stripped table-bordered dataTable no-footer "
+			cellspacing="0" width="100%" role="grid" style="width: 100%;"
+			headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-even-row"
+			rendered="#{item.tableTpye}">
 
-		<h:column>
-			<f:facet name="header">Name</f:facet>
-			<h:outputText value="#{itemDTO.name}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Description</f:facet>
-			<h:outputText value="#{itemDTO.description}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Category</f:facet>
-			<h:outputText value="#{itemDTO.category.text}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">BestBid</f:facet>
-			<h:outputText value="#{itemDTO.bestBid}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">OpeningDate</f:facet>
-			<h:outputText value="#{itemDTO.openingDate}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Closing Date</f:facet>
-			<h:outputText value="#{itemDTO.closingDate}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">Opening Date</f:facet>
-			<h:outputText value="#{itemDTO.status}" />
-		</h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+				<h:outputText value="#{itemDTO.name}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Description</f:facet>
+				<h:outputText value="#{itemDTO.description}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Category</f:facet>
+				<h:outputText value="#{itemDTO.category.text}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">BestBid</f:facet>
+				<h:outputText value="#{itemDTO.bestBid}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">OpeningDate</f:facet>
+				<h:outputText value="#{itemDTO.openingDate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Closing Date</f:facet>
+				<h:outputText value="#{itemDTO.closingDate}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Opening Date</f:facet>
+				<h:outputText value="#{itemDTO.status}" />
+			</h:column>
 
-	</h:dataTable>
+		</h:dataTable>
+	</ui:composition>
 </h:body>
 </html>
